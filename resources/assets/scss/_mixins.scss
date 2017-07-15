@@ -1,0 +1,76 @@
+// Mixins
+// -------------------------
+
+//The following mixins already exist in the bootstrap framework
+
+@mixin container-fixed($gutter: $grid-gutter-width) {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+  @include clearfix;
+}
+
+@mixin container($gutter: $grid-gutter-width) {
+  @include container-fixed($gutter);
+
+  @media (min-width: $screen-sm-min) {
+    width: $container-sm;
+  }
+  @media (min-width: $screen-md-min) {
+    width: $container-md;
+  }
+  @media (min-width: $screen-lg-min) {
+    width: $container-lg;
+  }
+}
+
+@mixin clearfix() {
+	&:before,
+	&:after {
+	    content: " "; // 1
+	    display: table; // 2
+	}
+	&:after {
+		clear: both;
+	}
+}
+@mixin transition($property,$time:.2s,$fx:ease-out) {
+	-webkit-transition: $property $time $fx;
+	-moz-transition: $property $time $fx;
+	transition: $property $time $fx;
+}
+
+@mixin gradient-horizontal($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down
+}
+
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+//New mixins for the project
+
+@mixin sprite-sheet($file,$x,$y) {
+	background:url($file) no-repeat; background-size:$x $y;
+}
+
+@mixin sprite($l,$c) {
+	$w : 36px;
+	$h : 36px;
+	$xStart : 0;
+	$yStart : 0;
+	$xGutter : 10px;
+	$yGutter : 10px;
+	$x : -( $xStart + (($w + $xGutter) * ( $c - 1 )));
+	$y : -( $yStart + (($h + $yGutter) * ( $l - 1 )));
+	background-position:$x $y;
+}

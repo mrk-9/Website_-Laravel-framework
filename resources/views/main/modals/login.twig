@@ -1,0 +1,28 @@
+{% embed 'main.modals.modal' %}
+    {% set modal_id = "login" %}
+    {% import "main.partials.form_layout" as form %}
+    {% set modal_name = "Connectez-vous à votre compte" %}
+
+    {% block modal_body %}
+        <div class="modal-container">
+            <form action="{{route('main.auth.login.post')}}" method="POST" class="ajax" data-formajax-success="reload">
+
+                <div class="alert alert-warning" hidden role="alert"></div>
+                <div class="alert alert-success" hidden role="alert"></div>
+
+                <input type="hidden" value="{{csrf_token()}}" name="_token" />
+
+                {{ form.input("Email", "email", {type: "email", placeholder: "Votre adresse email"}) }}
+
+                {{ form.input("Mot de passe", "password", {type: "password", placeholder: "Votre mot de passe"}) }}
+
+                <button type="submit" data-done-text="Connecté !" data-loading-text="Veuillez patienter..." class="btn btn-primary modal-button">Enregistrer <i class="icon-button icon-simply-right"></i></button>
+
+                <div class="modal-sentence">
+                    Pas encore inscrit ? <a href="#" data-toggle="modal" data-target="#signup" title="Inscription">Inscrivez-vous gratuitement</a><br>
+                    Vous avez perdu votre mot de passe ? <a href="#" data-toggle="modal" data-target="#password_reset" title="Réinitialisez votre mot de passe">Réinitialisez-le</a>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+{% endembed %}

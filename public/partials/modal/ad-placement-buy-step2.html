@@ -1,0 +1,30 @@
+<h1 class="h2 modal-title">Choisissez le support technique dont vous avez besoin</h1>
+<div class="row">
+    <ad-placement ng-model="adPlacement" price="order.price"></ad-placement>
+</div>
+<div class="process-step modal-content-container">
+        <div class="row text-center">
+            <p>
+                Pour savoir si vous avez besoin de faire appel à notre studio graphique ou si vous disposez des éléments requis pour cet emplacement, consultez la documentation technique :
+            </p>
+            <a target="_blank" ng-href="[[adPlacement.technical_doc]]" class="btn btn-primary btn-large" ng-class="{'disabled' : adPlacement.technical_doc === null}">Documentation technique <i
+                        class="icon-button icon-inbox"></i></a>
+            <div class="process-step_checkboxes" ng-init="takeTechnicalSupport = true">
+                <div class="form-group">
+                    <input type="radio" id="check-support"
+                            ng-model="takeTechnicalSupport" ng-value="true">
+                    <label for="check-support">J'ai besoin d'un support technique adapté</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" id="check-element"
+                           ng-model="takeTechnicalSupport" ng-value="false">
+                    <label for="check-element">Je possède déjà les éléments au bon format (PDF HD)</label>
+                </div>
+            </div>
+        </div>
+        <div class="process-step_btn-group" ng-if="order.buyType !== 'booking'">
+            <button type="button" class="btn btn-secondary btn-previous" ng-click="$lastVisitedStep()">Précédent <i class="icon-button icon-simply-left"></i></button>
+            <button type="button" class="btn btn-primary btn-next" ng-click="$setActiveIndex(takeTechnicalSupport ? 3 : 7)">Suivant <i class="icon-button icon-simply-right"></i></button>
+        </div>
+        <button ng-if="order.buyType === 'booking'" type="button" ng-disabled="!adPlacement" class="btn btn-primary btn-next btn-modal-next-inline" ng-click="$setActiveIndex(takeTechnicalSupport ? 3 : 7)">Suivant <i class="icon-button icon-simply-right"></i></button>
+</div>

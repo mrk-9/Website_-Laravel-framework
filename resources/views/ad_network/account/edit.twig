@@ -1,0 +1,135 @@
+{% extends 'ad_network.layout' %}
+
+{% set context= 'account' %}
+{% set title = "Informations de votre compte" %}
+
+{% block content %}
+<div class="row">
+	<h1>
+		 {{title}}
+	</h1>
+
+	<form action="{{ route('ad-network.account.update') }}" method="post" class="ajax">
+		<div class="alert alert-danger error hidden"></div>
+			<h2>Informations sur la régie</h2>
+			<hr>
+
+			<div class="form-group col-md-4">
+				<label for="UpdateAdNetworkName">Nom de votre régie</label>
+				<input type="text" name="name" id="UpdateAdNetworkName" class="form-control" value="{{ ad_network.name }}">
+			</div>
+			<div class="form-group col-md-2">
+				<label for="UpdateAdNetworkCompanyType">Type de société</label>
+				<select name="company_type" class="form-control" id="UpdateAdNetworkCompanyType">
+					<option value="SARL" {% if ad_network.company_type == 'SARL'  %}selected="selected"{% endif %}>
+						SARL
+					</option>
+					<option value="SA" {% if ad_network.company_type == 'SA'  %}selected="selected"{% endif %}>
+						SA
+					</option>
+					<option value="EURL" {% if ad_network.company_type == 'EURL'  %}selected="selected"{% endif %}>
+						EURL
+					</option>
+					<option value="SNC" {% if ad_network.company_type == 'SNC'  %}selected="selected"{% endif %}>
+						SNC
+					</option>
+					<option value="SASU" {% if ad_network.company_type == 'SASU'  %}selected="selected"{% endif %}>
+						SASU
+					</option>
+				</select>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="UpdateAdNetworkCorporateName">Raison sociale</label>
+				<input type="text" name="corporate_name" id="UpdateAdNetworkCorporateName" class="form-control" value="{{ ad_network.corporate_name }}"/>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="UpdateAdNetworkCorporateAddress">Adresse</label>
+				<input type="text" name="address" id="UpdateAdNetworkCorporateAddress" class="form-control" value="{{ ad_network.address }}"/>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="UpdateAdNetworkCorporateAddress2">Adresse secondaire</label>
+				<input type="text" name="address2" id="UpdateAdNetworkCorporateAddress2" class="form-control" value="{{ ad_network.address2 }}"/>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="UpdateAdNetworkCorporateEmail">E-mail</label>
+				<input type="text" name="email" id="UpdateAdNetworkCorporateEmail" class="form-control" value="{{ ad_network.email }}"/>
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="UpdateAdNetworkCorporatePhone">Téléphone</label>
+				<input type="text" name="phone" id="UpdateAdNetworkCorporatePhone" class="form-control" value="{{ ad_network.phone }}"/>
+			</div>
+
+			<div class="form-group col-md-4">
+				<label for="UpdateAdNetworkCorporateZipcode">Code postal</label>
+				<input type="text" name="zipcode" id="UpdateAdNetworkCorporateZipcode" class="form-control" value="{{ ad_network.zipcode }}"/>
+			</div>
+
+			<div class="form-group col-md-4">
+				<label for="UpdateAdNetworkCorporateCity">Ville</label>
+				<input type="text" name="city" id="UpdateAdNetworkCorporateCity" class="form-control" value="{{ ad_network.city }}"/>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label for="UpdateAdNetworkCorporateSupports">Nombre de supports (indicatif)</label>
+				<input type="text" name="supports" id="UpdateAdNetworkCorporateSupports" class="form-control" value="{{ ad_network.supports }}"/>
+			</div>
+			<div class="form-group col-md-4">
+				<label></label>
+				<p>
+					{{ media_count }} référencé{%  if media_count > 1 %}s{% endif %} sur MediaResa
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<h2>Contact référent</h2>
+			<hr>
+
+			<div class="form-group col-md-2">
+				<label for="UpdateAdNetworkUserTitle">Civilité</label>
+				<select name="title" id="UpdateAdNetworkUserTitle" class="form-control">
+					<option value="M." {% if referent.title == "M." %}selected="selected"{% endif %}>
+						M.
+					</option>
+					<option value="Mme." {% if referent.title == "M." %}selected{% endif %}>
+						Mme.
+					</option>
+				</select>
+			</div>
+
+			<div class="form-group col-md-4">
+				<label for="UpdateAdNetworkUserName">Prénom</label>
+				<input type="text" name="referent_name" id="UpdateAdNetworkUserName" class="form-control" value="{{ referent.name }}">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="UpdateAdNetworkUserFamilyName">Nom</label>
+				<input type="text" name="family_name" id="UpdateAdNetworkUserFamilyName" class="form-control" value="{{ referent.family_name }}">
+			</div>
+			<div class="form-group col-md-2">
+				<label for="UpdateAdNetworkUserPosition">Fonction</label>
+				<input type="text" name="position" id="UpdateAdNetworkUserPosition" class="form-control" value="{{ referent.position }}">
+			</div>
+			<div class="form-group col-md-3">
+				<label for="UpdateAdNetworkUserEmail">E-mail</label>
+				<input type="text" name="referent_email" id="UpdateAdNetworkUserEmail" class="form-control" value="{{ referent.email }}">
+			</div>
+			<div class="form-group col-md-3">
+				<label for="UpdateAdNetworkUserPhone">Téléphone</label>
+				<input type="text" name="referent_phone" id="UpdateAdNetworkUserPhone" class="form-control" value="{{ referent.phone }}">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<button class="btn btn-primary pull-right" type="submit">Enregistrer</button>
+			</div>
+		</div>
+	</form>
+{% endblock %}

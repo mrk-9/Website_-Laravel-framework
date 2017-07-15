@@ -1,0 +1,41 @@
+{
+  "name": "MediaResa",
+  "version": "1.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.4",
+    "font-awesome": "4.4.0",
+    "html5shiv": "3.7.3",
+    "respond": "1.4.2",
+    "bootstrap": "3.3.6",
+    "fancyselect": "1.1.0",
+    "formajax": "https://gitlab.escaledigitale.com/escale/formajax.git#1.0.10",
+    "angular-smart-table": "2.1.5",
+    "angular-resource": "1.4.8",
+    "select2": "4.0.0",
+    "blueimp-file-upload": "9.11.2",
+    "bootstrap-sass": "3.3.6",
+    "prism": "1.3.0",
+    "datetimepicker": "2.4.5",
+    "jquery-lazyload": "jquery.lazyload#~1.9.7",
+    "angular": "1.5.3",
+    "angular-bootstrap": "1.2.5",
+    "angular-promise-buttons": "0.1.14",
+    "angular-multi-step-form": "https://github.com/maximepvrt/angular-multi-step-form.git#history",
+    "angular-filter": "0.5.8",
+    "angular-stripe": "^4.2.12",
+    "angular-messages": "^1.5.6",
+    "angular-i18n": "~1.5.7"
+  },
+  "resolutions": {
+    "jquery": "2.1.4",
+    "angular": "1.5.3"
+  }
+}

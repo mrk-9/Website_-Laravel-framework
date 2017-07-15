@@ -1,0 +1,57 @@
+{% import "main.partials.nav" as nav %}
+<header>
+	<nav class="top-nav">
+		<ul class="pull-left">
+			<li class="active"><a href="#">Agences</a> <span class="icon-button icon-simply-right"></span></li>
+			<li class="active"><a href="#">Annonceurs</a> <span class="icon-button icon-simply-right"></span></li>
+			<li><a href="{{route('ad-network.home')}}">Régies</a> <span class="icon-button icon-simply-right"></span></li>
+		</ul>
+		<ul class="pull-right">
+			{% if user_auth_guest() %}
+				<li><a href="#" data-toggle="modal" data-target="#login">Connexion</a> <span class="icon-button icon-simply-right"></span></li>
+				<li><a href="#" data-toggle="modal" data-target="#signup">Inscription</a> <span class="icon-button icon-simply-right"></span></li>
+			{% else %}
+				<li {% if context == 'account-home' %}class="active"{% endif %}><a href="{{route('main.account.home')}}">{{ user_auth_get().name }} {{ user_auth_get().family_name}} </a><span class="icon-button icon-simply-right"></span></li>
+				<li><a href="{{route('main.auth.logout')}}">Déconnexion</a> <span class="icon-button icon-simply-right"></span></li>
+			{% endif %}
+		</ul>
+	</nav>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mediaresa-navbar" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-menu toggle-icon"></span>
+			</button>
+			<a class="navbar-brand" href="{{route('main.home')}}">
+				<img src="/assets/im/logo.png" alt="Logo de MediaResa" class="brand-picture">
+				<div class="header-catch-phrase">
+					Les meilleures offres de bouclages publicitaires du marché
+				</div>
+			</a>
+		</div>
+		<div id="mediaresa-navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right hidden-xs">
+				{{ nav.nav(context) }}
+			</ul>
+			<ul class="mobile-menu">
+				<li {% if context == 'home' %}class="active"{% endif %}>
+					<a href="{{ route('main.home') }}">À la une</a>
+				</li>
+				{# temporary #}
+				{#<li {% if context == 'news' %}class="active"{% endif %}>
+					<a href="{{ route('main.news.index') }}">Actualités</a>
+				</li>#}
+				<li {% if context == 'ad_placement' %}class="active"{% endif %}>
+					<a href="{{ route('main.ad_placement.index') }}">Recherche</a>
+				</li>
+				{% if user_auth_guest() %}
+					<li><a href="#" data-toggle="modal" data-target="#login">Connexion</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#signup">Inscription</a></li>
+				{% else %}
+					<li><a href="{{route('main.auth.logout')}}">Déconnexion</a></li>
+					{{ nav.nav_account(context) }}
+				{% endif %}
+			</ul>
+		</div><!--/.nav-collapse -->
+	</nav>
+</header>

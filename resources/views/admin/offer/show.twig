@@ -1,0 +1,129 @@
+{% extends "admin.layout" %}
+
+{% set title = "Offre pour le support " ~ offer.adPlacement.media_name ~ " " ~ offer.adPlacement.name %}
+{% set context = "offer" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			Offre pour le support {{offer.adPlacement.media.name}} - {{ offer.adPlacement.name }}
+		</h1>
+	</div>
+	<div class="col-md-12">
+		<h2>Informations sur l'offre</h2>
+		<hr>
+
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Client : </b>
+					{{ offer.user.name }} {{ offer.user.family_name }}
+				</li>
+				<li>
+					<b>
+						{% if offer.user.buyer.type == constant('App\\Buyer::TYPE_AGENCY')%}
+						Agence :
+						{% else %}
+						Annonceur :
+						{% endif %}
+					</b>
+					<a href="{{ route('admin.buyer.show', offer.user.buyer.id) }}">
+					 {{ offer.user.buyer.name }}
+				 	</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Montant de l'offre : </b>{{ offer.amount }}&euro;</li>
+				<li>
+					<b>Statut publication : </b>
+					{% if offer.publication_status == constant('App\\Offer::PUBLICATION_VALID') %}
+					Publiée
+					{% else %}
+					Non publiée
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Etat de la réservation : </b>
+					{% if offer.ad_network_user_id is null%}
+					En cours de traitement
+					{% else %}
+					Acceptée
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Informations sur le support</h2>
+		<hr>
+		<div class="col-md-2">
+			<img class="img-responsive" src="{{ offer.adPlacement.media.cover_img }}" alt="Couverture du support {{ offer.adPlacement.media.name }}" />
+		</div>
+		<div class="col-md-4">
+			<ul>
+				<li><b>Support : </b>{{ offer.adPlacement.media.support.name }}</li>
+				<li><b>Nom du support : </b>{{ offer.adPlacement.media.name }}</li>
+				<li><b>Famille : </b>{{ offer.adPlacement.media.category.name }}</li>
+				<li><b>Thématique : </b>{{ offer.adPlacement.media.theme.name }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<ul>
+				<li><b>Périodicité : </b>{{ offer.adPlacement.media.frequency.name }}</li>
+				<li><b>Diffusion : </b>{{ offer.adPlacement.media.broadcastingArea.name }}</li>
+				<li>
+					<b>Cibles : </b>
+					{% for target in offer.adPlacement.media.targets %}
+					{{ target.name }} {% if not loop.last %},{% endif %}
+					{% endfor %}
+				</li>
+				<li><b>Diffusion France Payée : </b>{{ offer.adPlacement.media.datas }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	  	<h1>Informations sur l'emplacement</h1>
+	  	<hr>
+
+	  	<div class="col-md-4">
+			<ul>
+				{% if offer.adPlacement.media.supportType.support.name|lower == 'presse' %}
+		        <li><b>Numéro de l'édition : </b>n°{{ offer.adPlacement.edition }}</li>
+				{% endif %}
+				<li><b>Format : </b>{{ offer.adPlacement.format.name }}</li>
+				<li><b>Zone de l'emplacement : </b>{{ offer.adPlacement.position }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Mode de vente : </b>{{ offer.adPlacement.type_fr }}</li>
+				<li><b>Prix fixe : </b>{{ offer.adPlacement.price }}&euro;</li>
+				<li><b>Prix minimum : </b>{% if offer.adPlacement.minimum_price %}{{ offer.adPlacement.minimum_price }}&euro;{% else %}-{% endif %}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Date de début de la vente : </b>{{ offer.adPlacement.starting_at_fr }}</li>
+				<li><b>Date de fin de la vente : </b>{{ offer.adPlacement.ending_at_fr }}</li>
+				<li><b>Date de remise des éléments techniques : </b>{{ offer.adPlacement.technical_deadline_date }}</li>
+				<li><b>Date de publication : </b>{{ offer.adPlacement.broadcasting_date_fr }}</li>
+				<li><b>Date de bouclage : </b>{{ offer.adPlacement.locking_up_fr_no_seconds }}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

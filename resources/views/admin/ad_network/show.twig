@@ -1,0 +1,44 @@
+{% extends "admin.layout" %}
+
+{% set title = ad_network.name %}
+{% set context = "ad_network" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			{{ad_network.name}}
+		</h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Informations sur la régie</h2>
+		<hr>
+		<div class="col-md-6">
+			<ul>
+				<li><b>Nom de la marque : </b>{{ ad_network.corporate_name }}</li>
+				<li><b>Type : </b>{{ ad_network.company_type }}</li>
+				<li><b>adresse : </b>{{ ad_network.address }}</li>
+				{% if ad_network.address2 is not empty %}
+				<li><b>Adresse secondaire : </b>{{ ad_network.address2 }}</li>
+				{% endif %}
+				<li><b>Code postal : </b>{{ ad_network.zipcode }}</li>
+				<li><b>Ville : </b>{{ ad_network.city }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<ul>
+				<li><b>Statut : </b>{{ ad_network.status_fr }}</li>
+				<li><b>Nombre de supports : </b>{{ ad_network.supports }}</li>
+				<li><b>Email : </b>{{ ad_network.email }}</li>
+				<li><b>Téléphone : </b>{{ ad_network.phone }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		{% include 'admin.ad_network.ad_network_user.index' %}
+	</div>
+</div>
+{% endblock %}

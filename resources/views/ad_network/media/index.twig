@@ -1,0 +1,135 @@
+{% extends "ad_network.layout" %}
+
+{% set title = "Liste de vos supports" %}
+{% set context = 'media' %}
+
+{% block content %}
+<div class="row" data-ng-controller="MediaCtrl">
+	<div class="col-md-12">
+		<h1>Liste de vos supports <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateMediaModal">Ajouter</button></h1>
+
+		<table class="table table-hover" data-st-table="MediaList" st-pipe="refresh" id="MediaList">
+			<thead>
+				<tr>
+					<th data-st-sort="support.name">Support</th>
+					<th data-st-sort="media.name">Nom du support</th>
+					<th data-st-sort="theme.name">Thématique</th>
+					<th data-st-sort="frequency.name">Périodicité</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="support__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<!-- media name -->
+					<th>
+						<input st-search="media__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="theme__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<!-- media frequency -->
+					<th>
+						<input st-search="frequency__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="media in list">
+
+					<td ng-bind="media.support.name"></td>
+					<td ng-bind="media.name"></td>
+					<td class="text-center">
+						<span ng-if="!media.theme">--</span>
+						<span ng-if="media.theme" ng-bind="media.theme.name"></span>
+					</td>
+					<td ng-bind="media.frequency.name"></td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="go('{{ route('ad-network.media.index') }}/' + list[$index].slug)">
+							<i class="fa fa-eye"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="6" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="6" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="6" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="CreateMediaModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter un support</h4>
+				</div>
+
+				<form action="{{ route('ad-network.media.store') }}" class="ajax">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label for="CreateMediaName">Nom de votre support</label>
+								<input type="text" name="name" id="CreateMediaName" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaSupport">Type</label>
+								<select name="support_id" id="CreateMediaSupport" class="select2 autocomplete-support form-control"></select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label for="CreateMediaCategory">Catégorie</label>
+								<select name="category_id" id="CreateMediaCategory" class="select2 autocomplete-category" data-support-id=""></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaTheme">Thème</label>
+								<select name="theme_id" id="CreateMediaTheme" class="select2 autocomplete-theme" data-support-id=""></select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label for="CreateMediaFrequency">Périodicité</label>
+								<select name="frequency_id" id="CreateMediaFrequency" class="form-control">
+									{% for frequency in frequencies %}
+									<option value="{{frequency.id}}">{{ frequency.name }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaBroadcastingArea">Diffusion</label>
+								<select name="broadcasting_area_id" id="CreateMediaBroadcastingArea" class="select2 autocomplete-broadcasting-area form-control"></select>
+							</div>
+
+							<div class="form-group col-md-12">
+								<label for="CreateMediaTarget">Cibles</label>
+								<select name="target_id[]" id="CreateMediaTarget" class="select2 autocomplete-target form-control"></select>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="CreateMediaDatas">Diffusion France Payée (Nombre d'Exemplaires)</label>
+								<textarea name="datas" id="CreateMediaDatas" class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

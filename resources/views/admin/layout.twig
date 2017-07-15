@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Admin - {{ title }}</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="icon" type="image/png" href="/assets/im/icons/favicon.png" />
+	<link rel="apple-touch-icon" href="/assets/im/icons/appleicon.png" />
+
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+	<link rel="stylesheet" media="screen" href="{{ asset('assets/css/admin.min.css') }}">
+</head>
+<body>
+	{% import "admin.macros.nav" as menu %}
+	<header>
+		<nav class="navbar" role="navigation">
+			<div class="navbar-container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="fa fa-bars"></span>
+					</button>
+					<a class="navbar-brand" href="#">
+						<!-- <img src="" height="40" class="brand-logo" alt=""> -->
+					</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="navbar">
+					<ul class="visible-xs-block nav navbar-nav navbar-left">
+						<li>example</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-cog"></i>
+								<span class="visible-xs-inline">Configuration</span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ route('admin.auth.logout') }}">Déconnexion</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+		<main>
+		{% if admin_auth_check() %}
+		<aside>
+			<ul class="nav">
+				{{ menu.nav(context) }}
+			</ul>
+		</aside>
+		{% endif %}
+
+		<section {% if not admin_auth_check() %}class="container-fluid col-md-12"{% endif %} data-ng-app="app">
+			{% block content %}{% endblock %}
+		</section>
+	</main>
+
+	<script src="{{ asset('assets/js/MediaResa-1.0.0-admin.js') }}"></script>
+</body>
+</html>

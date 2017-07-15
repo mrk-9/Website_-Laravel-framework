@@ -1,0 +1,92 @@
+{% extends 'ad_network.layout' %}
+
+{% set context= 'ad_placement' %}
+{% set title = "Ajout d'une offre" %}
+
+{% block content %}
+<h1>
+	 Ajout d'une offre
+</h1>
+
+	<h2>Saisie des informations sur l'offre</h2>
+	<hr>
+	<form action="{{ route('ad-network.ad-placement.store') }}" method="post" class="ajax" data-formajax-success="redirect({{ route('ad-network.ad-placement.index') }})" id="CreateAdPlacementForm">
+		<div class="alert alert-info">
+			A partir du moment où une offre, une enchère ou une réservation existe sur l'emplacement, il ne sera plus possible de modifier le prix ou le mode de vente.
+		</div>
+		<div class="alert alert-danger error hidden"></div>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementMedia">Support</label>
+				<select class="form-control select2 autocomplete-media" name="media_id" id="CreateAdPlacementMedia"></select>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementName">Nom de l'emplacement</label>
+				<input type="text" name="name" id="CreateAdPlacementName" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementBroadcastingDate">Date de publication</label>
+				<input type="text" name="broadcasting_date" id="CreateAdPlacementBroadcastingDate" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementStartingAt">Date de mise en vente</label>
+				<input type="text" name="starting_at" id="CreateAdPlacementStartingAt" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementEndingAt">Date de fin de vente</label>
+				<input type="text" name="ending_at" id="CreateAdPlacementEndingAt" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementLockingUp">Date de bouclage</label>
+				<input type="text" name="locking_up" id="CreateAdPlacementLockingUp" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementTechnicalDeadline">Remise des éléments techniques</label>
+				<input type="text" name="technical_deadline" id="CreateAdPlacementTechnicalDeadline" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementFormat">Format de l'emplacement</label>
+				<select name="format_id" id="CreateAdPlacementFormat" class="select2 autocomplete-format-create" data-support-id=""></select>
+			</div>
+			<div class="form-group col-md-4">
+				<label>Mode de vente</label>
+				<select name="type" id="AdPlacementTypeList" class="form-control">
+					<option value="{{ constant('App\\AdPlacement::TYPE_AUCTION') }}">Enchères</option>
+					<option value="{{ constant('App\\AdPlacement::TYPE_BOOKING') }}">Prix fixe</option>
+					<option value="{{ constant('App\\AdPlacement::TYPE_HYBRID') }}">Prix fixe + offre **</option>
+				</select>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementPosition">Emplacement dans le support</label>
+				<input type="text" name="position" id="CreateAdPlacementPosition" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementEdition">Numéro de l'édition</label>
+				<input type="text" name="edition" id="CreateAdPlacementEdition" class="form-control">
+			</div>
+
+
+			<div class="form-group col-md-12">
+				<label for="CreateAdPlacementDescription">Description</label>
+				<textarea name="description" id="CreateAdPlacementDescription" class="form-control"></textarea>
+			</div>
+
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementDescription">Prix fixe / Prix de départ*</label>
+				<input type="number" name="price" id="CreateAdPlacementDescription" class="form-control">
+			</div>
+
+			<div class="form-group col-md-4">
+				<label for="CreateAdPlacementMinimumPrice">Prix minimum*</label>
+				<input type="number" name="minimum_price" id="CreateAdPlacementMinimumPrice" class="form-control">
+			</div>
+
+			<div class="col-md-12">
+				<button class="btn btn-primary pull-right" type="submit" formnovalidate>Enregistrer</button>
+			</div>
+		</div>
+	</form>
+	<br>
+	<p>*Prix hors taxe, incluant la commission de MediaResa</p>
+	<p>**Permet aux acheteurs potentiels de vous faire une offre de prix direct</p>
+{% endblock %}

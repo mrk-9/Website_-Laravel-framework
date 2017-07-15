@@ -1,0 +1,25 @@
+{% extends "admin.layout" %}
+{% set title = "Connexion" %}
+
+{% block content %}
+<div class="login">
+	<div class="panel-heading">Admin - Authentification</div>
+	<div class="panel-body">
+		<form action="{{route('admin.auth.login.post')}}" method="POST" class="ajax">
+			<div class="alert alert-danger hidden"></div>
+
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="text" name="email" class="form-control" placeholder="Votre adresse email">
+			</div>
+
+			<div class="form-group">
+				<label for="password">Mot de passe</label>
+				<input type="password" name="password" class="form-control" placeholder="Votre mot de passe">
+			</div>
+
+			<button type="submit" data-done-text="Connecté !" data-loading-text="Veuillez patienter..." class="btn btn-primary">Connexion</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

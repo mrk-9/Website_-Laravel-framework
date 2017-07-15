@@ -1,0 +1,17 @@
+{% macro nav(context) %}
+	<li {% if context == 'media' %}class="active"{% endif %}>
+		<a href="{{ route('ad-network.media.index') }}">Catalogue Support</a>
+	</li>
+	<li {% if context == 'ad_placement' %}class="active"{% endif %}>
+		<a href="{{ route('ad-network.ad-placement.index') }}">Offres</a>
+	</li>
+	<li {% if context == 'ad-placement-earned' %}class="active"{% endif %}>
+		<a href="{{ route('ad-network.ad-placement-earned.list') }}">Réservations</a>
+	</li>
+	<li {% if context == 'ad_network_user' %}class="active"{% endif %}>
+		<a href="{{ route('ad-network.ad-network-user.list') }}">Utilisateurs</a>
+	</li>
+	<li {% if context == 'account' %}class="active"{% endif %}>
+		<a href="{{ route('ad-network.account.edit') }}">Paramètres du compte</a>
+	</li>
+{% endmacro %}

@@ -1,0 +1,24 @@
+<footer>
+	<div class="row upper-footer">
+		<div class="container-fluid">
+			<div class="help-phone-footer">
+				Besoin d'assistance ? <br>
+				<span class="footer-number">01 825 220 35</span>
+			</div>
+			<div class="footer-drop-ad hidden-xs pull-right">
+				<a title="Déposez une annonce" href="{{route('ad-network.home')}}" class="btn btn-primary">Déposer une annonce <span class="icon-button icon-simply-right"></span></a>
+			</div>
+		</div>
+	</div>
+	<div class="row signature">
+		<ul class="footer-nav">
+			<li><button ng-click="contactModal()" title="Contactez-nous">Contact</button></li>
+			{# <li><a title="" href="">Fonctionnement</a></li>
+			<li><a title="" href="">à propos</a></li> #}
+			<li><a title="Renseignez vous avec notre FAQ" href="{{route('main.faq')}}">FAQ</a></li>
+			<li><a title="Mentions légales de Media Resa" href="{{route('main.mentions')}}">Mentions légales</a></li>
+			<li><a title="Conditions générales de vente de Media Resa" href="{{route('main.cgv')}}">CGV</a></li>
+			<li><a href="{{route('main.cgv-studio-graphique')}}" title="Conditions générales de vente du studio graphique">CGV Studio Graphique</a></li>
+		</ul>
+	</div>
+</footer>

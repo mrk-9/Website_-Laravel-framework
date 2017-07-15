@@ -1,0 +1,250 @@
+{% extends "admin.layout" %}
+
+{% set title = "Informations sur l'acheteur" %}
+{% set context = "buyer" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			Informations de l'{% if constant('App\\Buyer::TYPE_AGENCY') == buyer.type %}agence{% else %}annonceur{% endif %} {{ buyer.name }}
+			<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#UpdateBuyerModal">
+					<i class="fa fa-pencil"></i>
+			</button>
+		</h1>
+
+	    <hr>
+
+	    <div class="col-md-6">
+	      <h2>Informations principales</h2>
+	      <ul>
+	        <li><b>Nom : </b>{{ buyer.name }}</li>
+	        <li><b>Nom du siège : </b>{{ buyer.corporate_name }}</li>
+	        <li><b>Type : </b>{% if constant('App\\Buyer::TYPE_AGENCY') == buyer.type %}Agence{% else %}Annonceur{% endif %}</li>
+	        {% if constant('App\\Buyer::TYPE_AGENCY') == buyer.type %}
+	        <li><b>Mandats : </b>{{ buyer.customers }}
+	        {% else %}
+	        <li><b>Activité : </b>{{ buyer.activity }}</li>
+	        {% endif %}
+	        <li><b>Status : </b>{% if constant('App\\Buyer::STATUS_PENDING') == buyer.status %}En attente{% else %}Validé{% endif %}</li>
+	        <li><b>Référent : </b>{{ buyer.referent.name }} {{ buyer.referent.family_name }}</li>
+	      </ul>
+	    </div>
+
+	    <div class="col-md-6">
+	      <h2>Informations de contact</h2>
+	      <ul>
+	        <li><b>Adresse : </b>{{ buyer.address }}</li>
+	        {% if buyer.address2 %}<li><b>Adresse 2 : </b>{{ buyer.address }}</li>{% endif %}
+	        <li><b>Code postal : </b>{{ buyer.zipcode }}</li>
+	        <li><b>Ville : </b>{{ buyer.city }}</li>
+	        <li><b>Téléphone : </b>{{ buyer.phone }}</li>
+	        <li><b>Email : </b>{{ buyer.email }}</li>
+	      </ul>
+	    </div>
+
+
+	<div class="col-md-12">
+		<h1>Utilisateurs et achats</h1>
+		<hr>
+
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active">
+				<a href="#buyerUsersTabPanel" aria-controls="buyerUsersTabPanel" data-toggle="tab">
+					Utilisateurs associés
+				</a>
+			</li>
+			<li role="presentation">
+				<a href="#buyerBookingTabPanel" aria-controls="buyerBookingTabPanel" data-toggle="tab">
+					Réservations
+				</a>
+			</li>
+			<li role="presentation">
+				<a href="#buyerAuctionTabPanel" aria-controls="buyerAuctionTabPanel" data-toggle="tab">
+					Enchères
+				</a>
+			</li>
+			<li role="presentation">
+				<a href="#buyerOfferTabPanel" aria-controls="buyerOfferTabPanel" data-toggle="tab">
+					Offres
+				</a>
+			</li>
+			<li role="presentation">
+				<a href="#buyerSelectionTabPanel" aria-controls="buyerSelectionTabPanel" data-toggle="tab">
+					Sélections
+				</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<!-- Buyer users -->
+			<div role="tabpanel" class="tab-pane fade in active" id="buyerUsersTabPanel">
+				{% include 'admin.buyer.user.index' %}
+			</div>
+
+			<!-- Buyer booking -->
+			<div role="tabpanel" class="tab-pane fade" id="buyerBookingTabPanel">
+				{% include 'admin.buyer.booking.index' %}
+			</div>
+
+			<!-- Buyer auctions -->
+			<div role="tabpanel" class="tab-pane fade" id="buyerAuctionTabPanel">
+				{% include 'admin.buyer.auction.index' %}
+			</div>
+
+			<!-- Buyer offers -->
+			<div role="tabpanel" class="tab-pane fade" id="buyerOfferTabPanel">
+				{% include 'admin.buyer.offer.index' %}
+			</div>
+
+			<!-- Buyer selections -->
+			<div role="tabpanel" class="tab-pane fade" id="buyerSelectionTabPanel">
+				{% include 'admin.buyer.selection.index' %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="UpdateBuyerModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Mettre à jour Agence / Annonceur</h4>
+			</div>
+			<form action="{{ route('admin.buyer.update', [buyer.id]) }}" class="ajax" data-formajax-success="reload">
+				<div class="modal-body col-md-12">
+					<div class="alert alert-danger hidden"></div>
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerName">Raison sociale</label>
+						<input type="text"
+							name="name"
+							id="UpdateBuyerName"
+							class="form-control"
+							value="{{ buyer.name }}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerCompanyType">Type de société</label>
+						<select name="company_type" class="form-control" id="UpdateBuyerCompanyType">
+							<option value="SARL" {% if buyer.company_type == 'SARL' %}selected{% endif %}>
+								SARL
+							</option>
+							<option value="SA" {% if buyer.company_type == 'SA' %}selected{% endif %}>
+								SA
+							</option>
+							<option value="EURL" {% if buyer.company_type == 'EURL' %}selected{% endif %} >
+								EURL
+							</option>
+							<option value="SNC" {% if buyer.company_type == 'SNC' %}selected{% endif %} >
+								SNC
+							</option>
+							<option value="SASU" {% if buyer.company_type == 'SASU' %}selected{% endif %} >
+								SASU
+							</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-12">
+						<label for="UpdateBuyerAddress">Adresse</label>
+						<input type="text" name="address"
+							id="UpdateBuyerAddress"
+							class="form-control"
+							value="{{ buyer.address }}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerZipcode">Code postal</label>
+						<input type="text" name="zipcode"
+							id="UpdateBuyerZipcode"
+							class="form-control"
+							value="{{ buyer.zipcode }}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerCity">Ville</label>
+						<input type="text" name="city"
+							id="UpdateBuyerCity"
+							class="form-control"
+							value="{{ buyer.city }}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerPhone">Téléphone</label>
+						<input type="text" name="phone"
+							id="UpdateBuyerPhone"
+							class="form-control"
+							value="{{ buyer.phone }}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerEmail">Email</label>
+						<input type="text" name="email"
+							id="UpdateBuyerEmail"
+							class="form-control"
+							value="{{ buyer.email }}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerStatus">Statut</label>
+						<select name="status" class="form-control" id="UpdateBuyerStatus">
+
+							<option value="pending" {% if buyer.status == constant('App\\Buyer::STATUS_PENDING') %}selected{% endif %}>
+								En attente
+							</option>
+							<option value="valid" {% if buyer.status == constant('App\\Buyer::STATUS_VALID') %}selected{% endif %}>
+								Validé
+							</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="UpdateBuyerType">Catégorie</label>
+						<select name="type" class="form-control" id="UpdateBuyerType">
+							<option value="agency" {% if buyer.type ==  constant('App\\Buyer::TYPE_AGENCY') %}selected{% endif %}>
+								Agence
+							</option>
+							<option value="advertiser" {% if buyer.type == constant('App\\Buyer::TYPE_ADVERTISER') %}selected{% endif %}>
+								Annonceur
+							</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-12">
+						<label for="UpdateBuyerActivity">Activité</label>
+						<input type="text" name="activity"
+							id="UpdateBuyerActivity"
+							class="form-control"
+							value="{{ buyer.activity }}">
+					</div>
+
+					<div class="form-group col-md-12">
+						<label for="UpdateBuyerCustomers">Mandats</label>
+						<input type="text" name="customers"
+							id="UpdateBuyerCustomer"
+							class="form-control"
+							value="{{ buyer.customers }}">
+					</div>
+
+					<div class="form-group col-md-12">
+						<label for="UpdateBuyerUser">Référent</label>
+						<select name="user_id" id="UpdateBuyerUser" data-buyer-id="{{ buyer.id }}" class="select2 autocomplete-user">
+							<option value="{{ buyer.referent.id }}">{{ buyer.referent.name }} {{ buyer.referent.family_name }} - {{ buyer.referent.email }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="_method" value="put">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+					<button type="submit"
+						class="btn btn-primary"
+						data-loading-text="<i class='fa fa-spin fa-spinner'></i>"
+						data-done-text="Enregistré !">
+						Enregistrer
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

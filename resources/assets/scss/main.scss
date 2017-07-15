@@ -1,0 +1,62 @@
+//Import
+//-------------------------------
+
+// Import Assets and Variables
+//-------------------------------
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700);
+@import "colors";
+@import "custom-variables";
+@import "override-variables";
+@import "../../../vendor/assets/font-awesome/scss/font-awesome.scss";
+@import "../../../vendor/assets/select2/dist/css/select2";
+
+// Import Utilities
+@import "bootstrap-custom";
+@import "reset";
+@import "mixins";
+@import "fonts";
+
+// Import Components
+@import "header";
+@import "footer";
+@import "typography";
+@import "buttons";
+@import "inputs";
+@import "blocks";
+@import "interactive";
+@import "modal";
+
+// Views
+@import "view-search";
+@import "modal-process";
+@import "view-home";
+@import "view-account";
+@import "articles";
+@import "view-faq";
+@import "legals";
+@import "view-invoices-details";
+
+// Shame
+@import "shame";
+
+// @TODO : Not for prod
+@import "debug";
+
+// Global styles
+//-------------------------------
+body {
+	font-family: 'Roboto';
+	padding-bottom: 0;
+	padding-top: 60px;
+	@media (min-width: $screen-sm-min) {
+		padding-top: 100px;
+	}
+}
+main,
+.main {
+	min-height: calc(100vh - 60px - 240px);
+	@media (min-width: $screen-sm-min) {
+		min-height: calc(100vh - 85px - 200px);
+	}
+}

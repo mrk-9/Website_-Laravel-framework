@@ -1,0 +1,91 @@
+{% import "main.partials.select" as select %}
+{% import "main.partials.form_layout" as form %}
+
+<div class="search-filter-grid">
+
+    <div class="search-filter-grid_row support_type_selector" ng-controller="SearchCtrl">
+
+        <div class="search-filter-grid_row_select">
+            <div class="form-group ">
+                <label>Support</label><br>
+                <select name="support" ng-model="search.support" class="form-control">
+                    <option value="all"></option>
+                    {% for option in supports %}
+                        <option value="{{ option.slug }}">{{ option.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            <div class="form-group ">
+                <label>Catégorie</label><br>
+                <select name="category" ng-model="search.category" class="form-control"
+                        ng-disabled="categories.length === 0">
+                    <option value="all">Tout</option>
+                    <option ng-repeat="category in categories" value="[[category.slug]]"
+                            ng-bind="category.name"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            {{ select.search('Périodicité', 'frequency', frequencies, {selected: selected.frequency}) }}
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            <div class="form-group ">
+                <label>Thématique</label><br>
+                <select name="theme" ng-model="search.theme" class="form-control" ng-disabled="themes.length === 0">
+                    <option value="all">Tout</option>
+                    <option ng-repeat="theme in themes" value="[[theme.slug]]" ng-bind="theme.name"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            {% set datas = [] %}
+            {% for option in broadcasting_areas %}
+                {% set datas = datas|merge([{value : option.slug, name: option.name}]) %}
+            {% endfor %}
+            {{ form.select('Zone de diffusion', 'broadcasting_area', datas, {selected: selected.broadcasting_area}) }}
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            <div class="form-group ">
+                <label>Format</label><br>
+                <select name="format" ng-model="search.format" class="form-control" ng-disabled="formats.length === 0">
+                    <option value="all">Tout</option>
+                    <option ng-repeat="format in formats" value="[[format.slug]]" ng-bind="format.name"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            {{ select.search('Budget', 'budget', budgets, {selected: selected.budget}) }}
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            <div class="form-group">
+                <label>Cible</label><br>
+                <select name="target[]" class="multiple-select" multiple="multiple">
+                    {% for target in targets %}
+                        <option value="{{ target.id }}" {{target.id in selected.target ? 'selected' }}>{{ target.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="search-filter-grid_row_select">
+            {{ select.search('Mode de vente', 'type', types, {selected: selected.type}) }}
+        </div>
+    </div>
+
+    <div class="search-filter-grid_row">
+        <div class="search-filter-grid_row_submit">
+            <button type="submit" id="formSearchSubmit" class="btn btn-search btn-primary">Rechercher <i
+                        class="icon-button icon-search"></i></button>
+        </div>
+    </div>
+
+</div>

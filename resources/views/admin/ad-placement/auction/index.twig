@@ -1,0 +1,121 @@
+<div data-ng-controller="AuctionCtrl" data-ad-placement-id="{{ ad_placement.id }}">
+    <table class="table table-hover" data-st-table="AuctionList" st-pipe="refresh" id="AuctionList">
+        <thead>
+            <tr>
+                <th data-st-sort="user.name">Client</th>
+                <th data-st-sort="buyer.name">
+                    {% if ad_placement.user.buyer.type == constant('App\\Buyer::TYPE_AGENCY') %}
+                    Agence
+                    {% else %}
+                    Annonceur
+                    {% endif %}
+                </th>
+                <th data-st-sort="auction.created_at">Date enchère</th>
+                <th data-st-sort="auction.amount">Montant enchère</th>
+                <th>Etat du paiement</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input st-search="user__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="buyer__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th colspan="4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-show="list.length" data-ng-repeat="auction in list">
+                <td>[[ auction.user.name ]] [[ auction.user.family_name ]]</td>
+
+                <td>[[ auction.user.buyer.name ]]</td>
+
+                <td>[[ auction.created_at_date ]]</td>
+
+                <td>[[ auction.amount ]]&euro;</td>
+
+                 <td class="text-center">
+                    <i data-ng-show="auction.charge_status" class="fa fa-cc-stripe fa-2x fa-black"></i>
+                    <i data-ng-show="auction.transfer_status" class="fa fa-exchange fa-2x fa-black"></i>
+
+                    <!-- Get payment status -->
+                    <i data-ng-show="auction.is_ready_for_transfer_validation" class="fa fa-hourglass-half fa-2x fa-black"></i>
+                    <i data-ng-show="auction.payment_is_valid" class="fa fa-check fa-2x"></i>
+                    <i data-ng-show="auction.is_lost" class="fa fa-times fa-2x"></i>
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-ng-click="go('{{ route('admin.auction.index') }}/' + list[$index].id)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+                    <!-- Transfer validation -->
+                    <button class="btn btn-primary" data-ng-show="auction.is_ready_for_transfer_validation" data-ng-click="openModal('#ValidateTransferAuctionModal', auction)">
+                        <i class="fa fa-eur"></i>
+                    </button>
+
+                    <!-- Confirm publication status -->
+                    <button class="btn btn-primary" data-ng-show="auction.is_ready_for_publication" data-ng-click="openModal('#PublishAuctionModal', auction)">
+                        <i class="fa fa-certificate"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-hide="list.length || loading == true">
+                <td colspan="6" class="text-center">Aucun élément</td>
+            </tr>
+            <tr data-ng-show="loading == true">
+                <td colspan="6" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-center">
+                    <div st-pagination="" st-items-by-page="20"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="ValidateTransferAuctionModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Valider un virement bancaire</h4>
+                </div>
+                <form action="{{ route('admin.auction.validate.transfer', ['{id}']) }}" class="ajax" data-referent-table="AuctionList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Le virement brancaire a bien été reçu pour cette enchère?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Validé !">Valider le virement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PublishAuctionModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirmer la publication</h4>
+                </div>
+                <form action="{{ route('admin.auction.validate.publication', ['{id}']) }}" class="ajax" data-referent-table="AuctionList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Voulez-vous vraiment confirmer la publication de cet emplacement lié à cette enchère?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Confirmée !">Confirmer la publication</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

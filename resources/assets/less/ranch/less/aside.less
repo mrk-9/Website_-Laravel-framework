@@ -1,0 +1,63 @@
+// Aside
+// --------------------------
+
+aside {
+	.hidden-xs();
+	.make-md-column(2,0);
+	background: darken(#fff,1%);
+	border-right: 1px solid darken(#fff,5%);
+	padding-top: 20px;
+	position: fixed;
+	.nav {
+		padding-left: 0;
+		padding-right: 0;
+		> li {
+			> a {
+				font-size: 11px;
+				font-weight: 700;
+				color: @text-color;
+				text-transform: uppercase;
+				border-left: 1px solid transparent;
+				&:hover,
+				&:focus {
+					background: darken(#fff,5%);
+				}
+				&[data-toggle="collapse"]:after {
+					.pull-right();
+					line-height: 11px;
+					color: lighten(@text-color,30%);
+					&:extend(.@{fa-css-prefix});
+					font-size: 13px;
+					.transition(transform);
+				}
+				&[data-toggle="collapse"]:not(.collapsed):after{
+					&:extend(.@{fa-css-prefix}-caret-right:before);
+					.fa-icon-rotate(90deg,1);
+				}
+				&[data-toggle="collapse"].collapsed:after {
+					&:extend(.@{fa-css-prefix}-caret-right:before);
+				}
+			}
+			> .nav {
+				> li {
+					> a {
+						font-size: 13px;
+						line-height: 15px;
+						font-weight: normal;
+						padding-left: 30px;
+						text-transform: none;
+						&:after {
+							content:"";
+						}
+					}
+				}
+			}
+			&.active {
+				> a {
+					background: darken(#fff,3%);
+					border-left: 4px solid @brand-primary;
+				}
+			}
+		}
+	}
+}

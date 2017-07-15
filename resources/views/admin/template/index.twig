@@ -1,0 +1,157 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des gabarits" %}
+{% set context = 'template' %}
+
+{% block content %}
+<div class="row" data-ng-controller="TemplateCtrl">
+	<div class="col-md-12">
+		<h1>Liste des gabarits <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateTemplateModal"><i class="fa fa-plus"></i></button></h1>
+
+		<table class="table table-hover" data-st-table="TemplateList" st-pipe="refresh" id="TemplateList">
+			<thead>
+				<tr>
+					<th data-st-sort="template.name">Nom</th>
+					<th data-st-sort="template.description">Description</th>
+					<th>Couverture</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="template__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="template__description" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="template in list">
+
+					<td>[[ template.name ]]</td>
+					<td>[[ template.description ]]</td>
+					<td><a href="[[ template.cover_path ]]" title="[[ template.cover ]]" target="_blank"><i class="fa fa-download"></i></a></td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateTemplateModal', template)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteTemplateModal', template)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="4" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="4" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="CreateTemplateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter un gabarit</h4>
+				</div>
+				<form action="{{ route('admin.template.store') }}" class="ajax" data-referent-table="TemplateList">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="CreateTemplateName">Nom</label>
+							<input type="text" name="name" id="CreateTemplateName" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="CreateTemplateDescription">Description</label>
+							<textarea name="description" id="CreateTemplateDescription" class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="CreateTemplateCover">Visuel de couverture</label>
+							<p>Image au format .png ou .jpg de moins d'1Mo.</p>
+							<input type="file" name="cover" id="CreateTemplateCover" class="input-file">
+							<label for="CreateTemplateCover" class="btn btn-tertiary js-labelFile">
+								<i class="icon fa fa-check"></i>
+								<span class="js-fileName">Choisir une image</span>
+							</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="UpdateTemplateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour un gabarit</h4>
+				</div>
+				<form action="{{ route('admin.template.update', ['{id}']) }}" class="ajax" data-referent-table="TemplateList">
+					<div class="modal-body">
+						<div class="alert alert-danger hidden"></div>
+						<div class="form-group">
+							<label for="UpdateTemplateName">Nom</label>
+							<input type="text" name="name" id="UpdateTemplateName" ng-value="current.name" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="UpdateTemplateDescription">Description</label>
+							<textarea name="description" id="UpdateTemplateDescription" class="form-control">[[ current.description ]]</textarea>
+						</div>
+						<div class="form-group">
+							<label for="UpdateTemplateCover">Visuel de couverture</label>
+							<p>Image au format .png ou .jpg de moins d'1Mo.</p>
+							<input type="file" name="cover" id="UpdateTemplateCover" class="input-file">
+							<label for="UpdateTemplateCover" class="btn btn-tertiary js-labelFile">
+								<i class="icon fa fa-check"></i>
+								<span class="js-fileName">Choisir une image</span>
+							</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteTemplateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer un gabarit</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer ce gabarit?</p>
+				</div>
+				<form action="{{ route('admin.template.destroy', ['{id}']) }}" class="ajax" data-referent-table="TemplateList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

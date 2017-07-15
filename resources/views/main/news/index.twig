@@ -1,0 +1,73 @@
+{% extends 'main.layout.layout' %}
+{% set title = 'News' %}
+{% set context='news' %}
+
+{% block content %}
+
+	<main class="articles-list">
+		<div class="container">
+			<h1 class="h2">Les actualités de Media Resa</h1>
+			<div class="articles-list-content">
+				<div class="block-actu row">
+					<a href="#" title="titre de l article">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+					</a>
+					<div class="text-part">
+						<a href="#" title="titre de l article"><h3>LOREM IPSUM DOLOR SIT AMET</h3></a>
+						<div class="publication">Publié le 12/11/2015</div>
+						<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+						<a href="#" title="" class="actu-link">Lire la suite</a>
+					</div>
+				</div>
+
+				<div class="block-actu row">
+					<a href="#" title="titre de l article">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+					</a>
+					<div class="text-part">
+						<a href="#" title="titre de l article"><h3>LOREM IPSUM DOLOR SIT AMET</h3></a>
+						<div class="publication">Publié le 12/11/2015</div>
+						<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+						<a href="#" title="" class="actu-link">Lire la suite</a>
+					</div>
+				</div>
+
+				<div class="block-actu row">
+					<a href="#" title="titre de l article">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+					</a>
+					<div class="text-part">
+						<a href="#" title="titre de l article"><h3>LOREM IPSUM DOLOR SIT AMET</h3></a>
+						<div class="publication">Publié le 12/11/2015</div>
+						<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+						<a href="#" title="" class="actu-link">Lire la suite</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="pagination-articles">
+			<ul class="pagination">
+				<li class="disabled"><span><i class="icon-simply-left"></i></span></li>
+				<li class="active"><span>1</span></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#">6</a></li>
+				<li><a href="#">7</a></li>
+				<li><a href="#">8</a></li>
+				<li><a href="#">9</a></li>
+				<li><a href="#">10</a></li>
+				<li><a href="#" rel="next"><i class="icon-simply-right"></i></a></li>
+			</ul>
+			</div>
+		</div>
+	</main>
+
+{% endblock %}

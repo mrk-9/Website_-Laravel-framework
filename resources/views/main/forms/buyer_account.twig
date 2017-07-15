@@ -1,0 +1,130 @@
+{% import "main.partials.select" as select %}
+{% import "main.partials.form_layout" as form %}
+
+<input type="hidden" value="{{csrf_token()}}" name="_token" />
+
+<h3>Informations de la société</h3>
+
+<div class="account-section">
+  <div class="row">
+    <div class="account-medium-inputs">
+      {{ select.accountType('buyer_type', {selected: user.buyer.type, fieldClass:'buyer_account_type'}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+      {{ select.companyType('buyer_company_type', {value: user.buyer.company_type}) }}
+
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Secteur d'activité", "buyer_activity", {value: user.buyer.activity, formGroupClass: "buyer_activity"}) }}
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="account-medium-inputs">
+      {{ form.input("Raison sociale", "buyer_name", {value: user.buyer.name}) }}
+
+
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Email", "buyer_email", {value: user.buyer.email, type: "email"}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Téléphone", "buyer_phone", {value: user.buyer.phone, type: "tel"}) }}
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="account-large-inputs">
+
+      {{ form.input("Adresse", "buyer_address", {value: user.buyer.address}) }}
+
+    </div>
+    <div class="account-small-inputs">
+
+
+      {{ form.input("Code postal", "buyer_zipcode", {value: user.buyer.zipcode}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Ville", "buyer_city", {value: user.buyer.city}) }}
+
+    </div>
+  </div>
+</div>
+
+<h3>Informations du contact référent</h3>
+<div class="account-section">
+  <div class="row">
+
+    <div class="account-medium-inputs">
+
+      {{ select.title('title', {value: user.title}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+      {{ form.input("Nom", "family_name", {value: user.family_name}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Prénom", "name", {value: user.name}) }}
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="account-medium-inputs">
+
+      {{ form.input("Fonction", "function" , {value: user.function}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Email", "email", {value: user.email, type: "email"}) }}
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Téléphone", "phone", {value: user.phone, type: "tel"}) }}
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="account-medium-inputs">
+
+      {% if user_auth_guest() %}
+        {{ form.input("Mot de passe", "password", {value: user.password, type:"password"}) }}
+        {% else %}
+        {{ form.input("Mot de passe", "password", {type: "password"}) }}
+      {% endif %}
+
+    </div>
+    <div class="account-medium-inputs">
+
+      {{ form.input("Confirmation du mot de passe", "password_confirmation", {value: user.password_confirmation, type: "password"}) }}
+
+    </div>
+  </div>
+</div>
+
+<div class="account-page-inputs">
+  {{ form.textarea("Liste des mandats", "buyer_customers", {value: user.buyer.customers, formGroupClass: "buyer_customers"}) }}
+</div>
+
+<div class="alert alert-warning" hidden role="alert"></div>
+<div class="alert alert-success" hidden role="alert"></div>

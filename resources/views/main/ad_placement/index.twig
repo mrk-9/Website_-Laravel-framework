@@ -1,0 +1,64 @@
+{% extends 'main.layout.layout' %}
+
+{% set title = 'Recherche' %}
+{% set context='ad_placement' %}
+
+{% import "main.partials.ad_placement_widget" as widget %}
+
+
+{% block content %}
+
+<div class="view-search">
+
+    <h1 class="h2">Rechercher un emplacement disponible</h1>
+
+    <form action="#" method="get" id="searchForm">
+
+        {% include "main.forms.ad_placement_search"  %}
+
+
+
+    <div class="ad-placement-result-indicator" id="searchResults">
+        <div class="ad-placement-result-indicator_container">
+            {% if paginator.total == 0 %}
+                <p class="p">Aucun emplacement ne correspond à votre recherche</p>
+            {% elseif paginator.total == 1 %}
+                <p class="p"><span class="blue-numbers">{{ paginator.total }}</span> emplacement disponible a été trouvé</p>
+            {% else %}
+                <p class="p"><span class="blue-numbers">{{ paginator.total }}</span> emplacements disponibles ont été trouvés</p>
+            {% endif %}
+            <div class="form-group search-sort-group">
+                <label for="searchSortSelect">Trier par</label>
+                <select name="search_sort" id="searchSortSelect" class="form-control" onchange="this.form.submit()">
+                    <option value="date">Date de fin de vente</option>
+                    <option value="asc_price" {{"asc_price" == selected.search_sort ? 'selected' }}>Prix croissant</option>
+                    <option value="desc_price" {{"desc_price" == selected.search_sort ? 'selected' }}>Prix décroissant</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    <div class="ad-placement-grid">
+
+        <div class="ad-placement-grid_container">
+
+            {% for row in paginator|batch(2) %}
+                <div class="ad-placement-grid_cards">
+                    {% for ad_placement in row %}
+                        <div class="ad-placement-grid_col">
+                            {{ widget.widget_mini(ad_placement) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            {{ paginator.render() | raw }}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

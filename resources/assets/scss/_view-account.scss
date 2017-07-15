@@ -1,0 +1,91 @@
+.account-content {
+	display: table-cell;
+	float: none !important;
+	@include make-sm-column(10, 100px);
+	padding: 10px 0px 30px 30px;
+	min-height: calc(100vh - 85px - 200px);
+	@media (min-width: $screen-sm-min) {
+		padding: 30px 20px 50px 50px;
+	}
+	h3 {
+		margin-bottom: 15px;
+	}
+	.account-section {
+		padding-bottom: 30px;
+		.form-group {
+			margin-bottom: 10px;
+		}
+	}
+	.account-bottom-button {
+		margin: 30px 0;
+	}
+	.panel-placement {
+		margin: 20px 0;
+	}
+	.account-card-delete {
+		@media(max-width: $screen-sm-min) {
+			margin-top: 10px;
+		}
+	}
+	.account-card-save {
+		margin-top: 10px;
+		@media(min-width: $screen-sm-min) {
+			margin-top: 0;
+			float: right;
+		}
+	}
+	.invoice-table {
+		width: 100%;
+		@media(max-width: $screen-sm-min) {
+			margin-left: -5px;
+		}
+		.invoice-table_tr {
+			td {
+				font-family: "Noto Sans";
+				font-size: 12px;
+				padding: 0px 10px;
+				position: relative;
+				text-align: center;
+				@media (min-width: $screen-sm-min) {
+					padding: 10px 20px;
+				}
+				&:nth-child(3),
+				&:nth-child(4),
+				&:nth-child(5) {
+					&:before {
+						position: absolute;
+						content: "";
+						width: 1px;
+						background-color: rgba(0, 0, 0, 0.1);
+						height: 60%;
+						top: 20%;
+						left: -1px;
+					}
+				}
+				.invoice-download {
+					color: $light-gray;
+					border: none;
+					background-color: transparent;
+					@include transition(color);
+					font-size: 15px;
+					padding: 0;
+					&:hover,
+					&:focus {
+						color: darken($light-gray, 10%);
+					}
+				}
+			}
+			&:nth-child(even) {
+				background: $light-blue;
+			}
+			.invoice-index {
+				color: $duck-blue;
+				text-align: left;
+				font-size: 11px;
+			}
+			.invoice-ammount {
+				text-align: left;
+			}
+		}
+	}
+}

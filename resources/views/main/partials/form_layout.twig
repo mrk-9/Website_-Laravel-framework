@@ -1,0 +1,28 @@
+{#
+    input(label, fieldName, params)
+    @params = { fieldClass: '', formGroupClass: '', fieldId: '', type: '', value: '', palceholder: '' }
+#}
+{% macro input(label, fieldName, params) %}
+    <div class="form-group {{ params.formGroupClass }}">
+        <label {% if params.fieldId is not empty %}for="{{params.fieldId}}"{% endif %}>{{label}}</label><br>
+        <input type="{{params.type|default('text')}}" name="{{fieldName}}" {% if params.fieldId is not empty %}id="{{params.fieldId}}"{% endif %} {% if params.value is not empty %}value="{{ params.value }}"{% endif %} {% if params.placeholder is defined %}placeholder="{{params.placeholder}}"{% endif %} class="form-control {{ params.fieldClass }}">
+    </div>
+{% endmacro %}
+
+{% macro textarea(label, fieldName, params) %}
+    <div class="form-group {{ params.formGroupClass }}">
+        <label {% if params.fieldId is not empty %}for="{{params.fieldId}}"{% endif %}>{{label}}</label><br>
+        <textarea name="{{fieldName}}" {% if params.fieldId is not empty %}id="{{params.fieldId}}"{% endif %} {% if params.placeholder is defined %}placeholder="{{params.placeholder}}"{% endif %} class="form-control {{ params.fieldClass }}">{{ params.value }}</textarea>
+    </div>
+{% endmacro %}
+
+{% macro select(label, fieldName, options, params) %}
+    <div class="form-group {{ params.formGroupClass }}">
+        <label {% if params.fieldId is not empty %}for="{{params.fieldId}}"{% endif %}>{{label |raw}}</label><br>
+        <select name="{{fieldName}}" {% if params.fieldId is not empty %}id="{{params.fieldId}}"{% endif %} {% if params.ngModel is not empty %}ng-model="{{params.ngModel}}"{% endif %} {% if params.ngChange is not empty %}ng-change="{{params.ngChange}}"{% endif %} {% if params.disabled is defined %}disabled{% endif %} class="form-control {{  params.fieldClass }}">
+            {% for option in options %}
+                <option value="{{option.value}}" {{option.value == params.selected ? 'selected' }}>{{option.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endmacro %}

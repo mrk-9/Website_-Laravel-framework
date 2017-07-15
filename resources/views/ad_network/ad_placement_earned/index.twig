@@ -1,0 +1,78 @@
+{% extends "ad_network.layout" %}
+
+{% set title = "Liste des réservations" %}
+{% set context = 'ad-placement-earned' %}
+
+{% block content %}
+<div class="row" data-ng-controller="AdPlacementWinnerCtrl">
+	<div class="col-md-12">
+		<h1>{{ title }}</h1>
+
+		<table class="table table-hover" data-st-table="AdPlacementEarnedList" st-pipe="refresh" id="AdPlacementEarnedList">
+			<thead>
+				<tr>
+					<th data-st-sort="media.name">Support</th>
+					<th data-st-sort="ad_placement.broadcasting_date">Date de publication</th>
+					<th data-st-sort="ad_placement.name">Emplacement</th>
+					<th data-st-sort="ad_placement.price">Nom agence / annonceur</th>
+					<th>Statut</th>
+					<th>Prix de vente HT</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="media__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+					<th>
+						<input st-search="ad_placement__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th colspan="4"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length"
+					data-ng-repeat="ad_placement in list"
+					data-ng-dblclick="go('{{ route('ad-network.ad-placement.index') }}/' + list[$index].id)">
+					<td ng-bind="ad_placement.media.name"></td>
+					<td ng-bind="ad_placement.broadcasting_date_fr_no_seconds"></td>
+					<td ng-bind="ad_placement.name"></td>
+					<td ng-bind="ad_placement.winner.user.buyer.name"></td>
+					<td>
+						<span ng-if="ad_placement.winner.publication_status == 'publication_pending'">
+							En attente
+						</span>
+						<span ng-if="ad_placement.winner.publication_status == 'publication_valid'">
+							Validée
+						</span>
+					</td>
+					<td>
+						<!-- offer or auction -->
+						<span ng-if="ad_placement.winner.amount" ng-bind-template="[[ ad_placement.winner.amount ]] &euro;"></span>
+						<!-- booking -->
+						<span ng-if="!ad_placement.winner.amount" ng-bind-template="[[ ad_placement.price ]] &euro;"></span>
+					</td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="go('{{ route('ad-network.ad-placement.index') }}/' + list[$index].id)">
+								<i class="fa fa-eye"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="7" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="7" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+{% endblock %}

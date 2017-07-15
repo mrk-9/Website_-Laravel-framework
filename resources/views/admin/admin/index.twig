@@ -1,0 +1,146 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des administrateurs" %}
+{% set context = 'admin' %}
+
+{% block content %}
+<div class="row" data-ng-controller="AdminCtrl">
+	<div class="col-md-12">
+		<h1>Liste des administrateurs <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#AddAdminModal"><i class="fa fa-plus"></i></button></h1>
+
+		<table class="table table-hover" data-st-table="AdminList" st-pipe="refresh" id="AdminList">
+			<thead>
+				<tr>
+					<th data-st-sort="name">Nom</th>
+					<th data-st-sort="email">Email</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th></th>
+					<th>
+						<input st-search="email" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="admin in list" data-ng-dblclick="">
+					<td>[[ admin.name ]]</td>
+					<td><a href="mailto:[[ admin.email ]]">[[ admin.email ]]</a></td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateAdminModal', admin)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteAdminModal', admin)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="3" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="3" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="AddAdminModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter un administrateur</h4>
+				</div>
+				<form action="{{ route('admin.admin.store') }}" class="ajax" data-referent-table="AdminList">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="AddAdminName">Nom</label>
+							<input type="text" name="name" id="AddAdminName" class="form-control" value="[[ current.name ]]">
+						</div>
+
+						<div class="form-group">
+							<label for="AddAdminEmail">Email</label>
+							<input type="text" name="email" id="AddAdminEmail" class="form-control" value="[[ current.email ]]">
+						</div>
+
+						<div class="form-group">
+							<label for="AddAdminPassword">Mot de passe</label>
+							<input type="password" name="password" id="AddAdminPassword" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="UpdateAdminModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour un administrateur</h4>
+				</div>
+				<form action="{{ route('admin.admin.update', ['{id}']) }}" class="ajax" data-referent-table="AdminList">
+					<div class="modal-body">
+						<div class="alert alert-danger hidden"></div>
+						<div class="form-group">
+							<label for="UpdateAdminName">Nom</label>
+							<input type="text" name="name" id="UpdateAdminName" class="form-control" value="[[ current.name ]]">
+						</div>
+
+						<div class="form-group">
+							<label for="UpdateAdminEmail">Email</label>
+							<input type="text" name="email" id="UpdateAdminEmail" class="form-control" value="[[ current.email ]]">
+						</div>
+
+						<div class="form-group">
+							<label for="UpdateAdminPassword">Mot de passe</label>
+							<input type="password" name="password" id="UpdateAdminPassword" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteAdminModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer un administrateur</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer cet administrateur</p>
+				</div>
+				<form action="{{ route('admin.admin.destroy', ['{id}']) }}" class="ajax" data-referent-table="AdminList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

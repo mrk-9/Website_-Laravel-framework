@@ -1,0 +1,69 @@
+{% extends 'main.layout.layout' %}
+{% set title = 'Titre de l\'article' %}
+{% set context='news' %}
+
+{% block content %}
+	<main class="article-page">
+		<div class="container article-page-container">
+			<h1 class="article-page-title">Lorem ipsum dolor sit amet</h1>
+			<div class="article-page-infos">
+				<div class="pull-left article-page-date">Publié le 12/11/2015</div>
+				<div class="pull-right">
+					<a onclick="window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=560,width=770'); return false;" href="https://www.facebook.com/sharer/sharer.php?u={{ route('main.news.show', [news.category.slug, news.slug]) }}" class="btn btn-social" title="Partagez cet article via Facebook"><i class="fa fa-facebook"></i></a>
+					<a onclick="window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=560,width=770'); return false;" href="https://twitter.com/intent/tweet?text={{ news.title }} {{ route('main.news.show', [news.category.slug, news.slug]) }} via @mediaresa" class="btn btn-social" title="Partagez cet article via Twitter"><i class="fa fa-twitter"></i></a>
+					<a onclick="window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=560,width=770'); return false;" href="https://plus.google.com/share?url={{ route('main.news.show', [news.category.slug, news.slug]) }}" title="Partagez via google plus" class="btn btn-social" title="Partagez cet article via Google +"><i class="fa fa-google-plus"></i></a>
+				</div>
+			</div>
+			<img src="/assets/im/phone1.jpg" alt="" class="article-page-container">
+			<div class="article-pag-text">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error commodi adipisci recusandae magni accusantium est nostrum consequuntur ut vel voluptas dolorem cum quam quis, sapiente repellendus qui at. Nam, dolores. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe omnis odio in, assumenda provident. Perspiciatis, accusantium! Repellat qui soluta esse facere veniam, minima obcaecati magnam magni ab consequatur, quae! Omnis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa animi pariatur necessitatibus reiciendis autem quam vitae dolor sit. Blanditiis iste sed ducimus ipsam ipsa necessitatibus voluptas facere, odio asperiores possimus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam architecto explicabo vel minus autem consequatur doloremque ad asperiores molestiae? Corrupti, ab deserunt. Error amet consequuntur laborum blanditiis fugiat sunt perferendis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis saepe necessitatibus enim ex tenetur atque ipsam, explicabo debitis natus quisquam similique eius voluptas, harum officia dignissimos a minus cum. Aliquid!
+				</p>
+				<p class="article-page-author">Jean-Pierre Jean-Pierre</p>
+			</div>
+		</div>
+		<div class="article-read-more">
+			<div class="container">
+				<h2 class="read-more-title">A lire aussi</h2>
+				<div class="read-more-content">
+					<div class="block-actu row">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+						<div class="text-part">
+							<h3>LOREM IPSUM DOLOR SIT AMET</h3>
+							<div class="publication">Publié le 12/11/2015</div>
+							<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+							<a href="#" title="" class="actu-link">Lire la suite</a>
+						</div>
+					</div>
+
+					<div class="block-actu row">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+						<div class="text-part">
+							<h3>LOREM IPSUM DOLOR SIT AMET</h3>
+							<div class="publication">Publié le 12/11/2015</div>
+							<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+							<a href="#" title="" class="actu-link">Lire la suite</a>
+						</div>
+					</div>
+
+					<div class="block-actu row">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+						<div class="text-part">
+							<h3>LOREM IPSUM DOLOR SIT AMET</h3>
+							<div class="publication">Publié le 12/11/2015</div>
+							<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+							<a href="#" title="" class="actu-link">Lire la suite</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+{% endblock %}

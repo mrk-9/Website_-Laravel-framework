@@ -1,0 +1,62 @@
+<h1 class="h2 modal-title">Validez votre commande</h1>
+<div class="row">
+    <ad-placement ng-model="adPlacement" price="order.price"></ad-placement>
+    <div class="panel-placement">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>Acompte de réservation</th>
+                <td class="text-right" ng-bind-template="[[ order.depositPrice | currency:'€' ]] HT"></td>
+            </tr>
+            <tr ng-if="order.technicalSupport">
+                <th ng-bind-template="[[ order.technicalSupport.name ]] [[ order.template.name ]]"></th>
+                <td class="text-right" ng-bind-template="[[ order.technicalSupport.price | currency:'€' ]] HT"></td>
+            </tr>
+            <tr>
+                <th>Total HT</th>
+                <td class="text-right" ng-bind-template="[[ order.total | currency:'€' ]] HT"></td>
+            </tr>
+            <tr>
+                <th>TVA <span ng-bind-template="([[ adPlacement.vat_rate ]] %)"></span></th>
+                <td class="text-right" ng-bind-template="[[ order.rate | currency:'€' ]] HT"></td>
+            </tr>
+            <tr>
+                <th>Total TTC</th>
+                <td class="text-right"><strong ng-bind-template="[[ order.totalWithRate | currency:'€' ]] TTC"></strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-placement">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>Reste à payer à la régie</th>
+                <td class="text-right" ng-bind-template="[[ order.adNetworkPrice | currency:'€' ]] HT"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="process-step modal-content-container">
+    <div class="row payment-modal-validation">
+        <div class="form-group">
+            <input type="checkbox" id="order_validation" ng-model="order.orderValidation"
+                   class="form-control">
+            <label for="order_validation">Je valide ma commande auprès de MediaResa et accepte le règlement de [[ order.totalWithRate | currency:'€' ]] TTC au titre de l'acompte versé à MediaResa et des frais liés au support technique. Je comprend que le solde de ma réservation [[ order.adNetworkPrice | currency:'€' ]] HT sera à régler directement au vendeur de l'emplacement</label>
+            <div ng-if="order.technicalSupport !== undefined && order.technicalSupport !== null">
+                <input type="checkbox" id="cgv_validation"
+                       name="cgv_validation" class="form-control" ng-model="order.cgvValidation">
+                <label for="cgv_validation">j'ai lu et j'accepte les <a href="/cgv-studio-graphique" target="_blank">conditions générales de vente du studio graphique.</a></label>
+            </div>
+        </div>
+    </div>
+    <div class="process-step_btn-group">
+        <button type="button" class="btn btn-secondary btn-previous" ng-click="order.orderValidation = false; order.cgvValidation = false; @$lastVisitedStep()">
+            Précédent <i class="icon-button icon-simply-left"></i></button>
+        <button type="button" class="btn btn-primary btn-next"
+                ng-click="$nextStep()" ng-disabled="!(order.orderValidation && ((order.technicalSupport === undefined || order.technicalSupport === null) || order.cgvValidation))">suivant <i
+                    class="icon-button icon-simply-right"></i></button>
+    </div>
+</div>

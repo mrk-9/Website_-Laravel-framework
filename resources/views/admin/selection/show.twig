@@ -1,0 +1,100 @@
+{% extends "admin.layout" %}
+
+{% set title = "Sélection support " ~ selection.adPlacement.media_name ~ " " ~ selection.adPlacement.name %}
+{% set context = "selection" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			Sélection support {{ selection.adPlacement.media.name }} - {{ selection.adPlacement.name }}
+		</h1>
+	</div>
+	<div class="col-md-12">
+		<h2>Informations sur la sélection</h2>
+		<hr>
+
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Client : </b>
+					{{ selection.user.name }} {{ selection.user.family_name }}
+				</li>
+				<li>
+					<b>
+						{% if selection.user.buyer.type == constant('App\\Buyer::TYPE_AGENCY')%}
+						Agence :
+						{% else %}
+						Annonceur :
+						{% endif %}
+					</b>
+					<a href="{{ route('admin.buyer.show', selection.user.buyer.id) }}">
+					 {{ selection.user.buyer.name }}
+				 	</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Informations sur le support</h2>
+		<hr>
+		<div class="col-md-2">
+			<img class="img-responsive" src="{{ selection.adPlacement.media.cover_img }}" alt="Couverture du support {{ selection.adPlacement.media.name }}" />
+		</div>
+		<div class="col-md-4">
+			<ul>
+				<li><b>Support : </b>{{ selection.adPlacement.media.support_type.support.name }}</li>
+				<li><b>Nom du support : </b>{{ selection.adPlacement.media.name }}</li>
+				<li><b>Type : </b>{{ selection.adPlacement.media.support_type.name }}</li>
+				<li><b>Famille : </b>{{ selection.adPlacement.media.support_type.category.name }}</li>
+				<li><b>Thématique : </b>{{ selection.adPlacement.media.theme.name }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<ul>
+				<li><b>Périodicité : </b>{{ selection.adPlacement.media.frequency }}</li>
+				<li><b>Diffusion : </b>{{ selection.adPlacement.media.broadcasting_area.name }}</li>
+				<li><b>Cible : </b>{{ selection.adPlacement.media.target.name }}</li>
+				{% if selection.adPlacement.media.support_type.support.name|lower == 'presse' %}
+				<li><b>Diffusion France Payée : </b> Tirage a {{ selection.adPlacement.media.datas }} exemplaires</li>
+				{% elseif selection.adPlacement.media.support_type.support.name|lower == 'affichage' %}
+				<li><b>Diffusion France Payée : </b> Tirage a {{ selection.adPlacement.media.datas }} panneaux</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	  	<h1>Informations sur l'emplacement</h1>
+	  	<hr>
+
+	  	<div class="col-md-4">
+			<ul>
+				{% if selection.adPlacement.media.support_type.support.name|lower == 'presse' %}
+		        <li><b>Numéro de l'édition : </b>n°{{ selection.adPlacement.edition }}</li>
+				{% endif %}
+				<li><b>Format : </b>{{ selection.adPlacement.format }}</li>
+				<li><b>Zone de l'emplacement : </b>{{ selection.adPlacement.position }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Mode de vente : </b>{{ selection.adPlacement.type }}</li>
+				<li><b>Prix fixe : </b>{{ selection.adPlacement.price }}&euro;</li>
+				<li><b>Seuil de prix si offre : </b>{{ selection.adPlacement.minimum_price }}&euro;</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Date de début de la vente : </b>{{ selection.adPlacement.starting_at_fr }}</li>
+				<li><b>Date de fin de la vente : </b>{{ selection.adPlacement.ending_at_fr }}</li>
+				<li><b>Date de remise des éléments techniques : </b>{{ selection.adPlacement.technical_deadline_date }}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

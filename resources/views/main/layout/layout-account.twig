@@ -1,0 +1,23 @@
+{% set title = "Mon compte" %}
+{% set context="account" %}
+
+{% extends 'main.layout.layout' %}
+
+{% import 'main.partials.nav' as nav %}
+
+{% block content %}
+<main>
+	<div class="container-fluid">
+		<div class="row account-page-container">
+			<div class="aside-navigation-container">
+				<ul class="nav nav-pills nav-stacked aside-navigation">
+					{{ nav.nav_account(accountContext) }}
+				</ul>
+			</div>
+			<div class="account-content">
+	      		{% block accountContent %} {% endblock %}
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

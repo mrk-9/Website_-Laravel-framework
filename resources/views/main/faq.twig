@@ -1,0 +1,251 @@
+{% extends 'main.layout.layout' %}
+{% set title = 'FAQ' %}
+{% set context='faq' %}
+
+{% import 'main.partials.nav' as nav %}
+
+{% block content %}
+<main>
+	<div class="row faq-page-container">
+		<div class="aside-navigation-container">
+			<ul class="nav nav-pills nav-stacked aside-navigation faq-affix" id="faqAffix">
+				{{ nav.nav_faq(context) }}
+			</ul>
+		</div>
+		<div class="faq-content">
+			<h1 class="h2 faq-title">Foire aux questions</h1>
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle1">
+					Que faites-vous exactement ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					MEDIA RESA est une plateforme permettant de faciliter la mise en relation entre Vendeurs et Acheteurs pour la commande d'espace publicitaire sur tout type de supports.
+					MEDIA RESA propose des services d’accompagnement à la réalisation et à la création publicitaire selon les Services souscrits par l’Acheteur.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle2">
+					Je n’ai pas déterminé mes besoins en communications.
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Rien ne vous empêche de vous inscrire gratuitement dans un premier temps, afin de renseigner vos critères de profil d’entreprise, et d’être alerté directement par mail des offres d’espaces publicitaires disponibles correspondant à votre secteur d’activité.
+					Cela vous laisse ainsi le choix d’y répondre.  Nous mettons également à votre disposition une assistance téléphonique que vous pouvez joindre au 01 825 220 35 pour vous inscrire, et vous accompagner dans vos réservations d’espaces publicitaires.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle3">
+					Combien cela coûte ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					(l’inscription à) Media Resa est gratuite et permet de recevoir des offres d’achats d’espaces publicitaires avantageuses sans engagements.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle4">
+					J’ai déjà mandaté une société qui réalise mes achats d’espaces publicitaires.
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Media Resa propose des espaces publicitaires de dernière minute et donc permet de faire des économies et vous concerne directement. Même votre mandataire (peut utiliser la plateforme MR) et vous fera faire des économies grâce à la plate-forme Media Resa.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle5">
+					Quels titres (presse) sont représentés ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Nous disposons d’une liste de supports ciblés selon votre secteur activité et votre région. Nous vous proposons de la presse nationale, presse régionale, de la presse payante grand public, de la presse professionnelle, ainsi que magazine de marque ou annuaire et guide.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle6">
+					Comment réaliser la publicité ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Média Resa vous propose l’assistance d’une équipe vous permettant d’adapter, de modifier ou de créer votre propre message publicitaire répondant aux normes du cahier des charges du support que vous aurez retenu.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle7">
+					Combien coute ce service supplémentaire ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Tout dépendra de vos besoins. Nous disposons de 3 forfaits permettant de répondre à vos problématiques en restant compétitif.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle8">
+					Quel est exactement l‘intérêt de passer par Média Résa plutôt que d’accepter les offres directement des supports ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					L’intérêt est d’avoir une visibilité d’ensemble des disponibilités en bouclages sur le marché de la presse et de l’affichage. De plus Media Resa a la capacité de prendre en charge immédiatement vos besoins techniques.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle9">
+					Quel type de réseau d’affichage ou (de format) proposez-vous ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Nous vous proposons tout type d’affichage.
+					Si besoin : affichage numérique, affichage papier, affichage mobilier urbain (abri de bus), et même le 4x3.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle10">
+					Pourquoi votre proposition serait-elle plus économique qu’une autre ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Votre intérêt est de faire des économies, car nous ne vous proposons gratuitement que des offres de bouclage en fonction de votre secteur d’activité.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle11">
+					Quel est le délai nécessaire entre la décision d’achat de l’espace publicitaire et la fourniture du bon à tirer ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Le délai est fixé en fonction du forfait choisi au moment de votre achat. Le temps alloué est différent en fonction de la qualité des éléments fournis.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle12">
+					Il y a-t-il un barème dégressif après quelques achats d’espaces et si oui, au bout de combien d’achats ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Les tarifs affichés sont les tarifs fixés par la Régie Publicitaire elle-même et comprend déjà d’une remise supérieure et intéressante.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle13">
+					Quel genre de documents doit-on fournir pour l’impression ? Format/HD/ logos ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Nous acceptons tous formats : jpg, pdf, ai, psd en qualité supérieur (300 dpi)
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle14">
+					Un bon à tirer nous  est-il soumis avant impression ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Nous fournissons 2 allers retours de corrections inclus dans le forfait choisi pour vos besoins techniques. Pour validation nous vous enverrons un PDF HD (comprenant traits de coupe et hirondelles) que vous serez libre d’imprimer pour validation finale.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle15">
+					En cas de multi-réservations sur une période donnée, avec une même publicité, faut-il fournir autant de documents que de supports choisis où conservez vous une banque de données ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Bien entendu si nous disposons déjà des fichiers il ne sera pas utile de les renvoyer.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle16">
+					Si des  modifications minimes sont à faire sur notre publicité (changement de packaging, couleur du logo..) quel serait le coût de ces modifications et pourriez vous vous en charger ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Nous disposons de forfaits adaptés à toutes situations : Forfait adaptation avec fichier natif ou pdf comprenant des modifications, forfait création.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle17">
+					Gérez vous la presse écrite ou votre activité couvre-t-elle l’affichage publique, la presse numérique ou autre ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					A son lancement Media Resa couvrira les activités Presse et affichage.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle18">
+					Un client inscrit chez Media Résa reçoit-il toutes les offres existantes ou seulement celles qui concernent son secteur d’activité ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Le client aura la possibilité de retrouver des offres en fonction des réglages effectués sur la plateforme pour paramétrer les alertes mail qu’il recevra. Le client pourra effectuer toutes les recherches possibles au travers du moteur de recherche de la plateforme Media Resa.
+				</p>
+			</div>
+
+			<div class="title-toggler">
+				<h3 class="h4 faq-title" id="faqtitle19">
+					Quels sont les tarifs appliqués et comment et par qui sont-ils décidés ?
+				</h3>
+				<div class="toggler-arrow icon-simply-up"></div>
+			</div>
+			<div class="toggle collapse">
+				<p>
+					Les tarifs de bouclages sont fixés au cas par cas par la Régie Publicitaire, les tarifs du support technique sont fixes et par forfaits.
+				</p>
+			</div>
+		</div>
+	</div>
+</main>
+
+{% endblock %}

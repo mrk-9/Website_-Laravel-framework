@@ -1,0 +1,130 @@
+{% extends "ad_network.layout" %}
+{% set title = "Inscription régie" %}
+
+{% block content %}
+	<h1 class="text-center">{{title}}</h1>
+	<div class="container">
+		<form action="{{ route('ad-network.auth.register.post') }}" method="post" class="ajax" data-formajax-success="redirect({{ route('ad-network.home') }}#signup_confirmation)">
+			<div class="alert alert-danger error hidden"></div>
+
+			<div class="row">
+				<h2>Informations sur la régie</h2>
+				<hr>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkName">Nom de votre régie</label>
+					<input type="text" name="name" id="CreateAdNetworkName" class="form-control">
+				</div>
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkCompanyType">Type de société</label>
+					<select name="company_type" class="form-control" id="CreateAdNetworkCompanyType">
+						<option value="SARL">SARL</option>
+						<option value="SA">SA</option>
+						<option value="EURL">EURL</option>
+						<option value="SNC">SNC</option>
+						<option value="SASU">SASU</option>
+					</select>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkCorporateName">Raison sociale</label>
+					<input type="text" name="corporate_name" id="CreateAdNetworkCorporateName" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkCorporateEmail">E-mail</label>
+					<input type="text" name="email" id="CreatedNetworkCorporateEmail" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-6">
+					<label for="CreateAdNetworkCorporatePhone">Téléphone</label>
+					<input type="text" name="phone" id="CreateAdNetworkCorporatePhone" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-6">
+					<label for="CreateAdNetworkCorporateAddress">Adresse</label>
+					<input type="text" name="address" id="CreateAdNetworkCorporateAddress" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-6">
+					<label for="CreateAdNetworkCorporateAddress2">Adresse secondaire</label>
+					<input type="text" name="address2" id="CreateAdNetworkCorporateAddress2" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkCorporateZipcode">Code postal</label>
+					<input type="text" name="zipcode" id="CreateAdNetworkCorporateZipcode" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkCorporateCity">Ville</label>
+					<input type="text" name="city" id="CreateAdNetworkCorporateCity" class="form-control"/>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkCorporateSupports">Nombre de supports (indicatif)</label>
+					<input type="text" name="supports" id="CreateAdNetworkCorporateSupports" class="form-control"/>
+				</div>
+			</div>
+
+			<div class="row">
+				<h2>Contact référent</h2>
+				<hr>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserTitle">Civilité</label>
+					<select name="title" id="CreateAdNetworkUserTitle" class="form-control">
+						<option value="Mme.">Mlle.</option>
+						<option value="Mme.">Mme.</option>
+						<option value="M.">M.</option>
+					</select>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserFamilyName">Nom</label>
+					<input type="text" name="family_name" id="CreateAdNetworkUserFamilyName" class="form-control">
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserName">Prénom</label>
+					<input type="text" name="referent_name" id="CreateAdNetworkUserName" class="form-control">
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserPosition">Fonction</label>
+					<input type="text" name="position" id="CreateAdNetworkUserPosition" class="form-control">
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserEmail">E-mail</label>
+					<input type="text" name="referent_email" id="CreateAdNetworkUserEmail" class="form-control" value="{{ email }}">
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserPhone">Téléphone</label>
+					<input type="text" name="referent_phone" id="CreateAdNetworkUserPhone" class="form-control">
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserPassword">Mot de passe</label>
+					<input type="password" name="password" id="CreateAdNetworkUserPassword" class="form-control">
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="CreateAdNetworkUserPasswordConfirmation">Vérification mot de passe</label>
+					<input type="password" name="password_confirmation" id="CreateAdNetworkUserPasswordConfirmation" class="form-control">
+				</div>
+			</div>
+
+			<input type="checkbox" id="signup_cgv_validation"
+				   name="signup_cgv_validation" class="form-control" ng-model="signpCgvValidation">
+			<label for="signup_cgv_validation">j'ai lu et j'accepte les <a target="_blank" href="{{route('main.cgv')}}">conditions générales de vente.</a></label>
+
+			<div class="row">
+				<div class="col-md-12">
+					<button ng-disabled="!signpCgvValidation" class="btn btn-primary pull-right" type="submit">Valider</button>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}

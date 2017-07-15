@@ -1,0 +1,30 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ user.name }}, votre réservation a été prise en compte</h2>
+                    <p class="content">
+                        {{ user.name }} votre réservation à prix fixe sur l'offre nommée {{ ad_placement.name }}
+                        concernant le support {{ media.name }} a bien été prise en compte.
+                    </p>
+                    <p class="content">
+                        La réservation est à hauteur de {{ ad_placement.price }} &euro; HT. Vous pouvez consulter vos
+                        demandes en accédant à votre compte via le bouton ci-dessous.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.account.home') }}" title="Mon compte" class="btn btn-primary">Mon compte</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

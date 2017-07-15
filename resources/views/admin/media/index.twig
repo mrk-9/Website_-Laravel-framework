@@ -1,0 +1,273 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des médias" %}
+{% set context = 'media' %}
+
+{% block content %}
+<div class="row" data-ng-controller="MediaCtrl">
+	<div class="col-md-12">
+		<h1>Liste des médias <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateMediaModal"><i class="fa fa-plus"></i></button></h1>
+
+		<table class="table table-hover" data-st-table="MediaList" st-pipe="refresh" id="MediaList">
+			<thead>
+				<tr>
+					<th data-st-sort="media.name">Média</th>
+					<th data-st-sort="ad_network.name">Régie</th>
+					<th data-st-sort="broadcasting_area.name">Zone de diffusion</th>
+					<th data-st-sort="support.name">Support</th>
+					<th data-st-sort="category.name">Catégorie</th>
+					<th data-st-sort="theme.name">Thème</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="media__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="ad_network__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="broadcasting_area__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="support__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="category__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="theme__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="media in list">
+					<td>[[ media.name ]]</td>
+					<td>[[ media.ad_network.name ]]</td>
+					<td>[[ media.broadcasting_area.name ]]</td>
+					<td>[[ media.support.name ]]</td>
+					<td class="text-center">
+						<span ng-if="media.category">[[ media.category.name ]]</span>
+						<span ng-if="!media.category">--</span>
+					</td>
+					<td class="text-center">
+						<span ng-if="media.theme">[[ media.theme.name ]]</span>
+						<span ng-if="!media.theme">--</span>
+					<td>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateMediaModal', media)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteMediaModal', media)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="7" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="7" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="CreateMediaModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter un média</h4>
+				</div>
+
+				<form action="{{ route('admin.media.store') }}" class="ajax" data-referent-table="MediaList">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label for="CreateMediaName">Nom</label>
+								<input type="text" name="name" id="CreateMediaName" class="form-control">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaFrequency">Périodicité</label>
+								<select name="frequency_id" id="CreateMediaFrequency" class="form-control">
+									{% for frequency in frequencies %}
+									<option value="{{frequency.id}}">{{ frequency.name }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="CreateMediaDatas">Diffusion france payée</label>
+								<textarea name="datas" id="CreateMediaDatas" class="form-control"></textarea>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="CreateMediaAdNetwork">Régie</label>
+								<select name="ad_network_id" id="CreateMediaAdNetwork" class="select2 form-control autocomplete-ad-network"></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaBroadcastingArea">Zone de diffusion</label>
+								<select name="broadcasting_area_id" id="CreateMediaBroadcastingArea" class="select2 autocomplete-broadcasting-area"></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaSupport">Support</label>
+								<select name="support_id" id="CreateMediaSupport" class="select2 autocomplete-support"></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaCategory">Catégorie</label>
+								<select name="category_id" id="CreateMediaCategory" class="select2 autocomplete-category" data-support-id=""></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="CreateMediaTheme">Thème</label>
+								<select name="theme_id" id="CreateMediaTheme" class="select2 autocomplete-theme" data-support-id=""></select>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="CreateMediaTarget">Cible</label>
+								<select name="target_id[]" id="CreateMediaTarget" class="select2 autocomplete-target"></select>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="UpdateMediaModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour un média</h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+						<form action="{{ route('admin.media.update', ['{id}']) }}" class="ajax" data-referent-table="MediaList" id="UpdateMediaForm">
+							<input type="hidden" name="_method" value="put">
+							<div class="alert alert-danger hidden"></div>
+							<div class="form-group col-md-12">
+								<label for="UpdateMediaName">Nom</label>
+								<input type="text" name="name" id="UpdateMediaName" class="form-control" ng-value="current.name">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="UpdateMediaFrequency">Périodicité</label>
+								<select name="frequency_id" id="UpdateMediaFrequency" class="form-control">
+									{% for frequency in frequencies %}
+									<option ng-selected="current.frequency_id == '{{ frequency.id }}'" value="{{frequency.id}}">{{ frequency.name }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="UpdateMediaDatas">Diffusion france payée</label>
+								<textarea name="datas" id="UpdateMediaDatas" class="form-control">[[ current.datas ]]</textarea>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="UpdateMediaAdNetwork">Régie</label>
+								<select name="ad_network_id" id="UpdateMediaAdNetwork" class="select2 form-control autocomplete-ad-network-update">
+									<option ng-value="current.ad_network_id">[[ current.ad_network.name ]]</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="UpdateMediaBroadcastingArea">Zone de diffusion</label>
+								<select name="broadcasting_area_id" id="UpdateMediaBroadcastingArea" class="select2 autocomplete-broadcasting-area-update" data-broadcasting-area-id="[[ current.broadcasting_area_id ]]"></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="UpdateMediaSupport">Support</label>
+								<select name="support_id" id="UpdateMediaSupport" class="select2 autocomplete-support-update" data-support-id="[[ current.support.id ]]">
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="UpdateMediaCategory">Catégorie</label>
+								<select name="category_id" id="UpdateMediaCategory" class="select2 autocomplete-category-update" data-support-id="[[ current.support.id ]]" data-category-id="[[ current.category_id ]]"></select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="UpdateMediaTheme">Thème</label>
+								<select name="theme_id" id="UpdateMediaTheme" class="select2 autocomplete-theme-update" data-support-id="[[ current.support.id ]]" data-theme-id="[[ current.theme_id ]]"></select>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="UpdateMediaTarget">Cible</label>
+								<select name="target_id[]" id="UpdateMediaTarget"sws class="select2 autocomplete-target-update" data-media-id="[[ current.id ]]"></select>
+							</div>
+						</form>
+					</div>
+					<div class="row">
+						<form action="{{ route('admin.media.cover', ['{id}']) }}" method="post" class="ajax"
+							  id="UpdateMediaForm">
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<h4>Mettre à jour la couverture</h4>
+									<div class="alert alert-danger error hidden"></div>
+									<p>Image au format .png ou .jpg de moins d'1Mo.</p>
+									<input type="file" name="cover" id="cover" class="input-file">
+									<label for="cover" class="btn btn-tertiary js-labelFile">
+										<i class="icon fa fa-check"></i>
+										<span class="js-fileName">Choisir une image</span>
+									</label>
+								</div>
+
+								<button type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" class="btn btn-primary btn-block">Enregistrer</button>
+								<hr>
+							</div>
+						</form>
+						<form action="{{ route('admin.media.technical-doc', ['{id}']) }}" method="post" class="ajax"
+							  id="UpdateMediaForm">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h4>Mettre à jour la documentation technique</h4>
+									<div class="alert alert-danger error hidden"></div>
+									<p>Fichier au format .pdf de moins d'5Mo.</p>
+									<input type="file" name="technical_doc" id="technical_doc" class="input-file">
+									<label for="technical_doc" class="btn btn-tertiary js-labelFile">
+										<i class="icon fa fa-check"></i>
+										<span class="js-fileName">Choisir un fichier</span>
+									</label>
+								</div>
+
+								<button type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" class="btn btn-primary btn-block">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" form="UpdateMediaForm" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteMediaModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer un média</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer ce média?</p>
+				</div>
+				<form action="{{ route('admin.media.destroy', ['{id}']) }}" class="ajax" data-referent-table="MediaList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

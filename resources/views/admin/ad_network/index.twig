@@ -1,0 +1,379 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des régies" %}
+{% set context = 'ad_network' %}
+
+{% block content %}
+<div class="row" data-ng-controller="AdNetworkCtrl">
+	<div class="col-md-12">
+		<h1>
+			Liste des régies
+			<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateAdNetworkModal">
+				<i class="fa fa-plus"></i>
+			</button>
+		</h1>
+
+		<table class="table table-hover" data-st-table="AdNetworkList" st-pipe="refresh" id="AdNetworkList">
+			<thead>
+				<tr>
+					<th data-st-sort="ad_network.name">Nom</th>
+					<th>Référent</th>
+					<th data-st-sort="ad_network.email">Email</th>
+					<th data-st-sort="ad_network.status">Statut</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th><input st-search="name" class="form-control" placeholder="Recherche..." type="text"/></th>
+					<th></th>
+					<th><input st-search="email" class="form-control" placeholder="Recherche..." type="text"/></th>
+					<th>
+						<select name="status" st-search="ad_network__status" st-input-event="change" id="AdNetworkList" class="form-control">
+							<option value=""></option>
+							<option value="{{ constant('App\\AdNetwork::STATUS_PENDING') }}">En attente</option>
+							<option value="{{ constant('App\\AdNetwork::STATUS_VALID') }}">Validé</option>
+						</select>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="ad_network in list" data-ng-dblclick="">
+					<td>[[ ad_network.name ]]</td>
+					<td>[[ ad_network.referent.name ]] [[ ad_network.referent.family_name ]]</td>
+					<td>[[ ad_network.email ]]</td>
+					<td class="text-center">
+						<i data-ng-show="ad_network.status == '{{ constant('App\\AdNetwork::STATUS_PENDING')}}'" class="fa fa-hourglass-half fa-black"></i>
+						<i data-ng-show="ad_network.status == '{{ constant('App\\AdNetwork::STATUS_VALID')}}'" class="fa fa-check fa-black"></i>
+					</td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="go('{{ route('admin.ad-network.index') }}/' + list[$index].id)">
+							<i class="fa fa-eye"></i>
+						</button>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateAdNetworkModal', ad_network)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteAdNetworkModal', ad_network)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="5" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="5" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="UpdateAdNetworkModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour une régie</h4>
+				</div>
+				<form action="{{ route('admin.ad-network.update', ['{id}']) }}" class="ajax" data-referent-table="AdNetworkList">
+					<div class="modal-body col-md-12">
+						<div class="alert alert-danger hidden"></div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkCorporateName">Nom de marque</label>
+							<input type="text"
+								name="corporate_name"
+								id="UpdateAdNetworkCorporateName"
+								class="form-control"
+								data-ng-value="current.corporate_name">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkCompanyType">Type de société</label>
+							<select name="company_type" class="form-control" id="UpdateAdNetworkCompanyType">
+								<option value="SARL" data-ng-selected="current.company_type == SARL">
+									SARL
+								</option>
+								<option value="SA" data-ng-selected="current.company_type == SA">
+									SA
+								</option>
+								<option value="EURL" data-ng-selected="current.company_type == EURL">
+									EURL
+								</option>
+								<option value="SNC" data-ng-selected="current.company_type == SNC">
+									SNC
+								</option>
+								<option value="SASU" data-ng-selected="current.company_type == SASU">
+									SASU
+								</option>
+							</select>
+						</div>
+
+
+						<div class="form-group col-md-12">
+							<label for="UpdateAdNetworkName">Raison sociale</label>
+							<input type="text"
+								name="name"
+								id="UpdateAdNetworkName"
+								class="form-control"
+								data-ng-value="current.name">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="UpdateAdNetworkAddress">Adresse</label>
+							<input type="text" name="address"
+								id="UpdateAdNetworkAddress"
+								class="form-control"
+								data-ng-value="current.address">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="UpdateAdNetworkAddress2">Adresse secondaire</label>
+							<input type="text" name="address2"
+								id="UpdateAdNetworkAddress2"
+								class="form-control"
+								data-ng-value="current.address2">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkZipcode">Code postal</label>
+							<input type="text" name="zipcode"
+								id="UpdateAdNetworkZipcode"
+								class="form-control"
+								data-ng-value="current.zipcode">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkCity">Ville</label>
+							<input type="text" name="city"
+								id="UpdateAdNetworkCity"
+								class="form-control"
+								data-ng-value="current.city">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkPhone">Téléphone</label>
+							<input type="text" name="phone"
+								id="UpdateAdNetworkPhone"
+								class="form-control"
+								data-ng-value="current.phone">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkEmail">Email</label>
+							<input type="text" name="email"
+								id="UpdateAdNetworkEmail"
+								class="form-control"
+								data-ng-value="current.email">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkStatus">Statut</label>
+							<select name="status" class="form-control" id="UpdateAdNetworkStatus">
+								<option value="pending"
+									data-ng-selected="current.status == '{{ constant('App\\AdNetwork::STATUS_PENDING')}}'">
+									En attente
+								</option>
+								<option value="valid"
+									data-ng-selected="current.status == '{{ constant('App\\AdNetwork::STATUS_VALID')}}'">
+									Validé
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkSupports">Supports</label>
+							<input type="text" name="supports"
+								id="UpdateAdNetworkSupports"
+								class="form-control"
+								data-ng-value="current.supports">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="UpdateAdNetworkDepositPercent">% accompte</label>
+							<input type="number" min="0" max="100" step="0.1" name="deposit_percent"
+								   id="UpdateAdNetworkDepositPercent"
+								   class="form-control"
+								   data-ng-value="current.deposit_percent">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="UpdateAdNetworkUser">Référent</label>
+							<select name="ad_network_user_id" id="UpdateAdNetworkUser" data-ad-network-id="[[ current.id ]]" class="select2 autocomplete-ad-network-user">
+								<option ng-if="current.referent" value="[[ current.referent.id ]]">[[ current.referent.name ]] [[ current.referent.family_name ]] - [[ current.referent.email ]]</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit"
+							class="btn btn-primary"
+							data-loading-text="<i class='fa fa-spin fa-spinner'></i>"
+							data-done-text="Enregistré !">
+							Enregistrer
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="CreateAdNetworkModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter une régie</h4>
+				</div>
+				<form action="{{ route('admin.ad-network.store') }}" class="ajax" data-referent-table="AdNetworkList">
+					<div class="modal-body col-md-12">
+						<div class="alert alert-danger hidden"></div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkCorporateName">Nom de marque</label>
+							<input type="text"
+								name="corporate_name"
+								id="CreateAdNetworkCorporateName"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkCompanyType">Type de société</label>
+							<select name="company_type" class="form-control" id="CreateAdNetworkCompanyType">
+								<option value="SARL" data-ng-selected="current.company_type == SARL">
+									SARL
+								</option>
+								<option value="SA" data-ng-selected="current.company_type == SA">
+									SA
+								</option>
+								<option value="EURL" data-ng-selected="current.company_type == EURL">
+									EURL
+								</option>
+								<option value="SNC" data-ng-selected="current.company_type == SNC">
+									SNC
+								</option>
+								<option value="SASU" data-ng-selected="current.company_type == SASU">
+									SASU
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="CreateAdNetworkName">Raison sociale</label>
+							<input type="text"
+								name="name"
+								id="CreateAdNetworkName"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="CreateAdNetworkAddress">Adresse</label>
+							<input type="text" name="address"
+								id="CreateAdNetworkAddress"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="CreateAdNetworkAddress2">Adresse secondaire</label>
+							<input type="text" name="address2"
+								id="CreateAdNetworkAddress2"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkZipcode">Code postal</label>
+							<input type="text" name="zipcode"
+								id="CreateAdNetworkZipcode"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkCity">Ville</label>
+							<input type="text" name="city"
+								id="CreateAdNetworkCity"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkPhone">Téléphone</label>
+							<input type="text" name="phone"
+								id="CreateAdNetworkPhone"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkEmail">Email</label>
+							<input type="text" name="email"
+								id="CreateAdNetworkEmail"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkStatus">Statut</label>
+							<select name="status" class="form-control" id="CreateAdNetworkStatus">
+								<option value="pending" selected="selected">
+									En attente
+								</option>
+								<option value="valid">
+									Validé
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="CreateAdNetworkSupports">Supports</label>
+							<input type="text" name="supports"
+								id="CreateAdNetworkSupports"
+								class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="CreateAdNetworkUser">Référent</label>
+							<select name="ad_network_user_id" id="CreateAdNetworkUser"
+								class="select2 autocomplete-ad-network-user">
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit"
+							class="btn btn-primary"
+							data-loading-text="<i class='fa fa-spin fa-spinner'></i>"
+							data-done-text="Enregistré !">
+							Enregistrer
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteAdNetworkModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer une régie</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer la régie [[current.name]]?</p>
+				</div>
+				<form action="{{ route('admin.ad-network.destroy', ['{id}']) }}" class="ajax" data-referent-table="AdNetworkList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

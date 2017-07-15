@@ -1,0 +1,71 @@
+// Modals
+//-------------------------
+
+.modal {
+	background: $white;
+	.modal-content {
+		box-shadow: none;
+		border: none;
+		.modal-header {
+			border-bottom: none;
+			padding-top: 15px;
+			.close {
+				color: $light-gray;
+				opacity: 1;
+				font-size: 18px;
+				position: absolute;
+				top: 0;
+				right: 15px;
+				border-radius: 50%;
+			    height: 30px;
+			    width: 30px;
+			    line-height: 31px;
+			    text-align: center;
+			    border: 1px solid $light-gray;
+			}
+			.h2 {
+				text-transform: lowercase;
+				&:first-letter {
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+	.modal-title {
+		margin-bottom: 30px;
+	}
+	.modal-footer {
+		border-top: none;
+	}
+	.modal-container {
+		max-width: 500px;
+		margin: auto;
+		.modal-sentence {
+			text-align: center;
+			margin-top: 10px;
+			color: $dark-gray;
+			font-family: "Noto Sans";
+			font-size: 12px;
+		}
+		.modal-button {
+			display: block;
+			margin: auto;
+			margin-top: 30px;
+		}
+		&.modal-share-container {
+			padding-top: 30px;
+		}
+		.contact-part {
+			@include make-sm-column(6);
+		}
+		.big-contact-part {
+			padding: 0 15px;
+		}
+		.modal-contact-contact-form {
+			padding-top: 30px;
+		}
+		label {
+			display: inline-block;
+		}
+	}
+}

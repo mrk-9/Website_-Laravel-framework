@@ -1,0 +1,46 @@
+<div class="form-credit-card">
+
+	<div class="row">
+
+		<div class="form-credit-card_part-name">
+
+			<div class="form-group">
+				<label>Nom du porteur de carte</label>
+				<input type="text" data-stripe="name" class="form-control input-credit-card" {% if credit_card is not null %}placeholder="{{ credit_card.name }}" {% endif %} />
+			</div>
+
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="form-credit-card_part-number">
+
+			<div class="form-group">
+				<label>Numéro de carte</label>
+				<input type="text" data-stripe="number" class="form-control input-credit-card" {% if credit_card is not null %}placeholder="XXXX XXXX XXXX {{ credit_card.last4 }}" {% endif %} />
+			</div>
+
+		</div>
+		<div class="form-credit-card_part-cvc">
+			<div class="form-group">
+				<label>CVC <span class="cvc-picto" data-toggle="tooltip" data-placement="right" title="Le cryptogramme visuel désigne les trois derniers chiffres présents au dos de votre carte de paiement.">?</span></label>
+				<input type="text" data-stripe="cvc" class="form-control input-credit-card" {% if credit_card is not null %}placeholder="XXX" {% endif %} />
+			</div>
+		</div>
+		<div class="form-credit-card_part-expiration">
+			<div class="form-group">
+				<label>Date d'expiration</label>
+				<div class="form-credit-card_part-expiration_month">
+					<input type="text" data-stripe="exp-month" class="form-control input-credit-card" {% if credit_card is not null %}placeholder="{{ credit_card.exp_month }}" {% endif %} />
+				</div>
+				<div class="form-credit-card_part-expiration_separator">
+					<span> / </span>
+				</div>
+				<div class="form-credit-card_part-expiration_year">
+					<input type="text" data-stripe="exp-year" class="form-control input-credit-card" {% if credit_card is not null %}placeholder="{{ credit_card.exp_year }}" {% endif %} />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

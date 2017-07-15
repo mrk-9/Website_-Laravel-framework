@@ -1,0 +1,30 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ user.name }}, vous avez un nouveau prélèvement</h2>
+                    <p class="content">
+                        Le prélèvement à hauteur de {{ price }} &euro; TTC a été réalisé pour
+                        l'emplacement {{ ad_placement.name }} concernant le support {{ media.name }}.
+                    </p>
+                    <p class="content">
+                        Vous pouvez dès à présent consulter vos factures en cliquant sur le bouton ci-dessous.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.account.invoices') }}" title="Voir factures" class="btn btn-primary">Voir
+                    factures</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

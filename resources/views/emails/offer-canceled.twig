@@ -1,0 +1,19 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ referent.name }}, une offre a été annulée</h2>
+                    <p class="content">
+                        {{ buyer.name }} {{ buyer.family_name }} a annulé son offre pour
+                        l'emplacement {{ ad_placement.name }} concernant le support {{ media.name }}.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

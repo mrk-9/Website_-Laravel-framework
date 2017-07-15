@@ -1,0 +1,70 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close">
+        <span aria-hidden="true"><i class="icon icon-cross"></i></span>
+        <span class="sr-only">Fermer</span>
+    </button>
+    <h1 class="h2 modal-title">Contactez-nous !</h1>
+</div>
+
+<div class="modal-body">
+
+    <form name="contactForm" ng-submit="send()" promise-btn>
+        <div class="modal-container">
+            <p class=" text-center">
+                Vous souhaitez contacter notre équipe ? Contactez-nous par téléphone <strong>(01 825 220 35)</strong> ou remplissez le formulaire ci-dessous
+            </p>
+                <div class="row modal-contact-contact-form">
+                    <div ng-if="msgSend" class="alert alert-success" role="alert">
+                        <strong>Votre message a bien été envoyé</strong>
+                    </div>
+                    <div class="contact-part">
+                        <div class="form-group">
+                            <label for="contact_lastname">Nom *</label>
+                            <input type="text" class="form-control" id="contact_lastname" name="contact_lastname" placeholder="Votre nom" ng-model="contact.lastname" required>
+                        </div>
+                    </div>
+                    <div class="contact-part">
+                        <div class="form-group">
+                            <label for="contact_firstname">Prénom *</label>
+                            <input type="text" class="form-control" id="contact_firstname" name="contact_firstname" placeholder="Votre prénom" ng-model="contact.firstname" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="contact-part">
+                        <div class="form-group">
+                            <label for="contact_email">Email *</label>
+                            <input type="email" class="form-control" id="contact_email" name="contact_email" placeholder="Votre email" ng-model="contact.email" required>
+                        </div>
+                    </div>
+                    <div class="contact-part">
+                        <div class="form-group">
+                            <label for="contact_phone">Téléphone</label>
+                            <input type="text" class="form-control" id="contact_phone" name="contact_phone" placeholder="Votre numéro de téléphone" ng-model="contact.phone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="contact-part">
+                        <div class="form-group ">
+                            <label>Type de compte <span class="subtitle">(facultatif)</span></label><br>
+                            <select name="buyer_type" class="form-control " ng-model="contact.account_type">
+                                <option value=""></option>
+                                <option value="agency">Agence</option>
+                                <option value="advertiser">Annonceur</option>
+                                <option value="ad_network">Régie</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group big-contact-part">
+                        <label for="contact_message">Message *</label>
+                        <textarea name="contact_message" id="contact_message" cols="30" rows="5" placeholder="Votre message" class="form-control" ng-model="contact.note" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" ng-disabled="contactForm.$invalid" class="btn btn-primary modal-button">Envoyer<i class="icon-button icon-simply-right"></i></button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,114 @@
+{% extends "admin.layout" %}
+
+{% set title = "Acquisition support " ~ acquisition.adPlacement.media_name ~ " " ~ acquisition.adPlacement.name %}
+{% set context = "acquisition" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			Acquisition support {{acquisition.adPlacement.media.name}} - {{ acquisition.adPlacement.name }}
+		</h1>
+	</div>
+	<div class="col-md-12">
+		<h2>Informations sur l'acquisition</h2>
+		<hr>
+
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Client : </b>
+					{{ acquisition.user.name }} {{ acquisition.user.family_name }}
+				</li>
+				<li>
+					<b>
+						{% if acquisition.user.buyer.type == constant('App\\Buyer::TYPE_AGENCY')%}
+						Agence :
+						{% else %}
+						Annonceur :
+						{% endif %}
+					</b>
+					<a href="{{ route('admin.buyer.show', acquisition.user.buyer.id) }}">
+					 {{ acquisition.user.buyer.name }}
+				 	</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Prix HT : </b>{{ acquisition.total }}&euro;</li>
+				<li>
+					<b>Statut paiement : </b>
+					{% if acquisition.charge_status == constant('App\\Acquisition::CHARGE_SUCCESS') %}
+					Payé (<i class="fa fa-download"></i> <a href="/invoices/{{ acquisition.invoice.name }}" target="_blank">voir la facture</a>)
+					{% else %}
+					En attente
+					{% endif %}
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Informations sur le support</h2>
+		<hr>
+		<div class="col-md-2">
+			<img class="img-responsive" src="{{ acquisition.adPlacement.media.cover_img }}" alt="Couverture du support {{ acquisition.adPlacement.media.name }}" />
+		</div>
+		<div class="col-md-4">
+			<ul>
+				<li><b>Support : </b>{{ acquisition.adPlacement.media.supportType.support.name }}</li>
+				<li><b>Nom du support : </b>{{ acquisition.adPlacement.media.name }}</li>
+				<li><b>Type : </b>{{ acquisition.adPlacement.media.supportType.name }}</li>
+				<li><b>Famille : </b>{{ acquisition.adPlacement.media.supportType.category.name }}</li>
+				<li><b>Thématique : </b>{{ acquisition.adPlacement.media.theme.name }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<ul>
+				<li><b>Périodicité : </b>{{ acquisition.adPlacement.media.frequency }}</li>
+				<li><b>Diffusion : </b>{{ acquisition.adPlacement.media.broadcastingArea.name }}</li>
+				<li><b>Cible : </b>{{ acquisition.adPlacement.media.target.name }}</li>
+				{% if acquisition.adPlacement.media.supportType.support.name|lower == 'presse' %}
+				<li><b>Diffusion France Payée : </b> Tirage a {{ acquisition.adPlacement.media.datas }} exemplaires</li>
+				{% elseif acquisition.adPlacement.media.supportType.support.name|lower == 'affichage' %}
+				<li><b>Diffusion France Payée : </b> Tirage a {{ acquisition.adPlacement.media.datas }} panneaux</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	  	<h1>Informations sur l'emplacement</h1>
+	  	<hr>
+
+	  	<div class="col-md-4">
+			<ul>
+				{% if acquisition.adPlacement.media.supportType.support.name|lower == 'presse' %}
+		        <li><b>Numéro de l'édition : </b>n°{{ acquisition.adPlacement.edition }}</li>
+				{% endif %}
+				<li><b>Format : </b>{{ acquisition.adPlacement.format }}</li>
+				<li><b>Zone de l'emplacement : </b>{{ acquisition.adPlacement.position }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Mode de vente : </b>{{ acquisition.adPlacement.type }}</li>
+				<li><b>Prix fixe : </b>{{ acquisition.adPlacement.price }}&euro;</li>
+				<li><b>Seuil de prix si offre : </b>{{ acquisition.adPlacement.minimum_price }}&euro;</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Date de début de la vente : </b>{{ acquisition.adPlacement.starting_at_fr }}</li>
+				<li><b>Date de fin de la vente : </b>{{ acquisition.adPlacement.ending_at_fr }}</li>
+				<li><b>Date de remise des éléments techniques : </b>{{ acquisition.adPlacement.technical_deadline_date }}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

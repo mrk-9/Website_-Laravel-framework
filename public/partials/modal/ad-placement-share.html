@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close">
+        <span aria-hidden="true"><i class="icon icon-cross"></i></span>
+        <span class="sr-only">Fermer</span>
+    </button>
+    <h1 class="h2 modal-title">Partagez cette offre par e-mail</h1>
+</div>
+
+<div class="modal-body">
+    <ad-placement ng-model="adPlacement"></ad-placement>
+    <form name="shareForm" ng-submit="send()" promise-btn>
+        <div class="modal-container modal-share-container">
+            <div ng-if="msgSend" class="alert alert-success" role="alert">
+                <strong>L'emplacement a été partagé</strong>
+            </div>
+            <div class="form-group">
+                <label for="share_contact">Email du contact</label>
+                <input type="email" ng-model="contact.email" name="email" id="share_contact" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="share_message">Message</label>
+            <textarea name="message" ng-model="contact.message" id="share_message" cols="30" rows="3" placeholder="Votre message"
+                      class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-large btn-primary modal-button" ng-disabled="shareForm.$invalid">
+                Envoyer<i class="icon-button icon-simply-right"></i></button>
+        </div>
+
+    </form>
+</div>

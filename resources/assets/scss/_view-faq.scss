@@ -1,0 +1,35 @@
+.faq-page-container {
+	margin: 0;
+}
+.faq-affix {
+	@include make-sm-column(2, 0);
+	position: fixed;
+	left: 0;
+}
+.faq-content {
+	max-width: 780px;
+	padding: 0 0 40px 35px;
+	.faq-title {
+		text-align: left;
+		padding-top: 15px;
+		margin-top: 15px;
+	}
+	.faq-super-title {
+		margin-top: 40px;
+	}
+	.title-toggler {
+		cursor: pointer;
+		@media(min-width: $screen-sm-min){
+			cursor: default;
+		}
+	}
+	.toggler-arrow {
+		position: relative;
+		display: none;
+		text-align: center;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		cursor: pointer;
+		color: $ash-gray;
+	}
+}

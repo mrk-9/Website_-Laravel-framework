@@ -1,0 +1,13 @@
+{% extends 'main.layout.layout-account' %}
+{% set accountContext = 'account-home' %}
+
+{% block accountContent %}
+	<form action="{{ route('main.account.home.post') }}" class="ajax" method="post" data-formajax-success="openmodal(#account_update_confirmation)">
+		{% set user = user_auth_get() %}
+		{% include 'main.forms.buyer_account' %}
+		<button class="btn btn-primary account-bottom-button" type="submit" data-loading-text="Veuillez patienter...">Enregistrer<i class="icon-button icon-simply-right"></i></button>
+	</form>
+
+	{% include 'main.modals.account_update_confirmation' %}
+
+{% endblock %}

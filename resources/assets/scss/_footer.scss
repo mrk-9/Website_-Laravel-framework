@@ -1,0 +1,79 @@
+// Footer
+// --------------------------
+
+footer {
+	color: $white;
+	text-align: center;
+	height: 155px;
+	@include clearfix();
+	.upper-footer {
+		background-image: url("/assets/im/bckg-footer.png");
+		background-size: cover;
+		height: 100px;
+		margin: 0;
+		padding: 0 40px;
+		font-family: "Noto Sans";
+		.help-phone-footer {
+			padding: 20px 0;
+			font-size: 16px;
+			text-align: center;
+			@media (min-width: $screen-sm-min) {
+				float: left;
+				text-align: left;
+			}
+			.footer-number {
+				font-weight: 600;
+				font-size: 26px;
+			}
+		}
+		.footer-drop-ad {
+			line-height: 100px;
+		}
+	}
+	.signature {
+		margin: 0;
+		background-color: $duck-blue;
+		padding: 0 10px;
+		@media (min-width: $screen-sm-min) {
+			min-height: 55px;
+		}
+		.footer-nav {
+			display: inline-block;
+			list-style: none;
+			margin: 0;
+			padding: 10px 0;
+			@media (min-width: $screen-sm-min) {
+				float: right;
+				padding: 0;
+			}
+			li {
+				padding: 5px;
+				display: block;
+				@media (min-width: $screen-sm-min) {
+					display: inline;
+					padding: 0 10px;
+				}
+				a,
+				button {
+					text-transform: uppercase;
+					color: $white;
+					font-weight: normal;
+					font-family: "Roboto";
+					@include transition(color);
+					@media (min-width: $screen-sm-min) {
+						line-height: 55px;
+					}
+					&:hover,
+					&:focus {
+						color: darken($light-blue, 15%);
+					}
+				}
+				button {
+					background: transparent;
+					border: none;
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}

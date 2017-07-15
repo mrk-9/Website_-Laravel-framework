@@ -1,0 +1,46 @@
+.home {
+	.how-it-works {
+		padding: 40px 0;
+		.how-it-works-container {
+			@include make-row(0);
+			margin-top: 30px;
+			.how-it-works-part {
+				@include make-sm-column(3);
+				margin-bottom: 30px;
+				@media (min-width: $screen-sm-min) {
+					margin-bottom: 0;
+				}
+				.how-it-works-redirection {
+					border-radius: 50%;
+				    height: 120px;
+				    display: inline-block;
+				    width: 120px;
+				}
+				.how-it-works-picto-part {
+					text-align: center;
+					margin-bottom: 10px;
+				}
+				.how-it-works-text {
+					text-align: center;
+				}
+			}
+		}
+	}
+	.last-offers {
+		@include make-row();
+		margin: 0;
+		background-color: lighten($pearl-gray, 4%);
+		border-top: 1px solid $pearl-gray;
+		padding: 50px 30px;
+		.panel-offer {
+			@include make-md-column(6);
+			padding: 0;
+			&:nth-child(even) {
+				clear: left;
+			}
+			.panel-placement {
+				margin: 10px;
+			}
+		}
+	}
+}

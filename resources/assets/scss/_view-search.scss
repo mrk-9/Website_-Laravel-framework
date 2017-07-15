@@ -1,0 +1,85 @@
+//View search
+//-------------------------------
+
+.search-filter-grid {
+	@extend .container;
+	padding: 30px 10px 40px;
+	@media (min-width: $screen-sm-min) {
+		padding: 30px 0 40px;
+	}
+	.search-filter-grid_row {
+		@include make-row();
+		.search-filter-grid_row_select {
+			@include make-sm-column(4);
+			label {
+				display: inline-block;
+			}
+		}
+		.search-filter-grid_row_submit {
+			@include make-sm-column(4);
+			@include make-sm-column-offset(4);
+			.btn {
+				margin-top: 30px;
+			}
+		}
+	}
+}
+
+.ad-placement-result-indicator {
+	background: $bkg-gray;
+	border-top: 1px solid $pearl-gray;
+	padding: 10px 0;
+	.ad-placement-result-indicator_container {
+		@extend .container;
+		.p {
+			margin: 0;
+			display: inline;
+			line-height: 40px;
+		}
+		.search-sort-group {
+			margin: 0;
+			@media (min-width: $screen-sm-min) {
+				float: right;
+				display: inline;
+			}
+			label {
+				display: inline-block;
+				text-transform: none;
+				margin-right: 10px;
+			}
+			.form-control {
+				width: auto;
+				display: inline-block;
+			}
+		}
+	}
+}
+
+.ad-placement-grid {
+	background: $bkg-gray;
+	border-top: 1px solid $pearl-gray;
+	padding: 40px 10px;
+	@media (min-width: $screen-sm-min) {
+		padding: 40px 0;
+	}
+	.ad-placement-grid_container {
+		@extend .container;
+		.ad-placement-grid_cards {
+			@include make-row();
+			.ad-placement-grid_col {
+				@include make-md-column(6);
+				.panel-placement {
+					margin-bottom: 20px;
+				}
+			}
+		}
+	}
+	.pagination {
+		margin-left: 50%;
+		transform: translateX(-50%);
+		background-color: $bkg-gray;
+		a, span {
+			background-color: $bkg-gray;
+		}
+	}
+}

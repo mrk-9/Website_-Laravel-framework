@@ -1,0 +1,10 @@
+{% embed 'main.modals.modal' %}
+    {% set modal_id = "account_update_confirmation" %}
+    {% set modal_name = "Votre compte a bien été mis à jour" %}
+    {% block modal_body %}
+    	<div class="modal-container text-center">
+        	<p>Les informations de votre compte ont été actualisées avec succès.</p>
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">Ok <i class="icon-button icon-simply-right"></i></button>
+        </div>
+    {% endblock %}
+{% endembed %}

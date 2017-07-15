@@ -1,0 +1,25 @@
+<div class="modal {% if multi_step is defined %}multi-step{% endif %} fade {{ modal_class }}" {% if multi_step is defined %}data-backdrop="static" data-keyboard="false"{% endif %} id="{{modal_id}}" tabindex="-1" role="dialog" {% if multi_step.depth is defined %}data-multi-step-depth="{{ multi_step.depth }}"{% endif %} {% if multi_step.start is defined %}data-multi-step-start="{{ multi_step.start }}"{% endif %}>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			{% block modal_content %}
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"><i class="icon icon-cross"></i></span>
+						<span class="sr-only">Fermer</span>
+					</button>
+					{% block modal_header %}
+						<h1 class="h2 modal-title">{{modal_name}}</h1>
+					{% endblock %}
+				</div>
+				<div class="modal-body">
+					{% block modal_body %}
+					{% endblock %}
+				</div>
+				<div class="modal-footer">
+					{% block modal_footer %}
+					{% endblock %}
+				</div>
+			{% endblock %}
+		</div>
+	</div>
+</div>

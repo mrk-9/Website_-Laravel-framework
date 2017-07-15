@@ -1,0 +1,107 @@
+// Inputs
+// ------------------------
+
+input[type="checkbox"],
+input[type="radio"] {
+	&:not(:checked),
+	&:checked {
+		position: absolute;
+		left: -9999px;
+		& + label {
+			position: relative;
+			padding-left: 25px;
+			cursor: pointer;
+			font-weight: inherit;
+			font-size: inherit;
+			text-transform: inherit;
+			&:before {
+				position: absolute;
+				left: 0;
+				border: 1px solid @input-border;
+				.transition(color);
+			}
+		}
+	}
+}
+
+input[type="checkbox"] {
+	&:not(:checked),
+	&:checked {
+		& + label:before {
+			width: @input-checkbox-height; height: @input-checkbox-height;
+			border-width: 1px solid @input-border;
+			border-radius: @input-border-radius;
+		}
+	}
+	&:not(:checked) + label:before {
+		content: ' ';
+		color: #fff;
+	}
+	&:checked + label:before {
+		color: @brand-primary;
+		font-size: 14px;
+		line-height: @input-checkbox-height;
+		text-align: center;
+		.fa;
+		content: @fa-var-check;
+		padding-top: 2px;
+	}
+}
+
+input[type="radio"] {
+	&:not(:checked),
+	&:checked {
+		& + label:before {
+			content: ' ';
+			top: 2px;
+			width: @input-radio-height; height: @input-radio-height;
+			border-radius: 50%;
+		}
+	}
+	&:not(:checked) + label:before {
+		background: @sterling;
+	}
+	&:checked + label:before {
+		background: @brand-primary;
+	}
+}
+
+.select {
+	padding: 0;
+	margin: 0;
+	border: 1px solid @sterling;
+	display: block;
+	width: 100%;
+	border-radius: @input-border-radius;
+	overflow: hidden;
+	background-color: #fff;
+	background: #fff;
+	position: relative;
+	font-size: 14px;
+	font-weight: inherit;
+	&:after {
+		top: 50%;
+		right: 13px;
+		position: absolute;
+		pointer-events: none;
+		margin-top: -8px;
+		z-index: 100;
+		font-size: 20px;
+		color: @sterling;
+		&:extend(.@{fa-css-prefix});
+		&:extend(.@{fa-css-prefix}-angle-down:before);
+	}
+	select {
+		.form-control;
+		width: 101%;
+		padding: 0 20px 0 12px;
+		border: none;
+		.box-shadow(none);
+		background-color: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		box-sizing: content-box;
+	}
+}

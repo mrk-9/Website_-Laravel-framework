@@ -1,0 +1,30 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ user.name }}, votre enchère est gagnante</h2>
+                    <p class="content">
+                        Vous avez remporté l'offre nommée {{ ad_placement.name }} concernant le support {{ media.name }}
+                        au prix de {{ ad_placement.price }} &euro; HT.
+                    </p>
+                    <p class="content">
+                        Vous pouvez dès à présent consulter vos demandes validées en cliquant sur le bouton ci-dessous.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.account.ad_placements_valid') }}" title="Demandes validées"
+                   class="btn btn-primary">Demandes validées</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

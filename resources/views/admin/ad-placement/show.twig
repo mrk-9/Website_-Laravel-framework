@@ -1,0 +1,195 @@
+{% extends "admin.layout" %}
+
+{% set title = ad_placement.media_name ~ " " ~ ad_placement.name %}
+{% set context = "ad-placement" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			{{ad_placement.media.name}} - {{ ad_placement.name }}
+		</h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Informations sur le support</h2>
+		<hr>
+		<div class="col-md-2">
+			<img class="img-responsive" src="{{ ad_placement.media.cover_img }}" alt="Couverture du support {{ ad_placement.media.name }}" />
+		</div>
+		<div class="col-md-4">
+			<ul>
+				<li><b>Support : </b>{{ ad_placement.media.support.name }}</li>
+				<li><b>Nom du support : </b>{{ ad_placement.media.name }}</li>
+				<li><b>Famille : </b>{{ ad_placement.media.category.name }}</li>
+				<li><b>Thématique : </b>{{ ad_placement.media.theme.name }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<ul>
+				<li><b>Périodicité : </b>{{ ad_placement.media.frequency.name }}</li>
+				<li><b>Diffusion : </b>{{ ad_placement.media.broadcastingArea.name }}</li>
+				<li>
+					<b>Cibles : </b>
+					{% for target in ad_placement.media.targets %}
+					{{ target.name }} {% if not loop.last %},{% endif %}
+					{% endfor %}
+				</li>
+				<li><b>Diffusion France Payée : </b> {{ ad_placement.media.datas }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	  	<h1>Informations sur l'emplacement</h1>
+	  	<hr>
+
+	  	<div class="col-md-4">
+			<ul>
+				{% if ad_placement.media.support.name|lower == 'presse' %}
+		        <li><b>Numéro de l'édition : </b>n°{{ ad_placement.edition }}</li>
+				{% endif %}
+				<li><b>Format : </b>{{ ad_placement.format.name }}</li>
+				<li><b>Zone de l'emplacement : </b>{{ ad_placement.position }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Mode de vente : </b>{{ ad_placement.type_fr }}</li>
+				<li><b>Prix fixe : </b>{{ ad_placement.price }}&euro;</li>
+				<li><b>Prix minimum : </b>{% if ad_placement.minimum_price %}{{ ad_placement.minimum_price }}&euro;{% else %}-{% endif %}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Date de début de la vente : </b>{{ ad_placement.starting_at_fr }}</li>
+				<li><b>Date de fin de la vente : </b>{{ ad_placement.ending_at_fr }}</li>
+				<li><b>Date de remise des éléments techniques : </b>{{ ad_placement.technical_deadline_date }}</li>
+				<li><b>Date de publication : </b>{{ ad_placement.broadcasting_date_fr_no_seconds }}</li>
+				<li><b>Date de bouclage : </b>{{ ad_placement.locking_up_fr_no_seconds }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	  	<h1>Informations sur l'emplacement</h1>
+	  	<hr>
+
+	  	<div class="col-md-4">
+			<ul>
+				{% if ad_placement.media.support.name|lower == 'presse' %}
+		        <li><b>Numéro de l'édition : </b>n°{{ ad_placement.edition }}</li>
+				{% endif %}
+				<li><b>Format : </b>{{ ad_placement.format.name }}</li>
+				<li><b>Zone de l'emplacement : </b>{{ ad_placement.position }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Mode de vente : </b>{{ ad_placement.type_fr }}</li>
+				<li><b>Prix fixe : </b>{{ ad_placement.price }}&euro;</li>
+				<li><b>Prix minimum : </b>{% if ad_placement.minimum_price %}{{ ad_placement.minimum_price }}&euro;{% else %}-{% endif %}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Date de début de la vente : </b>{{ ad_placement.starting_at_fr }}</li>
+				<li><b>Date de fin de la vente : </b>{{ ad_placement.ending_at_fr }}</li>
+				<li><b>Date de remise des éléments techniques : </b>{{ ad_placement.technical_deadline_date }}</li>
+				<li><b>Date de publication : </b>{{ ad_placement.broadcasting_date_fr_no_seconds }}</li>
+				<li><b>Date de bouclage : </b>{{ ad_placement.locking_up_fr_no_seconds }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+	  	<h1>Informations sur la réservation</h1>
+	  	<hr>
+	  	{% if not ad_placement.bought %}
+	  	<div class="text-center">
+	  		<p>Il n'y a pas encore de réservation sur ce emplacement.</p>
+	  		<p>Aucune réservation à prix fixe n'a été effectuée et aucune offre de prix n'a été acceptée.</p>
+	  	</div>
+	  	{% else %}
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Réservé par : </b>
+					{{ ad_placement.winner.user.buyer.name }}
+				</li>
+				<li>
+					<b>Nom de l'acheteur : </b>
+					{{ ad_placement.winner.user.name }} {{ ad_placement.winner.user.family_name }}
+				</li>
+				<li><b>Téléphone : </b>{{ ad_placement.winner.user.phone }}</li>
+				<li><b>E-mail : </b>{{ ad_placement.winner.user.email }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Gabarit : </b>{{ ad_placement.acquisition_winner.template.name  }}
+				</li>
+				<li>
+					<b>Support technique : </b>{{ ad_placement.acquisition_winner.technicalSupport.name  }}
+				</li>
+				<li>
+					<b>Prix de vente : </b>{{ ad_placement.winner.amount }} &euro; (dont {{ ad_placement.acquisition_winner.invoice.amount  }} &euro; d'accompte pour MediaResa)
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li>
+					<b>Brief : </b>{{ ad_placement.acquisition_winner.brief  }}
+				</li>
+			</ul>
+		</div>
+	  	{% endif %}
+	</div>
+
+	<div>
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active">
+				<a href="#adPlacementBookingTabPanel" aria-controls="adPlacementBookingTabPanel" data-toggle="tab">
+					Informations sur la réservation
+				</a>
+			</li>
+			<li role="presentation">
+				<a href="#adPlacementOffersTabPanel" aria-controls="adPlacementOffersTabPanel" data-toggle="tab">
+					Informations sur les offres de prix
+				</a>
+			</li>
+			<li role="presentation">
+				<a href="#adPlacementAuctionsTabPanel" aria-controls="adPlacementAuctionsTabPanel" data-toggle="tab">
+					Informations sur les enchères
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="tab-content">
+		<!-- Ad placement booking -->
+		<div role="tabpanel" class="tab-pane fade in active" id="adPlacementBookingTabPanel">
+			{% include 'admin.ad-placement.booking.index' %}
+		</div>
+
+		<!-- Ad placement offers -->
+		<div role="tabpanel" class="tab-pane fade" id="adPlacementOffersTabPanel">
+			{% include 'admin.ad-placement.offer.index' %}
+		</div>
+
+		<!-- Ad placement auctions -->
+		<div role="tabpanel" class="tab-pane fade" id="adPlacementAuctionsTabPanel">
+			{% include 'admin.ad-placement.auction.index' %}
+		</div>
+	</div>
+	</div>
+</div>
+{% endblock %}

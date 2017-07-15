@@ -1,0 +1,30 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ last_buyer.name }}, votre emplacement a été surenchéri</h2>
+                    <p class="content">
+                        L'offre nommée {{ ad_placement.name }} concernant le support {{ media.name }} a été surenchérie
+                        et atteint désormais un prix de {{ ad_placement.price }} &euro; HT.
+                    </p>
+                    <p class="content">
+                        Vous pouvez dès à présent surenchérir en cliquant sur le bouton ci-dessous.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.ad_placement.show', [ad_placement.id]) }}" title="Surenchérir"
+                   class="btn btn-primary">Surenchérir</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

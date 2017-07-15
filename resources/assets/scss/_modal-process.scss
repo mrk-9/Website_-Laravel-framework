@@ -1,0 +1,161 @@
+// Modal process
+// -------------------
+
+.modal_form-auction {
+	@media (max-width: $screen-sm-min) {
+		margin: 10px 30px;
+	}
+	margin: 10px 0;
+	.modal_form-auction_amount {
+		@include make-sm-column(8, 20px);
+		padding-left: 0;
+	}
+	.modal_form-auction_submit {
+		@include make-sm-column(4, 20px);
+		padding-right: 0;
+		@media(max-width: $screen-sm-min) {
+			padding-left: 0;
+		}
+		.btn {
+			margin-top: 15px;
+			margin-bottom: 5px;
+		}
+	}
+}
+
+.multi-step {
+	.modal-body {
+		max-width: 760px;
+		margin: auto;
+	}
+	.modal-content-container {
+		margin: 25px auto;
+		max-width: 460px;
+		.btn-large {
+			@media (max-width: $screen-sm-min) {
+				width: 100%;
+			}
+			margin-bottom: 20px;
+		}
+	}
+	//.step-2, -3, -4
+	.block-process {
+		margin-bottom: 40px;
+	}
+	//.step-2
+	.process-step {
+		.process-step_checkboxes {
+			margin-bottom: 30px;
+		}
+		.process-step_btn-group {
+			@include clearfix();
+			.btn-download-doc {
+				width: 100%;
+				margin-bottom: 10px;
+				@media (min-width: $screen-sm-min) {
+					width: 220px;
+				}
+			}
+		}
+	}
+	.card-container {
+		@include make-md-column(4, 30px);
+		.card-technical-support,
+		.card-template {
+			margin: 30px auto 0;
+		}
+	}
+	.credit-card-legend {
+		font-size: 13px;
+		padding: 15px 0;
+	}
+	.btn-credit {
+		width: 100%;
+		margin: 10px 0;
+		@media (min-width: $screen-sm-min) {
+			width: 220px;
+		}
+	}
+	.btn-next {
+		float: none;
+		width: 100%;
+		margin-bottom: 10px;
+		@media (min-width: $screen-sm-min) {
+			float: right;
+			width: 220px;
+		}
+	}
+	.btn-modal-next-inline {
+		@extend .btn-next;
+		@media (min-width: $screen-sm-min) {
+			width: 170px;
+		}
+	}
+	.btn-previous-alone {
+		display: block;
+		width: 100%;
+		margin: 10px auto;
+		@media (min-width: $screen-sm-min) {
+			width: 220px;
+		}
+	}
+	.btn-previous {
+		float: none;
+		width: 100%;
+		margin-bottom: 10px;
+		@media (min-width: $screen-sm-min) {
+			float: left;
+			width: 220px;
+		}
+	}
+	.btn-end {
+		float: none;
+	}
+	.step-2-2,
+	.step-2-4,
+	.step-4-1 {
+		.btn-previous,
+		.btn-previous-alone {
+			margin-top: 30px;
+		}
+	}
+	.step-2-3 {
+		.support-modal-cgv {
+			font-size: 14px;
+		}
+		.cgv-modal-validation {
+			margin: 20px 0;
+		}
+	}
+	.step-2-4 {
+		.btn-next {
+			margin-top: 0;
+			@media (min-width: $screen-sm-min) {
+				margin-top: 30px;
+			}
+		}
+	}
+	.step-3-1 {
+		.panel-placement {
+			margin: 10px 0;
+		}
+		.payment-modal-validation {
+			margin: 20px 0;
+		}
+		.order_validation_deposit_price ,
+		.order_validation_technical_support_price {
+			float: right;
+		}
+	}
+	.step-4-1 {
+		.btn-payment-type-transfer {
+			margin-right: 10px;
+		}
+	}
+	.step-4-4,
+	.step-2-5 {
+		a {
+			font-size: 14px;
+		}
+	}
+}

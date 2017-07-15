@@ -1,0 +1,35 @@
+{% extends 'main.layout.layout-account' %}
+{% set accountContext = 'invoices' %}
+
+{% block accountContent %}
+    <h3>Mes factures</h3>
+
+    {% if paginator | length > 0 %}
+        <table class="invoice-table">
+            <tbody>
+            {% for invoice in paginator %}
+                <tr class="invoice-table_tr">
+                    <td class="invoice-index">{{ loop.index }}</td>
+                    <td>Commande n°{{ invoice.name }}</td>
+                    <td>{{ invoice.created_at|date("d/m/Y") }}</td>
+                    <td class="hidden-xs">{{ invoice.acquisition.adPlacement.media.name }} {{ invoice.acquisition.adPlacement.edition }}
+                        - {{ invoice.acquisition.adPlacement.name }}</td>
+                    <td class="invoice-ammount">{{ invoice.amount }} € TTC</td>
+                    <td><a href="{{ route('main.account.invoice', [invoice.id]) }}" class="invoice-download" target="_blank"><i
+                                    class="icon-download"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {{ paginator.render() | raw }}
+    {% else %}
+        Vous n'avez pas encore de factures disponibles. <br>
+        <div class="text-center">
+            <a href="{{ route('main.ad_placement.index') }}" class="btn btn-primary account-bottom-button btn-large">Rechercher
+                un
+                emplacement <i class="icon-button icon-simply-right"></i></a>
+        </div>
+    {% endif %}
+
+{% endblock %}

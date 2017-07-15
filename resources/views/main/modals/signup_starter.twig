@@ -1,0 +1,21 @@
+{% embed 'main.modals.modal' %}
+    {% set modal_id = "signup" %}
+    {% import "main.partials.form_layout" as form %}
+    {% import "main.partials.select" as select %}
+    {% set modal_name = "Créez gratuitement votre compte" %}
+    {% block modal_body %}
+        <div class="modal-container">
+            <form action="{{route('main.auth.signup')}}" method="POST">
+
+                <input type="hidden" value="{{csrf_token()}}" name="_token" />
+
+                {{ select.accountTypeAll('buyer_type') }}
+
+                <button type="submit" data-loading-text="Veuillez patienter..." class="btn btn-large btn-primary modal-button">Valider<i class="icon-button icon-simply-right"></i></button>
+                <div class="modal-sentence">
+                    Vous avez déjà un compte? <a href="#" data-toggle="modal" data-target="#login" title="Connexion">Connectez-vous !</a>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+{% endembed %}

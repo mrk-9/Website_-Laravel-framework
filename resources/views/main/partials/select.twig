@@ -1,0 +1,40 @@
+{% macro search(label, fieldName, options, params) %}
+    {% import 'main.partials.form_layout' as form_layout %}
+    {% if params.allLabel is not empty %}
+        {% set datas = [{value : 'all', name: params.allLabel}] %}
+    {% else %}
+        {% set datas = [{value : 'all', name: 'Tout'}] %}
+    {% endif %}
+    {% for option in options %}
+        {% set datas = datas|merge([{value : option.slug, name: option.name}]) %}
+    {% endfor %}
+    {{ form_layout.select(label, fieldName, datas, params) }}
+{% endmacro %}
+
+{% macro title(fieldName, params) %}
+    {% import 'main.partials.form_layout' as form_layout %}
+    {% set options = [{value : 'Mlle.', name: 'Mlle.'}, {value : 'Mme.', name: 'Mme.'}, {value : 'M.', name: 'M.'}] %}
+
+    {{ form_layout.select('Civilité', fieldName, options, params) }}
+{% endmacro %}
+
+{% macro accountType(fieldName, params, label='Agence / Annonceur') %}
+    {% import 'main.partials.form_layout' as form_layout %}
+    {% set options = [{value : 'agency', name: 'Agence'}, {value : 'advertiser', name: 'Annonceur'}] %}
+
+    {{ form_layout.select(label, fieldName, options, params) }}
+{% endmacro %}
+
+{% macro accountTypeAll(fieldName, params, label='Agence / Annonceur / Régie') %}
+    {% import 'main.partials.form_layout' as form_layout %}
+    {% set options = [{value : 'agency', name: 'Agence'}, {value : 'advertiser', name: 'Annonceur'}, {value : 'ad_network', name: 'Régie'}] %}
+
+    {{ form_layout.select(label, fieldName, options, params) }}
+{% endmacro %}
+
+{% macro companyType(fieldName, params) %}
+    {% import 'main.partials.form_layout' as form_layout %}
+    {% set options = [{value : 'SARL', name: 'SARL'}, {value : 'SA', name: 'SA'}, {value : 'EURL', name: 'EURL'}] %}
+
+    {{ form_layout.select('Type de société', fieldName, options, params) }}
+{% endmacro %}

@@ -1,0 +1,22 @@
+{% extends 'main.layout.layout' %}
+
+{% set title = ad_placement.media.name ~ " " ~ ad_placement.edition ~ " - " ~ ad_placement.name %}
+{% set context='ad_placement' %}
+
+{% block content %}
+
+<main>
+    <div class="container">
+
+        {{ widget.widget_full(ad_placement) }}
+
+    </div>
+
+    {% if ad_placement.user_offer is not null %}
+        {{ modal_offer_delete.delete(ad_placement) }}
+    {% endif %}
+
+    {{ modal_share.share(ad_placement) }}
+</main>
+
+{% endblock %}

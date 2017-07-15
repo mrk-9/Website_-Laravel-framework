@@ -1,0 +1,31 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+                    {% if user is not null %}
+                        <h2>Bonjour, {{ user.name }} vient de vous partager une offre</h2>
+                    {% else %}
+                        <h2>Bonjour, on vient de vous partager une offre</h2>
+                    {% endif %}
+                    <p class="content">
+                        {% autoescape %}
+                            {{ contact_message }}
+                        {% endautoescape %}
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.ad_placement.show', [ad_placement.id]) }}" title="Consulter l'offre"
+                   class="btn btn-primary">Consulter l'offre</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "main.layout.layout" %}
+
+{% set title = "Inscription" %}
+
+{% block content %}
+	<div class="container">
+
+		<h1 class="text-center h2">Inscription sur la plateforme</h1>
+		<form action="{{ route('main.auth.signup.form') }}" class="ajax" method="post" data-formajax-success="redirect({{ route('main.home') }}#signup_confirmation)">
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">
+					{% include "main.forms.buyer_account" %}
+					<input type="checkbox" id="signup_cgv_validation"
+						   name="signup_cgv_validation" class="form-control" ng-model="signpCgvValidation">
+					<label for="signup_cgv_validation">j'ai lu et j'accepte les <a target="_blank" href="{{route('main.cgv')}}">conditions générales de vente.</a></label>
+
+					<div class="text-center">
+						<button ng-disabled="!signpCgvValidation" class="btn btn-primary btn-subscription" type="submit" data-loading-text="Veuillez patienter...">Valider<i class="icon-button icon-simply-right"></i></button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}

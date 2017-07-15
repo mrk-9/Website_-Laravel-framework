@@ -1,0 +1,283 @@
+input[type="checkbox"],
+input[type="radio"] {
+	&:not(:checked),
+	&:checked {
+		position: absolute;
+		left: -9999px;
+		& + label {
+			position: relative;
+			padding-left: 25px;
+			cursor: pointer;
+			line-height: 16px;
+			text-transform: lowercase;
+			font-weight: normal;
+			&:first-letter {
+				text-transform: uppercase;
+			}
+			&:before {
+				position: absolute;
+				left: 0;
+				@include transition(background);
+			}
+		}
+	}
+}
+
+input[type="checkbox"] {
+	&:not(:checked),
+	&:checked {
+		& + label:before {
+			width: 16px;
+			height: 16px;
+			border-radius: 3px;
+		}
+	}
+	&:not(:checked) + label:before {
+		content: ' ';
+		border: 1px solid $light-gray;
+		background-color: $white;
+	}
+	&:checked + label:before {
+		color: $brand-primary;
+		font-size: 11px;
+		line-height: 16px;
+		text-align: center;
+		border: 1px solid $brand-primary;
+		content: "\63";
+		font-family: "mediaresa-font";
+		font-style: normal;
+		font-weight: normal;
+		text-transform: none;
+	}
+}
+
+input[type="radio"] {
+	&:not(:checked),
+	&:checked {
+		& + label:before {
+			content: ' ';
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			border: 4px solid $light-gray;
+		}
+		& + label {
+			font-size: 14px;
+			text-align: left;
+		}
+	}
+	&:checked + label:before {
+		border-color: $brand-primary;
+	}
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+
+.form-control {
+	max-width: 100%;
+}
+
+
+label {
+	font-size: 11px;
+	font-family: "Noto Sans";
+	text-transform: uppercase;
+	font-weight: normal;
+	margin-bottom: 0;
+	display: block;
+}
+
+.form-control {
+	border-radius: 3px;
+	border: 1px solid $pearl-gray;
+	background-color: lighten($pearl-gray, 4%);
+	color: $rock-gray;
+	font-size: 12px;
+	padding: 0 10px;
+	box-shadow: none;
+	line-height: 40px;
+	height: 40px;
+	&:focus,
+	&.hasChanged {
+		box-shadow: inset 0 -1px 0 0 darken($light-blue, 15%);
+		background-color: $light-blue;
+		border-color: transparent;
+	}
+}
+
+.select2-container {
+	width: 100% !important;
+	.select2-selection {
+		border-radius: 3px;
+		border: 1px solid $pearl-gray;
+		background-color: lighten($pearl-gray, 4%);
+		color: $rock-gray;
+		font-size: 12px;
+		padding: 0 10px;
+		box-shadow: none;
+		min-height: 40px;
+		.select2-selection__rendered {
+			.select2-selection__choice {
+				white-space: normal;
+			}
+		}
+	}
+	&.select2-container--focus {
+		.select2-selection {
+			box-shadow: inset 0 -1px 0 0 darken($light-blue, 15%);
+			background-color: $light-blue;
+			border-color: transparent;
+		}
+	}
+	.select2-container--open,
+	.select2-dropdown--below {
+		border-color: $pearl-gray;
+		background-color: lighten($pearl-gray, 4%);
+		color: $rock-gray;
+	}
+}
+
+.input-auction {
+	width: 100%;
+	position: relative;
+	.auction-text-after {
+		color: $ash-gray;
+		font-size: 14px;
+		position: absolute;
+		display: block;
+		z-index: 3;
+		right: 90px;
+		line-height: 37px;
+	}
+	.auction-text  {
+		@extend .form-control;
+		border-right: none;
+		padding-right: 50px;
+		width: calc(100% - 80px);
+		height: 35px;
+		line-height: 35px;
+	}
+	.btn-default {
+		@extend .form-control;
+		border-left: none;
+		position: relative;
+		width: 35px;
+		float: left;
+		height: 35px;
+		line-height: 35px;
+		.icon-auction {
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 34px;
+		}
+		&:before {
+			content: "";
+			background-color: $pearl-gray;
+			width: 1px;
+			height: 20px;
+			top: 7px;
+			left: -1px;
+			position: absolute;
+			z-index: 2;
+		}
+	}
+	[disabled].btn-default,
+	[disabled].btn-default:hover {
+		border-color: $pearl-gray;
+		background-color: #EBD8D8;
+	}
+	.auction-plus {
+		border-right: 0;
+	}
+	.auction-less {
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+	}
+}
+
+.form-credit-card {
+	.form-credit-card_part-name {
+		@include make-sm-column(6, 30px);
+	}
+	.form-credit-card_part-number {
+		@include make-sm-column(6, 30px);
+	}
+	.form-credit-card_part-cvc {
+		@include make-sm-column(2, 30px);
+		.cvc-picto {
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			border: 1px solid $light-green;
+			color: $light-green;
+			line-height: 10px;
+			padding: 0 3px;
+			font-size: 9px;
+			margin-left: 5px;
+		}
+		.tooltip-inner {
+			width: 300px;
+		}
+	}
+	.form-credit-card_part-expiration {
+		@include make-sm-column(4, 30px);
+		.form-credit-card_part-expiration_month {
+			float: left;
+			width: calc(50% - 10px)
+		}
+		.form-credit-card_part-expiration_separator {
+			width: 20px;
+			text-align: center;
+			float: left;
+			line-height: 40px;
+		}
+		.form-credit-card_part-expiration_year {
+			float: left;
+			width: calc(50% - 10px);
+		}
+	}
+}
+
+.account-small-inputs {
+	@include make-md-column(2);
+	label {
+		display: inline-block;
+	}
+}
+.account-medium-inputs {
+	@include make-md-column(4);
+	label {
+		display: inline-block;
+	}
+}
+.account-large-inputs {
+	@include make-md-column(6);
+	label {
+		display: inline-block;
+	}
+}
+.account-page-inputs {
+	label {
+		display: inline-block;
+	}
+}
+
+.form-lock {
+	color: $light-gray;
+	font-size: 20px;
+}
+.transaction-annotation {
+	text-align: center;
+	display: block;
+	font-style: italic;
+	@media (min-width: $screen-sm-min) {
+		margin-top: 30px;
+	}
+}

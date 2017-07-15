@@ -1,0 +1,151 @@
+<div data-ng-controller="OfferCtrl" data-ad-placement-id="{{ ad_placement.id }}">
+    <table class="table table-hover" data-st-table="OfferList" st-pipe="refresh" id="OfferList">
+        <thead>
+            <tr>
+                <th data-st-sort="user.name">Client</th>
+                <th data-st-sort="buyer.name">
+                    {% if ad_placement.user.buyer.type == constant('App\\Buyer::TYPE_AGENCY') %}
+                    Agence
+                    {% else %}
+                    Annonceur
+                    {% endif %}
+                </th>
+                <th data-st-sort="offer.created_at">Date offre</th>
+                <th data-st-sort="offer.amount">Montant offre</th>
+                <th>Etat du paiement</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input st-search="user__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="buyer__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th colspan="4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-show="list.length" data-ng-repeat="offer in list">
+                <td>
+                    [[ offer.user.name ]] [[ offer.user.family_name ]]
+                </td>
+
+                <td>[[ offer.user.buyer.name ]]</td>
+
+                <td>[[ offer.created_at_date ]]</td>
+
+                <td>[[ offer.amount ]]&euro;</td>
+
+                <td class="text-center">
+                    <i data-ng-show="offer.charge_status" class="fa fa-cc-stripe fa-2x fa-black"></i>
+                    <i data-ng-show="offer.transfer_status" class="fa fa-exchange fa-2x fa-black"></i>
+
+                    <!-- Get payment status -->
+                    <i data-ng-show="offer.payment_is_pending" class="fa fa-hourglass-half fa-2x fa-black"></i>
+                    <i data-ng-show="offer.payment_is_valid" class="fa fa-check fa-2x"></i>
+                    <i data-ng-show="offer.is_lost" class="fa fa-times fa-2x"></i>
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-ng-click="go('{{ route('admin.offer.index') }}/' + list[$index].id)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+                    <!-- Accept offer -->
+                    <button class="btn btn-primary" data-ng-show="offer.is_ready_to_be_accepted" data-ng-click="openModal('#AcceptOfferModal', offer)">
+                        <i class="fa fa-check fa-green"></i>
+                    </button>
+
+                    <!-- Transfer validation -->
+                    <button class="btn btn-primary" data-ng-show="offer.is_ready_for_transfer_validation" data-ng-click="openModal('#ValidateTransferOfferModal', offer)">
+                        <i class="fa fa-eur"></i>
+                    </button>
+
+                    <!-- Confirm publication status -->
+                    <button class="btn btn-primary" data-ng-show="offer.is_ready_for_publication" data-ng-click="openModal('#PublishOfferModal', offer)">
+                        <i class="fa fa-certificate"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-hide="list.length || loading == true">
+                <td colspan="8" class="text-center">Aucun élément</td>
+            </tr>
+            <tr data-ng-show="loading == true">
+                <td colspan="8" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" class="text-center">
+                    <div st-pagination="" st-items-by-page="20"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="AcceptOfferModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Accepter une offre</h4>
+                </div>
+                <form action="{{ route('admin.offer.accept', ['{id}']) }}" class="ajax" data-referent-table="OfferList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Accepter cette offre définitivement?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Acceptée !">Accepter l'offre</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ValidateTransferOfferModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Valider un virement bancaire</h4>
+                </div>
+                <form action="{{ route('admin.offer.validate.transfer', ['{id}']) }}" class="ajax" data-referent-table="OfferList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Le virement brancaire a bien été reçu pour cette offre?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Validé !">Valider le virement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PublishOfferModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirmer la publication</h4>
+                </div>
+                <form action="{{ route('admin.offer.validate.publication', ['{id}']) }}" class="ajax" data-referent-table="OfferList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Voulez-vous vraiment confirmer la publication de cet emplacement lié à cette offre?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Confirmée !">Confirmer la publication</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

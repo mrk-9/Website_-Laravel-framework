@@ -1,0 +1,10 @@
+<h1 class="h2 modal-title">Quelqu'un a enchérit avant vous</h1>
+<div class="process-step modal-content-container text-center">
+    <p>
+        <span ng-bind-template="Le nouveau montant de l'emplacement est [[currentPrice]] € HT et votre propositon d'enchère est à [[order.price]] € HT.">
+    </p>
+    <div class="row text-center">
+        <button type="button" class="btn btn-primary btn-next btn-end" ng-click="changePrice()">Modifier mon enchère <i class="icon-button icon-simply-right"></i></button>
+        <button type="button" class="btn btn-primary btn-next btn-end" ng-click="close()">Annuler mon enchère <i class="icon-button icon-simply-right"></i></button>
+    </div>
+</div>

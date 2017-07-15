@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<title>Facture n°{{ invoice.name }}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ route('main.home') }}/assets/css/MediaResa-1.0.0.min.css" title="no title">
+	</head>
+
+	<body class="invoices-details">
+
+		<main>
+			<div class="invoices-details-header">
+				<img src="{{ route('main.home') }}/assets/im/logo-invoice.png" alt="logo de Media Resa">
+				<div class="header-subtitle">Les meilleures offres de bouclages publicitaires du marché</div>
+			</div>
+
+			<table class="invoices-quick-infos">
+				<tr>
+					<td>
+						<div class="left-infos">
+							<div class="quick-infos-facture-number upper">
+								Facture n° : {{ invoice.name }}
+							</div>
+							<div class="quick-infos-date upper">
+								Date : {{ invoice.created_at|date("d/m/Y") }}
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="right-infos">
+							<div class="quick-infos-client-contact">
+								<div class="quick-infos-client-contact-title">
+									Coordonnées du client
+								</div>
+								<span class="upper">{{ invoice.buyer_name }}</span> <br>
+								{{ invoice.buyer_address }} <br>
+								<span class="upper">{{ invoice.buyer_zipcode }} {{ invoice.buyer_city }}</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<table class="invoices-details-table">
+				<thead>
+					<th>Quantité</th>
+					<th>Description</th>
+					<th>Tarif H.T.</th>
+					<th>Montant</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>
+							<div class="invoices-products-description">
+								<div class="bold">{{ invoice.acquisition.adPlacement.media.name }}
+									- {{ invoice.acquisition.adPlacement.name }}</div>
+								Parution du N° {{ invoice.acquisition.adPlacement.edition }} du {{ invoice.acquisition.adPlacement.broadcasting_date|date("d/m/Y") }} <br>
+								{{ invoice.acquisition.adPlacement.description }}
+							</div>
+						</td>
+						<td>{{ invoice.acquisition.price|number_format(2, '.', ' ') }}</td>
+						<td>{{ invoice.acquisition.price|number_format(2, '.', ' ') }}</td>
+					</tr>
+					{% if invoice.acquisition.technical_support_id is not null %}
+					<tr>
+						<td>1</td>
+						<td>
+							<div class="invoices-products-description">
+								<div class="bold">Support technique : {{ invoice.acquisition.technicalSupport.name }}</div>
+								{{ invoice.acquisition.technicalSupport.description }}<br>
+								{% if invoice.acquisition.technical_support_id == 1 %}
+									- Template : {{ invoice.acquisition.template.name }}
+								{% endif %}
+							</div>
+						</td>
+						<td>{{ invoice.acquisition.technical_support_price|number_format(2, '.', ' ') }}</td>
+						<td>{{ invoice.acquisition.technical_support_price|number_format(2, '.', ' ') }}</td>
+					</tr>
+				{% endif %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td></td>
+						<td>Montant H.T.</td>
+						<td>{{ invoice.acquisition.total_without_vat|number_format(2, '.', ' ') }} €</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td>T.V.A. {{ invoice.vat_rate }}%</td>
+						<td>{{ invoice.acquisition.vat_price|number_format(2, '.', ' ') }} €</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td>Montant T.T.C.</td>
+						<td>{{ invoice.acquisition.total|number_format(2, '.', ' ') }} €</td>
+					</tr>
+				</tfoot>
+			</table>
+
+			<i>* Montant représentant votre acompte de réservation. Solde facturé à parution par l’éditeur du support.</i>
+
+			<div class="invoices-details-footer">
+				Tél. : <span class="bold">01 70 96 00 30</span> • Assistance Technique : <span class="bold">01 825 220 35</span> <br>
+				117, avenue Victor Hugo • 92100 Boulogne-Billancourt • contact@mediaresa.fr www.mediaresa.fr <br>
+				SAS au capital de 15 000 € • RCS Nanterre : 812 650 3
+			</div>
+
+		</main>
+
+	</body>
+</html>

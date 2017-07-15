@@ -1,0 +1,469 @@
+{% extends 'main.layout.layout' %}
+
+{% set title = 'Styleguide' %}
+{% set context='styleguide' %}
+
+{% import "main.partials.ad_placement_widget" as widget %}
+
+{% block content %}
+<main>
+	<div class="container-fluid">
+		<h1 class="dark">MediaResa Styleguide</h1>
+		<section class="row">
+			<br>
+			<h2>Colors</h2>
+			<br>
+			<div class="colors">
+				<div class="color-panel bckg-brand-primary">brand-primary - #A9BB3C</div>
+				<div class="color-panel bckg-dark-brand-primary">dark-brand-primary - #869430</div>
+				<div class="color-panel bckg-duck-blue">duck-blue - #005075</div>
+				<div class="color-panel bckg-dark-duck-blue">dark-duck-blue - #003c57</div>
+				<div class="color-panel bckg-light-blue">light-blue - #eaf0f3</div>
+				<div class="color-panel bckg-black">black - #000</div>
+				<div class="color-panel bckg-carbon-gray">carbon-gray - #444444</div>
+			</div>
+			<div class="colors">
+				<div class="color-panel bckg-dark-gray">dark-gray - #777777</div>
+				<div class="color-panel bckg-rock-gray">rock-gray - #888888</div>
+				<div class="color-panel bckg-ash-gray">ash-gray - #aeaeae</div>
+				<div class="color-panel bckg-light-gray">light-gray - #cccccc</div>
+				<div class="color-panel bckg-pearl-gray">pearl-gray - #eaeaea</div>
+				<div class="color-panel bckg-bkg-gray">bkg-gray - #fafafa</div>
+				<div class="color-panel bckg-white">white - #fff</div>
+			</div>
+		</section>
+
+		<section class="row">
+			<br>
+			<h2>Typography</h2>
+			<br>
+			<div class="white-typo-example col-sm-6">
+				<div class="bs-example">
+					<h1>h1 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h1>
+					<p class="lead">p.lead - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;h1&gt;h1 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/h1&gt;
+&lt;p class="lead"&gt;p.lead - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/p&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+			<div class="typo-example col-sm-6">
+				<div class="bs-example">
+					<h2>h2 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2>
+					<h3>h3 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+					<h4>h4 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+					<p>p - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<p class="big-numbers">big-numbers - 123 456 789</p>
+					<a href="#">link - Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;h2&gt;h2 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/h2&gt;
+&lt;h3&gt;h3 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/h3&gt;
+&lt;h4&gt;h4 - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/h4&gt;
+&lt;p&gt;p - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/p&gt;
+&lt;p class="big-numbers"&gt;big-numbers - 123 456 789&lt;/p&gt;
+&lt;a href="#"&gt;link - Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/a&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+		</section>
+
+		<section class="row">
+			<br>
+			<h2>Buttons/Inputs</h2>
+			<br>
+			<div class="buttons-example col-sm-6">
+				<div class="bs-example">
+					<a href="#" title="" class="btn btn-primary">btn-primary <i class="icon-button icon-simply-right"></i></a>
+					<a href="#" title="" class="btn btn-secondary">btn-secondary <i class="icon-button icon-share"></i></a>
+					<a href="#" title="" class="btn btn-tertiary">btn-tertiary <i class="icon-button icon-star"></i></a>
+					<a href="#" title="" class="btn btn-danger">btn-danger <i class="icon-button icon-cross"></i></a>
+					<a href="#" title="" class="btn btn-large btn-primary">btn-large <i class="icon-button icon-simply-right"></i></a>
+					<a href="#" title="" class="btn btn-block btn-primary">btn-block <i class="icon-button icon-simply-right"></i></a>
+					<a href="#" title="" class="btn btn-search btn-primary">btn-search <i class="icon-button icon-search"></i></a>
+					<a href="#" title="" class="btn btn-social"><i class="fa fa-facebook"></i></a>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;a href="#" title="" class="btn btn-danger"&gt;btn-danger &lt;i class="icon-button icon-cross"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-primary"&gt;btn-primary &lt;i class="icon-button icon-simply-right"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-secondary"&gt;btn-secondary &lt;i class="icon-button icon-share"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-tertiary"&gt;btn-tertiary &lt;i class="icon-button icon-star"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-large btn-primary"&gt;btn-large &lt;i class="icon-button icon-simply-right"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-block btn-primary"&gt;btn-block &lt;i class="icon-button icon-simply-right"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-search btn-primary"&gt;btn-search &lt;i class="icon-button icon-search"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a href="#" title="" class="btn btn-social"&gt;&lt;i class="fa fa-facebook"&gt;&lt;/i&gt;&lt;/a&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+			<div class="inputs-example col-sm-6">
+				<div class="bs-example">
+					<div class="form-group">
+						<input type="checkbox" id="theCheckbox" name="anonym">
+						<label for="theCheckbox">checkbox</label>
+					</div>
+
+					<div class="form-group">
+						<input type="radio" name="radio-input" id="radio1" value="" checked>
+						<label for="radio1">First radio choice</label>
+					</div>
+					<div class="form-group">
+						<input type="radio" name="radio-input" id="radio2" value=""/>
+						<label for="radio2">Second radio choice</label>
+					</div>
+
+					<div class="form-group">
+						<label for="theSelect">Type de carte</label>
+						<select name="theSelect" id="theSelect" class="form-control">
+							<option>Carte type 1</option>
+						    <option>Carte type 2</option>
+						    <option>Carte type 3</option>
+						</select>
+					</div>
+					<br>
+					<input type="text" id="theInput" name="theInput" placeholder="Placeholder" class="form-control">
+					<br>
+					<br>
+					<div class="form-group">
+						<label>Enchère souhaitée</label>
+						<div class="input-group input-group-lg input-auction">
+	                        <input type="text" class="form-control auction-text" placeholder="Placeholder">
+	                        <span class="auction-text-after"></span>
+	                        <button class="btn btn-default auction-plus input-group-addon" type="button"><i class="icon-plus icon-auction" aria-hidden="true"></i></button>
+	                        <button class="btn btn-default auction-less input-group-addon" type="button"><i class="icon-minus icon-auction" aria-hidden="true"></i></button>
+	                    </div>
+					</div>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;div class="form-group"&gt;
+	&lt;input type="checkbox" id="theCheckbox" name="anonym" class="form-control"&gt;
+	&lt;label for="theCheckbox"&gt;checkbox&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class="form-group"&gt;
+	&lt;input type="radio" name="radio-input" id="radio1" value="" checked&gt;
+	&lt;label for="radio1"&gt;First radio choice&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class="form-group"&gt;
+	&lt;input type="radio" name="radio-input" id="radio2" value=""/&gt;
+	&lt;label for="radio2"&gt;Second radio choice&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class="form-group"&gt;
+	&lt;label for="theSelect"&gt;Type de carte&lt;/label&gt;
+	&lt;select name="theSelect" id="theSelect" class="form-control"&gt;
+		&lt;option&gt;Carte type 1&lt;/option&gt;
+	    &lt;option&gt;Carte type 2&lt;/option&gt;
+	    &lt;option&gt;Carte type 3&lt;/option&gt;
+	&lt;/select&gt;
+&lt;/div&gt;
+
+&lt;input type="text" id="theInput" name="theInput" placeholder="Placeholder"&gt;
+
+&lt;div class="form-group"&gt;
+	&lt;label&gt;Enchère souhaitée&lt;/label&gt;
+	&lt;div class="input-group input-group-lg input-auction"&gt;
+	&lt;input type="text" class="form-control auction-text" placeholder="Placeholder"&gt;
+	&lt;span class="auction-text-after"&gt;&lt;/span&gt;
+	&lt;button class="btn btn-default auction-plus input-group-addon" type="button"&gt;&lt;i class="icon-plus icon-auction" aria-hidden="true"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;button class="btn btn-default auction-less input-group-addon" type="button"&gt;&lt;i class="icon-minus icon-auction" aria-hidden="true"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+		</section>
+
+		<section class="row">
+			<br>
+			<h2>Blocks</h2>
+			<br>
+			<div class="block-progress-example col-sm-6">
+				<div class="bs-example">
+					<ul class="block-process">
+						<li class="block-process_step active">
+							<div class="block-process_step_picto"><i class="icon icon-uniF013"></i></div>
+							<div class="block-process_step_name">Support technique</div>
+						</li>
+						<li class="block-process_step">
+							<div class="block-process_step_picto"><i class="icon icon-uniF046"></i></div>
+							<div class="block-process_step_name">Validation commande</div>
+						</li>
+						<li class="block-process_step">
+							<div class="block-process_step_picto"><i class="icon icon-uniF09D"></i></div>
+							<div class="block-process_step_name">Paiement acompte</div>
+						</li>
+					</ul>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;ul class="block-process"&gt;
+	&lt;li class="block-process_step active"&gt;
+		&lt;div class="block-process_step_picto"&gt;&lt;i class="icon icon-uniF013"&gt;&lt;/i&gt;&lt;/div&gt;
+		&lt;div class="block-process_step_name"&gt;Support technique&lt;/div&gt;
+	&lt;/li&gt;
+	&lt;li class="block-process_step"&gt;
+		&lt;div class="block-process_step_picto"&gt;&lt;i class="icon icon-uniF046"&gt;&lt;/i&gt;&lt;/div&gt;
+		&lt;div class="block-process_step_name"&gt;Validation commande&lt;/div&gt;
+	&lt;/li&gt;
+	&lt;li class="block-process_step"&gt;
+		&lt;div class="block-process_step_picto"&gt;&lt;i class="icon icon-uniF09D"&gt;&lt;/i&gt;&lt;/div&gt;
+		&lt;div class="block-process_step_name"&gt;Paiement acompte&lt;/div&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="card-template-example col-sm-6">
+				<div class="bs-example">
+					<div class="card-styleguide-super-container">
+						<div class="card-styleguide-container">
+							<div class="card-template">
+								<h4>Template n°1</h4>
+								<div class="template-visuel"></div>
+								<a href="#" title="" class="btn btn-primary">Choisir <span class="icon-button icon-simply-right"></span></a>
+							</div>
+						</div>
+						<div class="card-styleguide-container">
+							<div class="card-technical-support">
+								<h4>MISE AU FORMAT DES ÉLÉMENTS À PARTIR D’UN FICHIER NATIF</h4>
+								<div class="support-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique.</div>
+								<hr>
+								<div class="big-numbers">10 000 &euro;</div>
+								<a href="#" title="" class="btn btn-primary">Choisir <span class="icon-button icon-simply-right"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;div class="card-template"&gt;
+	&lt;h4&gt;Template n°1&lt;/h4&gt;
+	&lt;div class="template-visuel"&gt;&lt;/div&gt;
+	&lt;a href="#" title="" class="btn btn-primary"&gt;Choisir &lt;span class="icon-button icon-simply-right"&gt;&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div class="card-technical-support"&gt;
+	&lt;h4&gt;MISE AU FORMAT DES ÉLÉMENTS À PARTIR D’UN FICHIER NATIF&lt;/h4&gt;
+	&lt;div class="support-description"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique.&lt;/div&gt;
+	&lt;hr&gt;
+	&lt;div class="big-numbers"&gt;10 000 &euro;&lt;/div&gt;
+	&lt;a href="#" title="" class="btn btn-primary"&gt;Choisir &lt;span class="icon-button icon-simply-right"&gt;&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="block-actu-example col-sm-12">
+				<div class="bs-example">
+					<div class="block-actu row">
+						<div class="picture-part">
+							<img src="/assets/im/phone1.jpg" alt="">
+						</div>
+						<div class="text-part">
+							<h3>LOREM IPSUM DOLOR SIT AMET</h3>
+							<div class="publication">Publié le 12/11/2015</div>
+							<div class="actu-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum</div>
+							<a href="#" title="" class="actu-link">Lire la suite</a>
+						</div>
+					</div>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-html" data-lang="html">
+&lt;div class="block-actu row"&gt;
+	&lt;div class="picture-part"&gt;
+		&lt;img src="/assets/im/logo.png" alt=""&gt;
+	&lt;/div&gt;
+	&lt;div class="text-part"&gt;
+		&lt;h3&gt;LOREM IPSUM DOLOR SIT AMET&lt;/h3&gt;
+		&lt;div class="publication"&gt;Publié le 12/11/2015&lt;/div&gt;
+		&lt;div class="actu-text"&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae nulla tincidunt, consequat eros eget, pulvinar purus. Integer posuere ac lectus nec tristique. Proin pretium vulputate rutrum&lt;/div&gt;
+		&lt;a href="#" title="" class="actu-link"&gt;Lire la suite&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="account-panel-example col-sm-12">
+				<div class="bs-example">
+					<div class="aside-navigation-container">
+						<ul class="nav nav-pills nav-stacked aside-navigation">
+							<li class="active">
+								<a class="superlink" href="http://www.mediaresa.local/account">Mon compte</a>
+								<ul class="nav submenu">
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+									<li>
+										<a href="#" class="active">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a class="superlink" href="http://www.mediaresa.local/account/ad_placement">Mes réservations</a>
+								<ul class="nav submenu">
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+									<li>
+										<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<a class="superlink" href="http://www.mediaresa.local/account/ad_placement/pending">Mes demandes en cours</a>
+							</li>
+							<li>
+								<a class="superlink" href="http://www.mediaresa.local/account/ad_placement/selection">Ma selection</a>
+							</li>
+							<li>
+								<a class="superlink" href="http://www.mediaresa.local/account/bank_details">Mes coordonnées bancaires</a>
+							</li>
+							<li>
+								<a class="superlink" href="http://www.mediaresa.local/account/invoices">Mes factures</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-js" data-lang="js">
+&lt;div class="aside-navigation-container"&gt;
+	&lt;ul class="nav nav-pills nav-stacked aside-navigation"&gt;
+			&lbrace;&lbrace; accountNav.nav(accountContext) &rbrace;&rbrace;
+	&lt;/ul&gt;
+&lt;/div&gt;
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="panel-placement-example col-sm-12">
+				<div class="bs-example">
+					<div class="container">
+						{% for ad_placement in ad_placements | slice(0, 1)  %}
+
+							{{ widget.widget_mini(ad_placement) }}
+
+						{% endfor %}
+
+						<br>
+
+						{% for ad_placement in ad_placements | slice(0, 2)  %}
+
+							<div class="col-sm-6">
+								{{ widget.widget_mini(ad_placement) }}
+							</div>
+
+						{% endfor %}
+
+					</div>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-js" data-lang="js">
+widget.widget_mini(ad_placement)
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="panel-placement-example col-sm-12">
+				<div class="bs-example">
+					<div class="container">
+						{% for ad_placement in ad_placements | slice(0, 1)  %}
+
+							{{ widget.widget_full(ad_placement) }}
+
+						{% endfor %}
+					</div>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-js" data-lang="js">
+widget.widget_full(ad_placement)
+						</code>
+					</pre>
+				</div>
+			</div>
+		</section>
+
+		<section class="row">
+			<br>
+			<h2>Interactive Components</h2>
+			<br>
+			<div class="slider-home-example col-sm-12">
+				<div class="bs-example">
+					{{ interactive.slider_home("slider-home") }}
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-js" data-lang="js">
+interactive.slider_home("slider-home")
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="pagination-example col-sm-12">
+				<div class="bs-example">
+					<ul class="pagination">
+						<li class="disabled"><span><i class="icon-simply-left"></i></span></li>
+						<li class="active"><span>1</span></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">6</a></li>
+						<li><a href="#">7</a></li>
+						<li><a href="#">8</a></li>
+						<li><a href="#">9</a></li>
+						<li><a href="#">10</a></li>
+						<li><a href="#" rel="next"><i class="icon-simply-right"></i></a></li>
+					</ul>
+				</div>
+				<div class="highlight">
+					<pre>
+						<code class="language-js" data-lang="js">
+paginator.render() | raw
+						</code>
+					</pre>
+				</div>
+			</div>
+		</section>
+	</div>
+
+</main>
+{% endblock %}

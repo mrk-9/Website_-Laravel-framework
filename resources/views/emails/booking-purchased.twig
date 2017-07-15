@@ -1,0 +1,31 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ referent.name }}, une réservation à prix fixe a été réalisée</h2>
+                    <p class="content">
+                        {{ user.name }} {{ user.family_name }} a réalisé une réservation à prix fixe sur l'offre
+                        nommée {{ ad_placement.name }} concernant le support {{ media.name }}.
+                    </p>
+                    <p class="content">
+                        La réservation est à hauteur de {{ ad_placement.price }} &euro; HT
+                        (dont {{ ad_placement.depositPrice(ad_placement.price) }} &euro; HT d'accompte pour MediaResa).
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('ad-network.ad-placement.show', [ad_placement.id]) }}"
+                   title="Consulter réservation" class="btn btn-primary">Consulter réservation</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

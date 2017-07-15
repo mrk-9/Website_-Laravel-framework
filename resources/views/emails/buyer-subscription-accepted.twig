@@ -1,0 +1,25 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ referent.name }} {{ referent.family_name }}</h2>
+                    <p class="content">
+                        Un administrateur vient d'accepter votre inscription. Vous pouvez dès à présent vous connecter.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.home') }}" title="Retour au site" class="btn btn-primary">Retour au site</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

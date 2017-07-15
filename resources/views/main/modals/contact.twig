@@ -1,0 +1,57 @@
+{% embed 'main.modals.modal' %}
+    {% set modal_id = "contact-modal" %}
+    {% set modal_name = "Contactez-nous !" %}
+    {% import "main.partials.select" as select %}
+    {% block modal_body %}
+    	<div class="modal-container">
+    		<p class=" text-center">
+    			Vous souhaitez contacter notre équipe ? Contactez-nous par téléphone <strong>(01 825 220 35)</strong> ou remplissez le formulaire ci-dessous
+    		</p>
+    		<form action="">
+	    		<div class="row modal-contact-contact-form">
+	    			<div class="contact-part">
+	    				<div class="form-group">
+	    					<label for="first_name">Nom</label>
+	    					<input type="text" class="form-control" name="first_name" placeholder="Votre nom">
+	    				</div>
+	    			</div>
+	    			<div class="contact-part">
+	    				<div class="form-group">
+	    					<label for="surname">Prénom</label>
+	    					<input type="text" class="form-control" name="surname" placeholder="Votre prénom">
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="row">
+	    			<div class="contact-part">
+	    				<div class="form-group">
+	    					<label for="email">Email</label>
+	    					<input type="email" class="form-control" name="email" placeholder="Votre email">
+	    				</div>
+	    			</div>
+	    			<div class="contact-part">
+	    				<div class="form-group">
+	    					<label for="phone">Téléphone</label>
+	    					<input type="text" class="form-control" name="phone" placeholder="Votre numéro de téléphone">
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="row">
+	    			<div class="contact-part">
+	    				<div class="form-group">
+	    					{{ select.accountType('account_type', {selected: user.buyer.type}, 'Type de compte <span class="subtitle">(facultatif)</span>') }}
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="row">
+	    			<div class="form-group big-contact-part">
+	    				<label for="contact_message">Message</label>
+	    				<textarea name="contact_message" id="contactMessage" cols="30" rows="5" placeholder="Votre message" class="form-control"></textarea>
+	    			</div>
+	    		</div>
+	    		<button type="submit" data-loading-text="Veuillez patienter..." class="btn btn-primary modal-button">Envoyer<i class="icon-button icon-simply-right"></i></button>
+    		</form>
+    	</div>
+
+    {% endblock %}
+{% endembed %}

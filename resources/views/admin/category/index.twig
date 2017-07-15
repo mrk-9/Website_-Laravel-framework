@@ -1,0 +1,125 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des catégories" %}
+{% set context = 'category' %}
+
+{% block content %}
+<div class="row" data-ng-controller="CategoryCtrl">
+	<div class="col-md-12">
+		<h1>
+			Liste des catégories <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateCategoryModal"><i class="fa fa-plus"></i></button>
+		</h1>
+
+		<table class="table table-hover" data-st-table="CategoryList" st-pipe="refresh" id="CategoryList">
+			<thead>
+				<tr>
+					<th data-st-sort="category.name">Nom</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="category__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="category in list">
+					<td>[[ category.name ]]</td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateCategoryModal', category)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteCategoryModal', category)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="2" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="2" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="CreateCategoryModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter une catégorie</h4>
+				</div>
+				<form action="{{ route('admin.category.store') }}" class="ajax" data-referent-table="CategoryList">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="CreateCategoryName">Nom</label>
+							<input type="text" name="name" id="CreateCategoryName" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteCategoryModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer une catégorie</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer cette catégorie?</p>
+				</div>
+				<form action="{{ route('admin.category.destroy', ['{id}']) }}" class="ajax" data-referent-table="CategoryList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="UpdateCategoryModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour une catégorie</h4>
+				</div>
+				<form action="{{ route('admin.category.update', ['{id}']) }}" class="ajax" data-referent-table="CategoryList">
+					<div class="modal-body">
+						<div class="alert alert-danger hidden"></div>
+						<div class="form-group">
+							<label for="UpdateCategoryName">Nom</label>
+							<input type="text" name="name" id="UpdateCategoryName" class="form-control" value="[[ current.name ]]">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

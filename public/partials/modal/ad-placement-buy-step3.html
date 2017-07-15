@@ -1,0 +1,24 @@
+<h1 class="h2 modal-title">Choisissez le support technique dont vous avez besoin</h1>
+<!--<p class="text-center">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur facere enim voluptatibus doloremque omnis
+    asperiores voluptate numquam, provident animi mollitia, quae, odit impedit. Officia, voluptates incidunt totam
+    minima vero voluptatum!
+</p>-->
+<div class="row">
+    <div class="card-container" ng-repeat="technicalSupport in technicalSupports">
+        <div class="card-technical-support">
+            <h4 class="card-technical-support-title" ng-bind="technicalSupport.name"></h4>
+            <div class="support-description" ng-bind-html="technicalSupport.description | nl2br"></div>
+            <hr>
+            <div class="big-numbers" ng-bind-template="[[ technicalSupport.price ]] €"></div>
+            <button class="btn btn-primary btn-block"
+                    ng-click="order.technicalSupport = technicalSupport; $setActiveIndex(order.technicalSupport.id === 1 ? 5 : 7)">
+                Choisir <i class="icon-button icon-simply-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-secondary btn-previous-alone" ng-click="order.technical_support = null; $lastVisitedStep()">Précédent <i
+            class="icon-button icon-simply-left"></i></button>
+</div>

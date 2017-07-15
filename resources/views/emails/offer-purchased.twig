@@ -1,0 +1,30 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ referent.name }}, une proposition d'offre a été réalisée</h2>
+                    <p class="content">
+                        {{ user.name }} {{ user.family_name }} a réalisé une offre sur l'emplacement {{ ad_placement.name }} concernant le support {{ media.name }}.
+                    </p>
+                    <p class="content">
+                        La proposition est à hauteur de {{ offer.amount }} &euro; HT
+                        (dont {{ ad_placement.depositPrice(offer.amount) }} &euro; HT d'accompte pour MediaResa).
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('ad-network.ad-placement.show', [ad_placement.id]) }}" title="Consulter offre"
+                   class="btn btn-primary">Consulter offre</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

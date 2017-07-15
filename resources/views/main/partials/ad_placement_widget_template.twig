@@ -1,0 +1,115 @@
+<div class="panel-placement {{ modifierClass }}" {% if id is defined %}id="{{ id }}"{% endif %} ng-controller="AdPlacementCtrl">
+
+    <div class="col-img{% if modifierClass == "panel-placement--full"%} hidden-xs{% endif %}">
+        <img class="panel-placement_img" src="{{ ad_placement.media.cover_img }}" alt="couverture">
+        {% block left %}{% endblock %}
+    </div>
+
+    <div class="col-content">
+        {# {% block arrow_navigation %}{% endblock %} #}
+        <h4 class="panel-placement_title">{{ ad_placement.media.name }} {% if ad_placement.edition %} N° {{ ad_placement.edition }}{% endif %}
+            - {{ ad_placement.name }}</h4>
+        <div class="panel-placement_subtitle">{% if ad_placement.media.category is not null%}{{ ad_placement.media.category.name }}{% else %}{{ ad_placement.media.support.name }}{% endif %}</div>
+
+        <div class="panel-placement_infos">
+            <ul class="panel-placement_infolist">
+                <li class="panel-placement_infolist_item"><i class="icon icon-tag"></i> {{ ad_placement.type_fr }}</li>
+                <li class="panel-placement_infolist_item"><i
+                            class="icon icon-clock"></i> {{ ad_placement.time_before_closing }}</li>
+            </ul>
+            {% if user_auth_check() %}
+                <div class="panel-placement_price {% if ad_placement.type == constant('App\\AdPlacement::TYPE_AUCTION') %}placement-price-annotation_container{% endif %}">
+                    {% if ad_placement.type == constant('App\\AdPlacement::TYPE_AUCTION') and ad_placement.user_auction is not null and ad_placement.user_auction.amount == ad_placement.price %}
+                                <span class="pull-left ad_placement-price-annotation">Ma dernière enchère: </span>
+                    {% endif %}
+                    {% if ad_placement.type == constant('App\\AdPlacement::TYPE_AUCTION') and ad_placement.user_auction == null %}
+                        {{ ad_placement.minimum_price }} € HT
+                    {% else %}
+                        {{ ad_placement.price }} € HT
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="panel-placement_actions {% if ad_placement.offer_ready and ad_placement.booking_ready %}panel-hybrid-actions{% endif %}">
+                {% if user_auth_check() %}
+                    {% block actions_with_auth %}
+                    {% endblock %}
+                {% else %}
+                    {% block actions_without_auth %}
+                    {% endblock %}
+                {% endif %}
+            </div>
+        </div>
+        {#<div class="panel-your-last-offer">{% if ad_placement.user_auction.amount is defined %} <span class="ad_placement-price-annotation">Votre dernière enchère: </span><span class="panel-placement_client-last-offer">{{ad_placement.user_auction.amount}} €</span> {% endif %}</div>#}
+
+        <div class="container-dropdown-mobile">
+
+            <div class="container-dropdown-mobile_more">
+
+                {% block description %}{% endblock %}
+
+                <table class="panel-placement_table">
+                    <tbody>
+                    {% block infos_table %}
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Support</th>
+                            <td>{{ ad_placement.media.support.name }}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Catégorie</th>
+                            <td>{% if ad_placement.media.category is null %}- -{% else %}{{ ad_placement.media.category.name }}{% endif %}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Format</th>
+                            <td>{{ ad_placement.format.name }}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Périodicité</th>
+                            <td>{{ ad_placement.media.frequency.name }}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Zone de diffusion</th>
+                            <td>{{ ad_placement.media.broadcastingArea.name }}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Diffusion France Payée</th>
+                            <td>{{ ad_placement.media.datas }}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Parution</th>
+                            <td>{{ ad_placement.broadcasting_date|date("d/m/Y") }}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Cible</th>
+                            <td>{% for t in ad_placement.media.targets %}{% if loop.index != 1 %}, {% endif %}{{ t.name }}{% endfor %}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Thématique</th>
+                            <td>{% if ad_placement.media.theme is null %}- -{% else %}{{ ad_placement.media.theme.name }}{% endif %}</td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Date fin de vente</th>
+                            <td><div class="td-content">{{ ad_placement.ending_at|date("d/m/Y H\\hi") }}</div></td>
+                        </tr>
+                        <tr class="panel-placement_table_tr">
+                            <th scope="row">Remise des éléments</th>
+                            <td>{{ ad_placement.technical_deadline|date("d/m/Y H\\hi") }}</td>
+                        </tr>
+                    {% endblock %}
+                    </tbody>
+                </table>
+                {% block right %}{% endblock %}
+            </div>
+            <button type="button" class="btn btn-block btn-default expand-card"><i class="icon icon-simply-down"></i>
+            </button>
+        </div>
+    </div>
+
+    {% if modifierClass == "panel-placement--full" %}
+        <div class="col-img visible-xs-block">
+            <img class="panel-placement_img" src="{{ ad_placement.media.cover_img }}" alt="couverture">
+            {{ block('left') }}
+        </div>
+    {% endif %}
+
+    {% block hover %}{% endblock %}
+</div>

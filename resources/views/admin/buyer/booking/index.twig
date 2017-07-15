@@ -1,0 +1,133 @@
+<div data-ng-controller="BookingCtrl" data-user-id="{{ buyer.referent.id }}" >
+    <table class="table table-hover" data-st-table="BookingList" st-pipe="refresh" id="BookingList">
+        <thead>
+            <tr>
+                <th data-st-sort="media.name">Support</th>
+                <th data-st-sort="ad_placement.name">Emplacement</th>
+                <th data-st-sort="ad_placement.price">Prix</th>
+                <th data-st-sort="ad_placement.minimum_price">Prix minimum</th>
+                <th data-st-sort="booking.created_at">Date réservation</th>
+                <th>Etat du paiement</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input st-search="media__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="ad_placement__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th colspan="5"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-show="list.length" data-ng-repeat="booking in list">
+                <td>
+                    <i data-ng-show="booking.is_winner" class="fa fa-trophy fa-2x fa-black"></i>
+                    [[ booking.ad_placement.media.name ]]
+                    <span ng-show="booking.ad_placement.edition">
+                        (édition : [[ booking.ad_placement.edition ]])
+                    </span>
+                </td>
+
+                <td>[[ booking.ad_placement.name ]]</td>
+
+                <td>
+                    [[ booking.ad_placement.price ]]&euro;
+                </td>
+
+                <td class="text-center">
+                   <span data-ng-show="booking.ad_placement.type == '{{ constant('App\\AdPlacement::TYPE_HYBRID') }}'">
+                       [[ booking.ad_placement.minimum_price ]]&euro;
+                   </span>
+                   <span data-ng-show="booking.ad_placement.type == '{{ constant('App\\AdPlacement::TYPE_BOOKING') }}'">
+                       -
+                   </span>
+                </td>
+
+                <td>[[ booking.created_at_date ]]</td>
+
+                <td class="text-center">
+                    <i data-ng-show="booking.charge_status" class="fa fa-cc-stripe fa-2x fa-black"></i>
+                    <i data-ng-show="booking.transfer_status" class="fa fa-exchange fa-2x fa-black"></i>
+
+                    <!-- Get payment status -->
+                    <i data-ng-show="booking.payment_is_pending" class="fa fa-hourglass-half fa-2x fa-black"></i>
+                    <i data-ng-show="booking.is_lost" class="fa fa-times fa-2x"></i>
+                    <i data-ng-show="booking.payment_is_valid" class="fa fa-check fa-2x"></i>
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" data-ng-click="go('{{ route('admin.booking.index') }}/' + list[$index].id)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+                    <!-- Transfer validation -->
+                    <button class="btn btn-primary" data-ng-show="booking.is_ready_for_transfer_validation" data-ng-click="openModal('#ValidateTransferBookingModal', booking)">
+                        <i class="fa fa-eur"></i>
+                    </button>
+
+                    <!-- Confirm publication status -->
+                    <button class="btn btn-primary" data-ng-show="booking.is_ready_for_publication" data-ng-click="openModal('#PublishBookingModal', booking)">
+                        <i class="fa fa-certificate"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-hide="list.length || loading == true">
+                <td colspan="7" class="text-center">Aucun élément</td>
+            </tr>
+            <tr data-ng-show="loading == true">
+                <td colspan="7" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" class="text-center">
+                    <div st-pagination="" st-items-by-page="20"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="ValidateTransferBookingModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Valider un virement bancaire</h4>
+                </div>
+                <form action="{{ route('admin.booking.validate.transfer', ['{id}']) }}" class="ajax" data-referent-table="BookingList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Le virement brancaire a bien été reçu pour cette réservation?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Validé !">Valider le virement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PublishBookingModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Confirmer la publication</h4>
+                </div>
+                <form action="{{ route('admin.booking.validate.publication', ['{id}']) }}" class="ajax" data-referent-table="BookingList">
+                    <div class="modal-body">
+                        <div class="alert alert-danger hidden"></div>
+                        <p>
+                            Voulez vous vraiment confirmer la publication de cet emplacement réservé?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Confirmé !">Confirmer la publication</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

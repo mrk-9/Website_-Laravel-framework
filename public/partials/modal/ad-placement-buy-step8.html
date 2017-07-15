@@ -1,0 +1,18 @@
+<h1 class="h2 modal-title">Choisissez votre mode de paiement</h1>
+<p>
+	Pour enregistrer votre offre, merci de choisir votre mode de paiement : une empreinte bancaire sera enregistrée, cependant le prélèvement ne sera effectuée que si la régie accepte votre offre
+</p>
+<p>Un réglement par carte bleue vous permettera de réserver instantanément un emplacement.</p>
+<div class="row text-center">
+    <button type="button" class="btn btn-primary btn-credit btn-payment-type-transfer"
+            ng-click="$setActiveIndex(9)">Virement bancaire <i
+                class="icon-button icon-simply-right"></i></button>
+    <button type="button" class="btn btn-primary btn-credit btn-payment-type-card"
+            ng-click="$setActiveIndex(10)">Carte Bancaire <i class="icon-button icon-simply-right"></i>
+    </button>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-secondary btn-previous-alone"
+            ng-click="$lastVisitedStep()">Précédent <i class="icon-button icon-simply-left"></i>
+    </button>
+</div>

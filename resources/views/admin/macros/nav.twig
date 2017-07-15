@@ -1,0 +1,41 @@
+{% macro nav(context) %}
+	<li {% if context == 'admin' %}class="active"{% endif %}>
+		<a href="{{ route('admin.admin.index') }}">Administrateurs</a>
+	</li>
+	<li {% if context == 'buyer' %}class="active"{% endif %}>
+		<a href="{{ route('admin.buyer.index') }}">Agences / Annonceurs</a>
+	</li>
+	<li {% if context == 'ad_network' %}class="active"{% endif %}>
+		<a href="{{ route('admin.ad-network.index') }}">Régies</a>
+	</li>
+	<li {% if context == 'ad-placement' %}class="active"{% endif %}>
+		<a href="{{ route('admin.ad-placement.index') }}">Emplacements</a>
+	</li>
+	{#<li {% if context == 'support' %}class="active"{% endif %}>
+		<a href="{{ route('admin.support.index') }}">Supports</a>
+	</li>
+	<li {% if context == 'category' %}class="active"{% endif %}>
+		<a href="{{ route('admin.category.index') }}">Catégories</a>
+	</li>
+	<li {% if context == 'target' %}class="active"{% endif %}>
+		<a href="{{ route('admin.target.index') }}">Cibles</a>
+	</li>
+	<li {% if context == 'theme' %}class="active"{% endif %}>
+		<a href="{{ route('admin.theme.index') }}">Thèmes</a>
+	</li>
+	<li {% if context == 'broadcasting_area' %}class="active"{% endif %}>
+		<a href="{{ route('admin.broadcasting-area.index') }}">Zones de diffusion</a>
+	</li>
+	<li {% if context == 'format' %}class="active"{% endif %}>
+		<a href="{{ route('admin.format.index') }}">Formats</a>
+	</li>#}
+	<li {% if context == 'media' %}class="active"{% endif %}>
+		<a href="{{ route('admin.media.index') }}">Médias</a>
+	</li>
+	<li {% if context == 'template' %}class="active"{% endif %}>
+		<a href="{{ route('admin.template.index') }}">Gabarits</a>
+	</li>
+	<li {% if context == 'technical_support' %}class="active"{% endif %}>
+		<a href="{{ route('admin.technical-support.index') }}">Supports techniques</a>
+	</li>
+{% endmacro %}

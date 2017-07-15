@@ -1,0 +1,31 @@
+.legals-page {
+	padding-bottom: 80px;
+	.legals-title {
+		margin-top: 40px;
+		margin-bottom: 0;
+	}
+	.legals-part {
+		padding: 20px 0 40px 0;
+		border-top: 1px solid $pearl-gray;
+		&:first-of-type {
+			border-top: none;
+		}
+	}
+	.legals-container {
+		max-width: 780px;
+	}
+	.legals-section-title {
+		margin: 20px 0;
+	}
+	ul,
+	ol {
+		li {
+			font-size: 16px;
+			line-height: 24px;
+			margin-bottom: 5px;
+		}
+	}
+	a {
+		font-size: 16px;
+	}
+}

@@ -1,0 +1,52 @@
+{% macro slider_home(id, optionClass) %}
+	<div class="slider-home row {{ optionClass }}">
+		<div id="{{ id }}" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+
+			<ol class="carousel-indicators">
+				<li data-target="#{{ id }}" data-slide-to="0" class="active"></li>
+				<li data-target="#{{ id }}" data-slide-to="1"></li>
+				<li data-target="#{{ id }}" data-slide-to="2"></li>
+				{# <li data-target="#{{ id }}" data-slide-to="3"></li> #}
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<div data-original="/assets/im/home-mediaresa.jpg" alt="website-online" class="lazy carousel-picture"></div>
+					<div class="slider-text">
+						<h1></h1>
+						<p class="lead"></p>
+					</div>
+				</div>
+
+				<div class="item">
+					<div data-original="/assets/im/corporate-header-picture.jpg" alt="corporate picture" class="lazy carousel-picture"></div>
+					<div class="slider-text">
+						<h1>DÉCOUVREZ NOS OFFRES DE DERNIÈRES MINUTES</h1>
+						<p class="lead">Achetez votre publicité en toute simplicité depuis votre ordinateur</p>
+					</div>
+				</div>
+
+				<div class="item">
+					<div data-original="/assets/im/mediaresa-phone.jpg" alt="mobile site media resa" class="lazy carousel-picture"></div>
+					<div class="slider-text">
+						<h1>Donnez de la visibilité à vos disponibilités publicitaires</h1>
+						<a href="{{ route('ad-network.auth.register') }}" class="lead">Inscrivez-vous pour profiter d'une plate-forme dédiée et de la puissance d'Internet</a>
+					</div>
+				</div>
+
+
+				{# Provisoire #}
+
+				{# <div class="item">
+					<img src="/assets/im/phone3.jpg" alt="...">
+					<div class="slider-text">
+						<h1>DÉCOUVREZ NOS OFFRES DE DERNIÈRES MINUTES</h1>
+						<p class="lead">Achetez votre publicité en toute simplicité depuis votre ordinateur</p>
+					</div>
+				</div> #}
+			</div>
+		</div>
+	</div>
+{% endmacro %}

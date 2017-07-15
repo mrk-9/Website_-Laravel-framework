@@ -1,0 +1,132 @@
+// Buttons
+// ----------------------------------
+.btn {
+	font-family: "Roboto";
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 0 0 0 16px;
+	line-height: 35px;
+	height: 35px;
+	position: relative;
+	width: 200px;
+	text-align: left;
+	max-width: 100%;
+	@include transition(all);
+	.icon-button {
+		position: absolute;
+		right: 10px;
+		top: 0;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 35px;
+		@include transition(all);
+	}
+}
+
+.btn-default {
+	border: none;
+	text-align: center;
+	color: $carbon-gray;
+	font-size: 16px;
+	&:hover,
+	&:focus {
+		background: transparent;
+	}
+}
+
+.btn-primary {
+	border-color: transparent;
+	.icon-button {
+		color: darken($brand-primary, 10%);
+	}
+	&:hover,
+	&:focus {
+		border-color: transparent;
+		.icon-button {
+			color: darken($brand-primary, 20%);
+		}
+	}
+}
+.btn-secondary {
+	background-color: $pearl-gray;
+	color: $rock-gray;
+	.icon-button {
+		color: $dark-gray;
+	}
+	&:hover,
+	&:focus {
+		background-color: darken($pearl-gray, 10%);
+		border-color: transparent;
+		color: $rock-gray;
+		.icon-button {
+			color: darken($rock-gray, 10%);
+		}
+	}
+}
+.btn-tertiary {
+	background-color: $white;
+	color: $duck-blue;
+	border-color: $pearl-gray;
+	.icon-button {
+		color: rgba(0, 0, 0, 0.25);
+	}
+	&:hover,
+	&:focus {
+		color: $duck-blue;
+		background-color: darken($white, 5%);
+		border-color: darken($pearl-gray, 10%);
+		.icon-button {
+			color: rgba(0, 0, 0, 0.5);
+		}
+	}
+}
+
+.btn-large {
+	width: 270px;
+	max-width: 100%;
+}
+.btn-block {
+	width: 100%;
+}
+.btn-search {
+	width: 100%;
+	line-height: 39px;
+	height: 39px;
+	.icon-button {
+		color: $white;
+		line-height: 39px;
+		font-size: 18px;
+	}
+}
+.btn-social {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 30px;
+	padding: 0;
+	border: 1px solid $pearl-gray;
+	text-align: center;
+	i {
+		line-height: 30px;
+		font-size: 14px;
+		&.fa-facebook {
+			color: $facebook-color;
+		}
+		&.fa-twitter {
+			color: $twitter-color;
+		}
+		&.fa-google-plus {
+			color: $google-plus-color;
+		}
+	}
+}
+
+//jquery-btn-ajax
+.btn.btn-ajax > .btn-ajax-label:not(.btn-ajax-selected) {
+    display: none;
+}
+
+//signup page button
+.btn-subscription {
+	margin: 20px 0;
+}

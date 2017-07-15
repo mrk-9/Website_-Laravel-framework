@@ -1,0 +1,20 @@
+<h1 class="h2 modal-title">Décrivez votre besoin et uploadez vos fichiers</h1>
+<div class="process-step modal-content-container">
+    <div class="row">
+        <div class="form-group">
+            <label>Brief créatif</label>
+            <textarea name="brief" id="brief" cols="30" rows="4" class="form-control" ng-model="order.brief"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <p>Merci d'adresser les éléments graphiques à votre disposition (logo, charte graphique,
+            ...) à <a href="mailto:studio-graphique@mediaresa.fr" title="contact mail">studio-graphique@mediaresa.fr</a>.
+        </p>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-secondary btn-previous" ng-click="$lastVisitedStep()">
+            Précédent <i class="icon-button icon-simply-left"></i></button>
+        <button type="button" class="btn btn-primary btn-next" ng-click="$nextStep()">Suivant
+            <i class="icon-button icon-simply-right"></i></button>
+    </div>
+</div>

@@ -1,0 +1,254 @@
+<h2>
+    Informations sur les membres de la régie
+    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateAdNetworkUserModal">
+        <i class="fa fa-plus"></i>
+    </button>
+</h2>
+<hr>
+<div data-ng-controller="AdNetworkUserCtrl" data-ad-network-id="{{ ad_network.id }}" >
+    <table class="table table-hover" data-st-table="AdNetworkUserList" st-pipe="refresh" id="AdNetworkUserList">
+        <thead>
+            <tr>
+                <th data-st-sort="name">Nom</th>
+                <th data-st-sort="position">Fonction</th>
+                <th data-st-sort="email">Email</th>
+                <th data-st-sort="phone">Téléphone</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input st-search="name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="position" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="email" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-show="list.length" data-ng-repeat="ad_network_user in list">
+                <td>
+                    <i ng-if="ad_network_user.id == ad_network_user.ad_network.ad_network_user_id" class="fa fa-star"></i> [[ ad_network_user.title ]] [[ ad_network_user.name ]] [[ ad_network_user.family_name ]]
+                </td>
+                <td>[[ ad_network_user.position ]]</td>
+                <td>[[ ad_network_user.email ]]</td>
+                <td>[[ ad_network_user.phone ]]</td>
+                <td>
+                    <button class="btn btn-primary" data-ng-click="openModal('#UpdateAdNetworkUserModal', ad_network_user)">
+                            <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger" data-ng-click="openModal('#DeleteAdNetworkUserModal', ad_network_user)">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-hide="list.length || loading == true">
+                <td colspan="5" class="text-center">Aucun élément</td>
+            </tr>
+            <tr data-ng-show="loading == true">
+                <td colspan="5" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="20"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="UpdateAdNetworkUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Mettre à jour un membre de régie</h4>
+                </div>
+                <form action="{{ route('admin.ad-network-user.update', ['{id}']) }}" class="ajax" data-referent-table="AdNetworkUserList">
+                    <div class="modal-body col-md-12">
+                        <div class="alert alert-danger hidden"></div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserName">Prénom</label>
+                            <input type="text"
+                                name="name"
+                                id="UpdateAdNetworkUserName"
+                                class="form-control"
+                                data-ng-value="current.name">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateAdNetworkUserFamilyName">Nom de famille</label>
+                            <input type="text"
+                                name="family_name"
+                                id="UpdateAdNetworkUserFamilyName"
+                                class="form-control"
+                                data-ng-value="current.family_name">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateAdNetworkUserTitle">Civilité</label>
+                            <select name="title" class="form-control" id="UpdateAdNetworkUserTitle">
+                                <option value="M.">M.</option>
+                                <option value="Mme.">Mme.</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateAdNetworkUserPosition">Fonction</label>
+                            <input type="text"
+                                name="position"
+                                id="UpdateAdNetworkUserPosition"
+                                class="form-control"
+                                data-ng-value="current.position">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateAdNetworkUserEmail">Email</label>
+                            <input type="text"
+                                name="email"
+                                id="UpdateAdNetworkUserEmail"
+                                class="form-control"
+                                data-ng-value="current.email">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateAdNetworkUserPhone">Téléphone</label>
+                            <input type="text"
+                                name="phone"
+                                id="UpdateAdNetworkUserPhone"
+                                class="form-control"
+                                data-ng-value="current.phone">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateAdNetworkUserPassword">Mot de passe</label>
+                            <input type="password" name="password" id="UpdateAdNetworkUserPassword" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <div class="checkbox-group">
+                                <input type="checkbox" name="referent" id="UpdateAdNetworkUserReferent" ng-checked="current.id == current.ad_network.ad_network_user_id">
+                                <label for="UpdateAdNetworkUserReferent">Référent</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="_method" value="put">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit"
+                            class="btn btn-primary"
+                            data-loading-text="<i class='fa fa-spin fa-spinner'></i>"
+                            data-done-text="Enregistré !">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="CreateAdNetworkUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Ajouter un membre de régie</h4>
+                </div>
+                <form action="{{ route('admin.ad-network-user.store', { 'ad_network_id' : ad_network.id }) }}" class="ajax" data-referent-table="AdNetworkUserList">
+                    <div class="modal-body col-md-12">
+                        <div class="alert alert-danger hidden"></div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateUserName">Prénom</label>
+                            <input type="text"
+                                name="name"
+                                id="CreateAdNetworkUserName"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateAdNetworkUserFamilyName">Nom de famille</label>
+                            <input type="text"
+                                name="family_name"
+                                id="CreateAdNetworkUserFamilyName"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateAdNetworkUserTitle">Civilité</label>
+                            <select name="title" class="form-control" id="CreateAdNetworkUserTitle">
+                                <option value="M.">M.</option>
+                                <option value="Mme.">Mme.</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateAdNetworkUserPosition">Fonction</label>
+                            <input type="text"
+                                name="position"
+                                id="CreateAdNetworkUserPosition"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateAdNetworkUserEmail">Email</label>
+                            <input type="text"
+                                name="email"
+                                id="CreateAdNetworkUserEmail"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateAdNetworkUserPhone">Téléphone</label>
+                            <input type="text"
+                                name="phone"
+                                id="CreateAdNetworkUserPhone"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="CreateAdNetworkUserPassword">Mot de passe</label>
+                            <input type="password" name="password" id="CreateAdNetworkUserPassword" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <div class="checkbox-group">
+                                <input type="checkbox" name="referent" id="CreateAdNetworkUserReferent">
+                                <label for="CreateAdNetworkUserReferent">Référent</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit"
+                            class="btn btn-primary"
+                            data-loading-text="<i class='fa fa-spin fa-spinner'></i>"
+                            data-done-text="Enregistré !">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteAdNetworkUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Supprimer un utilisateur de régie</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Voulez vous vraiment supprimer [[current.name]] [[current.family_name]]?</p>
+                </div>
+                <form action="{{ route('admin.ad-network-user.destroy', ['{id}']) }}" class="ajax" data-referent-table="AdNetworkUserList">
+                    <input type="hidden" name="_method" value="delete">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

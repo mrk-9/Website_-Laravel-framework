@@ -1,0 +1,23 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Demande de contact</h2>
+                    <p class="content">
+                        Nom Prénom : {{ lastname }} {{ firstname }}<br>
+                        Mail : {{ email }}<br>
+                        Téléphone : {{ phone }}<br>
+                        Type de compte : {{ accountType }}<br>
+                        Message :<br>
+                        {{ note | nl2br }}
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

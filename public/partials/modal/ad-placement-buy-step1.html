@@ -1,0 +1,37 @@
+<h1 ng-if="order.buyType === 'auction'" class="h2 modal-title">Vous souhaitez enchérir sur cet emplacement ?</h1>
+<h1 ng-if="order.buyType === 'offer'" class="h2 modal-title">Vous souhaitez faire une offre sur cet emplacement ?</h1>
+<ad-placement ng-model="adPlacement"></ad-placement>
+<div class="modal_form-auction">
+    <div class="modal_form-auction_amount">
+        <form name="priceForm">
+            <div class="form-group">
+                <label ng-if="order.buyType === 'auction'">Enchére souhaitée</label>
+                <label ng-if="order.buyType === 'offer'">Offre proposée</label>
+                <div class="input-group input-group-lg input-auction">
+                    <input name="price" type="number" class="form-control auction-text"
+                           placeholder="Entrez un montant" name="price"
+                           min="[[adPlacement.user_min_price]]" ng-model="order.price"
+                           max="[[ {true: adPlacement.user_max_price, false: ''}[order.buyType == 'offer'] ]]" ng-model-options="{allowInvalid: true}" required>
+                    <span class="auction-text-after">€ HT</span>
+                    <button class="btn btn-default auction-plus input-group-addon price-up" type="button"
+                            ng-click="order.price = order.price + 1"
+                            ng-disabled="order.buyType === 'offer' && (order.price + 1) > adPlacement.user_max_price"><i
+                            class="icon-plus icon-auction" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-default auction-less input-group-addon price-down" type="button"
+                            ng-click="order.price = order.price - 1"
+                            ng-disabled="(order.price - 1) < adPlacement.user_min_price"><i
+                            class="icon-minus icon-auction" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal_form-auction_submit">
+        <button type="button" ng-disabled="priceForm.$invalid" class="btn btn-primary btn-lg btn-block" ng-click="$nextStep()">
+            <span ng-if="order.buyType === 'auction'">Enchérir</span>
+            <span ng-if="order.buyType === 'offer'">Valider</span>
+            <i class="icon-button icon-simply-right"></i>
+        </button>
+    </div>
+    <div class="clearfix"></div>
+</div>

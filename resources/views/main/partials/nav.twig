@@ -1,0 +1,101 @@
+{% macro nav(context) %}
+	<li {% if context == 'home' %}class="active"{% endif %}>
+		<a href="{{ route('main.home') }}">Accueil</a>
+	</li>
+	{# temporary #}
+	{#<li {% if context == 'news' %}class="active"{% endif %}>
+		<a href="{{ route('main.news.index') }}">Actualités</a>
+	</li>#}
+	<li {% if context == 'ad_placement' %}class="active"{% endif %}>
+		<a href="{{ route('main.ad_placement.index') }}">Recherche</a>
+	</li>
+{% endmacro %}
+
+{% macro nav_account(context) %}
+	<li {% if context == 'account-home' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.home') }}" class="superlink">Mon compte</a>
+	</li>
+	<li {% if context == 'ad_placements_valid' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.ad_placements_valid') }}" class="superlink double0">Mes demandes validées</a>
+	</li>
+	<li {% if context == 'ad_placements_pending' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.ad_placements_pending') }}" class="superlink double1">Mes demandes en cours</a>
+	</li>
+	<li {% if context == 'ad_placements_canceling' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.ad_placements_canceling') }}" class="superlink double2">Mes demandes annulées</a>
+	</li>
+	<li {% if context == 'ad_placements_selection' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.ad_placements_selection') }}" class="superlink">Ma selection</a>
+	</li>
+	<li {% if context == 'bank_details' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.bank_details') }}" class="superlink double3">Mes coordonnées bancaires</a>
+	</li>
+	<li {% if context == 'invoices' %}class="active"{% endif %}>
+		<a href="{{ route('main.account.invoices') }}" class="superlink">Mes factures</a>
+	</li>
+{% endmacro %}
+
+{% macro nav_faq(context) %}
+	<li>
+		<ul class="nav submenu">
+			<li>
+				<a href="#faqtitle1"> {{ "Que faites-vous exactement ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle2"> {{ "Je n’ai pas déterminé mes besoins en communications." | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle3"> {{ "Combien cela coûte ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle4"> {{ "J’ai déjà mandaté une société qui réalise mes achats d’espaces publicitaires." | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle5"> {{ "Quels titres (presse) sont représentés ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle6"> {{ "Comment réaliser la publicité ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle7"> {{ "Combien coute ce service supplémentaire ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle8"> {{ "Quel est exactement l‘intérêt de passer par Média Résa plutôt que d’accepter les offres directement des supports ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle9"> {{ "Quel type de réseau d’affichage ou (de format) proposez-vous ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle10"> {{ "Pourquoi votre proposition serait-elle plus économique qu’une autre ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle11"> {{ "Quel est le délai nécessaire entre la décision d’achat de l’espace publicitaire et la fourniture du bon à tirer ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle12"> {{ "Il y a-t-il un barème dégressif après quelques achats d’espaces et si oui, au bout de combien d’achats ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle13"> {{ "Quel genre de documents doit-on fournir pour l’impression ? Format/HD/ logos ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle14"> {{ "Un bon à tirer nous  est-il soumis avant impression ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle15"> {{ "En cas de multi -réservations sur une période donnée, avec une même publicité, faut-il fournir autant de documents que de supports choisis où conservez vous une banque de données ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle16"> {{ "Si des  modifications minimes sont à faire sur notre publicité (changement de packaging, couleur du logo..) quel serait le coût de ces modifications et pourriez vous vous en charger ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle17"> {{ "Gérez vous la presse écrite ou votre activité couvre-t-elle l’affichage publique, la presse numérique ou autre ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle18"> {{ "Un client inscrit chez Media Résa reçoit-il toutes les offres existantes ou seulement celles qui concernent son secteur d’activité ?" | truncate(35) }} </a>
+			</li>
+			<li>
+				<a href="#faqtitle19"> {{ "Quels sont les tarifs appliqués et comment et par qui sont-ils décidés ?" | truncate(35) }} </a>
+			</li>
+		</ul>
+	</li>
+
+{% endmacro %}

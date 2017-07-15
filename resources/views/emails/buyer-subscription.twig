@@ -1,0 +1,26 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>{{ referent.name }}, bienvenue sur MediaResa</h2>
+                    <p class="content">
+                        Merci de vous être inscrit sur MediaResa. Vous pouvez désormais accéder à l'ensemble des
+                        informations concernant nos offres.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('main.home') }}" title="Retour au site" class="btn btn-primary">Retour au site</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

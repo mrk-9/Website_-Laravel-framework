@@ -1,0 +1,22 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>{{ referent.name }}, bienvenue sur MediaResa</h2>
+                    <p class="content">
+                        Vous avez formulé une demande d'inscription sur notre plate-forme pour {{ ad_network.name }}
+                        ({{ ad_network.corporate_name }}).
+                    </p>
+                    <p class="content">
+                        Votre demande est en cours de validation, un e-mail vous sera envoyé pour confirmer votre inscription.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

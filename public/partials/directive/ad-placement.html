@@ -1,0 +1,83 @@
+<div class="panel-placement ">
+
+    <div class="col-img">
+        <img class="panel-placement_img" ng-src="{{adPlacement.media.cover_img}}" alt="couverture">
+    </div>
+
+    <div class="col-content">
+        <h4 class="panel-placement_title" ng-bind-template="{{adPlacement.name}} {{adPlacement.media.edition}} - {{adPlacement.media.name}}"></h4>
+        <div class="panel-placement_subtitle"><span ng-bind="adPlacement.media.category.name"></span><span ng-if="adPlacement.media.category.name === undefined" ng-bind="adPlacement.media.support.name"></span></div>
+        <div class="panel-placement_infos">
+            <ul class="panel-placement_infolist">
+                <li class="panel-placement_infolist_item"><i class="icon icon-tag"></i> <span ng-bind="adPlacement.type_fr"></span></li>
+                <li class="panel-placement_infolist_item"><i class="icon icon-clock"></i> <span ng-bind="adPlacement.time_before_closing"></span></li>
+            </ul>
+            <div class="panel-placement_price ">
+                <span ng-if="price === undefined && adPlacement.price !== null" ng-bind-template="[[adPlacement.price]] € HT"></span>
+                <span ng-if="price !== undefined" ng-bind-template="[[price]] € HT"></span>
+            </div>
+        </div>
+
+        <div class="container-dropdown-mobile">
+
+            <div class="container-dropdown-mobile_more">
+
+
+                <table class="panel-placement_table">
+                    <tbody>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Support</th>
+                        <td ng-bind="adPlacement.media.support.name"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Catégorie</th>
+                        <td ng-if="adPlacement.media.category !== null" ng-bind="adPlacement.media.category.name"></td>
+                        <td ng-if="adPlacement.media.category === null" >- -</td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Format</th>
+                        <td ng-bind="adPlacement.format.name"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Périodicité</th>
+                        <td ng-bind="adPlacement.media.frequency.name"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Zone de diffusion</th>
+                        <td ng-bind="adPlacement.media.broadcasting_area.name"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Diffusion France Payée</th>
+                        <td ng-bind="adPlacement.media.datas"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Parution</th>
+                        <td ng-bind="adPlacement.broadcasting_date | mcDbDateFormatter | date : 'dd/MM/yyyy HH:mm'"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Cible</th>
+                        <td><span ng-repeat="target in adPlacement.media.targets"><span ng-if='$index !== 0'>, </span><span ng-bind="target.name"></span></span></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Thématique</th>
+                        <td ng-if="adPlacement.media.theme !== null" ng-bind="adPlacement.media.theme.name"></td>
+                        <td ng-if="adPlacement.media.theme === null" >- -</td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Fin de vente</th>
+                        <td ng-bind="adPlacement.ending_at | mcDbDateFormatter | date : 'dd/MM/yyyy'"></td>
+                    </tr>
+                    <tr class="panel-placement_table_tr">
+                        <th scope="row">Remise des éléments</th>
+                        <td ng-bind="adPlacement.technical_deadline | mcDbDateFormatter | date : 'dd/MM/yyyy'"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-block btn-default expand-card"><i class="icon icon-simply-down"></i>
+            </button>
+        </div>
+    </div>
+
+
+</div>

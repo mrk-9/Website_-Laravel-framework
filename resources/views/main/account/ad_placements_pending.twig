@@ -1,0 +1,18 @@
+{% extends 'main.layout.layout-account' %}
+{% set accountContext = 'ad_placements_pending' %}
+
+{% import "main.partials.ad_placement_widget" as widget %}
+
+{% block accountContent %}
+	<h3>Mes demandes en cours</h3>
+    {% for ad_placement in paginator %}
+        {{ widget.widget_mini(ad_placement) }}
+    {% else %}
+		Vous n'avez pas de demandes en attente de validation ou toutes vos demandes ont été traitées : consultez les autres emplacements disponibles. <br>
+		<div class="text-center">
+			<a href="{{ route('main.ad_placement.index') }}" class="btn btn-primary account-bottom-button">Rechercher <i class="icon-button icon-simply-right"></i></a>
+		</div>
+    {% endfor %}
+
+    {{ paginator.render() | raw }}
+{% endblock %}

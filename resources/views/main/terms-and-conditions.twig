@@ -1,0 +1,20 @@
+{% extends 'main.layout.layout' %}
+{% set title = 'Mentions légales' %}
+{% set context='terms' %}
+
+{% block content %}
+	<main class="legals-page">
+		<h1 class="h2 legals-title">Mentions légales</h1>
+		<section class="legals-part">
+			<div class="container legals-container">
+				<p>www.mediaresa.fr est un site édité par la société MEDIA RESA SAS.</p>
+				<p>MEDIA RESA S.A.S., au capital de 15 000,00 euros immatriculée sous le numéro RCS 812 650 39 au greffe de Nanterre, dont le siège social est situé au 117 avenue Victor Hugo, 92100 Boulogne-Billancourt.</p>
+				<p>Directeur de la publication : Monsieur David DOKHAN.
+			<p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris les représentations iconographiques et photographiques. La reproduction, adaptation et/ou traduction de tout ou partie de ce site sur un support quel qu'il soit, est formellement interdite sauf autorisation expresse du Directeur de la publication.</p>
+			<p>L'équipe éditoriale se réserve le droit de modifier ou de corriger le contenu de ce site et de ces mentions légales à tout moment et ceci sans préavis.</p>
+			<p>Le site www.mediaresa.fr est hébergé par la société Escale Digitale : Escale Digitale 18 rue Scribe 44000 Nantes</p>
+			<p>Les informations recueillies font l'objet d’un traitement informatique destiné à MEDIA RESA. Conformément à la loi Informatique et Libertés du 6 janvier 1978, vous disposez d'un droit d'accès et de rectification aux données vous concernant. Vous pouvez exercer ce droit en <a href="mailto:{{ public_env('MAIL_PUBLIC') }}">nous contactant par e-mail </a> </p>
+			</div>
+		</section>
+	</main>
+{% endblock %}

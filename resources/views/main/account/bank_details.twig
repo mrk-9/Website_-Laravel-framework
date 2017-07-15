@@ -1,0 +1,22 @@
+{% extends 'main.layout.layout-account' %}
+{% set accountContext = 'bank_details' %}
+
+{% block accountContent %}
+<h3>Coordonnées bancaires</h3>
+
+<form action="{{route('main.api.account.credit_card.post')}}" method="POST" class="ajax stripe-form" data-formajax-success="reload">
+    <div class="alert alert-warning" hidden role="alert"></div>
+    {% include 'main.forms.buyer_credit_card' %}
+    {% if credit_card is not null %}
+    <button type="button" class="btn btn-ajax btn-danger account-card-delete" >
+        <span data-btn-ajax-type="DELETE" data-btn-ajax-success="reload" data-btn-ajax-url="{{ route('main.api.account.credit_card.delete') }}" class="btn-ajax-label btn-ajax-selected">Supprimer <i class="icon-button icon-cross"></i></span>
+    </button>
+    {% endif %}
+    <button type="submit" data-done-text="Sauvegardé avec succès" data-loading-text="Veuillez patienter..." class="btn btn-primary account-card-save">Enregistrer <i class="icon-button icon-simply-right"></i></button>
+</form>
+<br>
+<div class="transaction-annotation">
+    <i class="icon-lock form-lock"></i>
+    Le paiement en ligne sur notre site est totalement sécurisé. <br> Merci de saisir les informations de votre carte bancaire pour confirmer votre commande.
+</div>
+{% endblock %}

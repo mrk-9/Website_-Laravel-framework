@@ -1,0 +1,26 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Une inscription est en attente de validation</h2>
+                    <p class="content">
+                        L'{{ buyer.type_fr }} {{ buyer.name }} vient de s'inscrire avec pour référent {{ referent.name }} {{ referent.family_name }}.
+                        Si aucun administrateur n'a validé cette inscription, vous pouvez le faire en cliquant sur le bouton ci-dessous.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('admin.buyer.index') }}/{{ buyer.id }}" title="Valider l'inscription" class="btn btn-primary">Valider l'inscription</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

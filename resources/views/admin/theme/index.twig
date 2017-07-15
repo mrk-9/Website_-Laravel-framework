@@ -1,0 +1,124 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des thèmes" %}
+{% set context = 'theme' %}
+
+{% block content %}
+<div class="row" data-ng-controller="ThemeCtrl">
+	<div class="col-md-12">
+		<h1>Liste des thèmes <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateThemeModal"><i class="fa fa-plus"></i></button></h1>
+
+		<table class="table table-hover" data-st-table="ThemeList" st-pipe="refresh" id="ThemeList">
+			<thead>
+				<tr>
+					<th data-st-sort="theme.name">Nom</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="theme__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="theme in list">
+
+					<td>[[ theme.name ]]</td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateThemeModal', theme)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteThemeModal', theme)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="2" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="2" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="CreateThemeModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter un thème</h4>
+				</div>
+				<form action="{{ route('admin.theme.store') }}" class="ajax" data-referent-table="ThemeList">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="CreateThemeName">Nom</label>
+							<input type="text" name="name" id="CreateThemeName" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteThemeModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer un thème</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer ce thème?</p>
+				</div>
+				<form action="{{ route('admin.theme.destroy', ['{id}']) }}" class="ajax" data-referent-table="ThemeList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="UpdateThemeModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour un thème</h4>
+				</div>
+				<form action="{{ route('admin.theme.update', ['{id}']) }}" class="ajax" data-referent-table="ThemeList">
+					<div class="modal-body">
+						<div class="alert alert-danger hidden"></div>
+						<div class="form-group">
+							<label for="UpdateThemeName">Nom</label>
+							<input type="text" name="name" id="UpdateThemeName" class="form-control" value="[[ current.name ]]">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

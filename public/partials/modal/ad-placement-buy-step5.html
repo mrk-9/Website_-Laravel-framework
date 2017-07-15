@@ -1,0 +1,24 @@
+<h1 class="h2 modal-title">Choisissez un template qui correspond à votre besoin</h1>
+<div class="selection-part" >
+    <div class="row" ng-repeat="chunkTemplates in page | chunkBy: 3">
+            <div class="card-container" ng-repeat="template in chunkTemplates">
+                <div class="card-template">
+                    <h4 ng-bind="template.name"></h4>
+                    <div class="template-visuel">
+                        <img alt="[[ template.description ]]"
+                             ng-src="[[ template.cover_path ]]"/>
+                    </div>
+                    <div class="card-template-text" ng-bind-html="template.description | nl2br"></div>
+                    <button class="btn btn-primary btn-block" ng-click="order.template = template; $nextStep()">
+                        Choisir <i class="icon-button icon-simply-right"></i>
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="container-pagination">
+    <uib-pagination total-items="templates.length" ng-change="setPage()" items-per-page="templatesPerPage" ng-model="currentPage" class="pagination" ng-change="update()" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-secondary btn-previous-alone" ng-click="order.template = null; $lastVisitedStep()">Précédent <i class="icon-button icon-simply-left"></i></button>
+</div>

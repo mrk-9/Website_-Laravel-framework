@@ -1,0 +1,20 @@
+// Reset Bootstrap
+// --------------------------
+a:hover,
+a:focus {
+	text-decoration: none;
+}
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+button[type="submit"],
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+	outline:none;
+}

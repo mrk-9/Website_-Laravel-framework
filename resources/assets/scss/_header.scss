@@ -1,0 +1,196 @@
+// Header
+// --------------------------
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 21;
+	height: 60px;
+	@media (min-width: $screen-sm-min) {
+		height: 95px;
+	}
+	.skip-nav { // hidden for accessibility
+		display: none;
+	}
+	.top-nav {
+		height: 25px;
+		background-color: $brand-primary;
+		display: none;
+		@media (min-width: $screen-sm-min) {
+			display: block;
+		}
+		ul {
+			list-style: none;
+			display: inline-block;
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			font-size: 0;
+			li {
+				display: inline-block;
+				border: none;
+				position: relative;
+				border-right: 1px solid darken($brand-primary, 10%);
+				@include transition(all);
+				&:hover,
+				&:focus,
+				&.active {
+					background-color: darken($brand-primary, 5%);
+				}
+				.icon-simply-right {
+					position: absolute;
+					right: 10px;
+					color: darken($brand-primary, 10%);
+					top: 0;
+					font-size: 11px;
+					line-height: 27px;
+					font-weight: 600
+				}
+				a {
+					color: $white;
+					padding: 5px 30px 5px 20px;
+					font-size: 11px;
+					text-transform: uppercase;
+					line-height: 25px;
+					position: relative;
+					font-weight: normal;
+				}
+			}
+			&.pull-right {
+				li:first-child {
+					border-left: 1px solid darken($brand-primary, 10%);
+				}
+			}
+		}
+	}
+	.navbar {
+		height: 60px;
+		border: none;
+		padding: 0;
+		z-index: 2;
+		@media (min-width: $screen-sm-min) {
+			padding: 0 15px;
+			height: 75px;
+		}
+		.navbar-brand {
+			max-width: 250px;
+			@media (min-width: $screen-sm-min) {
+				max-width: none;
+				height: 75px;
+				padding: 10px 0 0 0;
+			}
+			.brand-picture {
+				width: 100%;
+				padding-left: 15px;
+				@media (min-width: $screen-sm-min) {
+					padding-left: 0;
+					width: auto;
+					height: 38px;
+				}
+			}
+		}
+		.navbar-toggle {
+			margin-right: 15px;
+			border: none;
+			margin: 4px;
+			@include transition(all);
+			&:hover,
+			&:focus {
+				background-color: darken($duck-blue, 10%);
+			}
+			.toggle-icon {
+				color: $white;
+				font-size: 28px;
+			}
+		}
+		.header-catch-phrase {
+			color: $white;
+			display: none;
+			float: left;
+			font-weight: 400;
+			font-style: italic;
+			padding-bottom: 5px;
+			font-family: "Noto Sans";
+			text-transform: none;
+			padding-left: 8px;
+			@media (min-width: $screen-sm-min) {
+				display: inline-block;
+			}
+
+			font-size: 12px;
+		}
+		.navbar-collapse {
+			.navbar-nav {
+				li {
+					a {
+
+						@media (min-width: $screen-sm-min) {
+							line-height: 75px;
+							padding: 0 15px;
+							text-transform: uppercase;
+							font-weight: normal;
+							font-size: 13px;
+							text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+						}
+					}
+					&.active,
+					&:hover {
+						@media (min-width: $screen-sm-min) {
+							@include gradient-vertical($duck-blue, rgba(255, 255, 255, 0.15));
+							a {
+								background-color: transparent;
+							}
+						}
+					}
+				}
+			}
+			.mobile-menu {
+				list-style: none;
+				width: 100%;
+				padding: 0;
+				@media (min-width: $screen-sm-min) {
+					display: none;
+				}
+				a {
+					color: $white;
+				}
+				li {
+					background-color: darken($duck-blue, 5%);
+					border-bottom: 1px solid darken($duck-blue, 10%);
+					@include transition(all);
+					&:hover,
+					&:focus,
+					&.active {
+						background-color: darken($duck-blue, 10%);
+						cursor: pointer;
+						.sub-mobile-menu {
+							display: block;
+						}
+					}
+					a {
+						width: 100%;
+						display: block;
+						padding: 5px 0 5px 15px;
+						font-weight: normal;
+					}
+					.sub-mobile-menu {
+						list-style: none;
+						padding: 0;
+						display: none;
+						li {
+							background-color: $brand-primary;
+							border-bottom: 1px solid darken($brand-primary, 10%);
+							&:hover,
+							&:focus {
+								background-color: darken($brand-primary, 10%);
+								cursor: pointer;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

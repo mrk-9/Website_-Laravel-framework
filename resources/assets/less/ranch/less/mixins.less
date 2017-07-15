@@ -1,0 +1,34 @@
+// Mixins
+// -------------------------
+.transition(@property,@time:.2s,@fx:ease-out) {
+	-webkit-transition: @property @time @fx;
+	-moz-transition: @property @time @fx;
+	transition: @property @time @fx;
+}
+
+.linear-gradient(@color-start,@color-end,@start,@end){
+	//background: @color-start; /* Old browsers */
+	background: -moz-linear-gradient(top,  @color-start @start, @color-end @end); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(@start,@color-start), color-stop(@end,@color-end)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  @color-start @start,@color-end @end); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  @color-start @start,@color-end @end); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  @color-start @start,@color-end @end); /* IE10+ */
+	background: linear-gradient(to bottom,  @color-start @start,@color-end @end); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@{color-start}', endColorstr='@{color-end}',GradientType=0 ); /* IE6-9 */
+}
+
+.sprite-sheet(@file,@x,@y) {
+	background:url(@file) no-repeat; background-size:@x @y;
+}
+
+.sprite(@l,@c) {
+	@w : 36px;
+	@h : 36px;
+	@xStart : 0;
+	@yStart : 0;
+	@xGutter : 10px;
+	@yGutter : 10px;
+	@x : -( @xStart + ((@w + @xGutter) * ( @c - 1 )));
+	@y : -( @yStart + ((@h + @yGutter) * ( @l - 1 )));
+	background-position:@x @y;
+}

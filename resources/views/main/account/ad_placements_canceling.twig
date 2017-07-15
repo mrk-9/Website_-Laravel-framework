@@ -1,0 +1,15 @@
+{% extends 'main.layout.layout-account' %}
+{% set accountContext = 'ad_placements_canceling' %}
+
+{% import "main.partials.ad_placement_widget" as widget %}
+
+{% block accountContent %}
+	<h3>Mes demandes annulées</h3>
+	{% for ad_placement in paginator %}
+		{{ widget.widget_mini(ad_placement) }}
+	{% else %}
+		Vous n'avez pas de demandes annulées
+    {% endfor %}
+
+	{{ paginator.render() | raw }}
+{% endblock %}

@@ -1,0 +1,153 @@
+<div data-ng-controller="UserCtrl" data-buyer-id="{{ buyer.id }}" >
+    <table class="table table-hover" data-st-table="UserList" st-pipe="refresh" id="UserList">
+        <thead>
+            <tr>
+                <th data-st-sort="name">Nom</th>
+                <th data-st-sort="function">Fonction</th>
+                <th data-st-sort="email">Email</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input st-search="name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="function" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="email" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-show="list.length" data-ng-repeat="user in list">
+                <td>
+                    <i ng-if="user.id == user.buyer.referent.id" class="fa fa-star"></i> [[ user.title ]] [[ user.name ]] [[ user.family_name ]]
+                </td>
+                <td>[[ user.function ]]</td>
+                <td>[[ user.email ]]</td>
+                <td>
+                    <button class="btn btn-primary" data-ng-click="openModal('#UpdateUserModal', user)">
+                            <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger" data-ng-click="openModal('#DeleteUserModal', user)">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-hide="list.length || loading == true">
+                <td colspan="5" class="text-center">Aucun élément</td>
+            </tr>
+            <tr data-ng-show="loading == true">
+                <td colspan="5" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="20"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="UpdateUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Mettre à jour un utilisateur</h4>
+                </div>
+                <form action="{{ route('admin.user.update', ['{id}']) }}" class="ajax" data-referent-table="UserList">
+                    <div class="modal-body col-md-12">
+                        <div class="alert alert-danger hidden"></div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserName">Prénom</label>
+                            <input type="text"
+                                name="name"
+                                id="UpdateUserName"
+                                class="form-control"
+                                data-ng-value="current.name">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserFamilyName">Nom de famille</label>
+                            <input type="text"
+                                name="family_name"
+                                id="UpdateUserFamilyName"
+                                class="form-control"
+                                data-ng-value="current.family_name">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserTitle">Civilité</label>
+                            <select name="title" class="form-control" id="UpdateUserTitle">
+                                <option value="M.">M.</option>
+                                <option value="Mme.">Mme.</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserFunction">Fonction</label>
+                            <input type="text"
+                                name="function"
+                                id="UpdateUserFunction"
+                                class="form-control"
+                                data-ng-value="current.function">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserEmail">Email</label>
+                            <input type="text"
+                                name="email"
+                                id="UpdateUserEmail"
+                                class="form-control"
+                                data-ng-value="current.email">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserPhone">Téléphone</label>
+                            <input type="text"
+                                name="phone"
+                                id="UpdateUserPhone"
+                                class="form-control"
+                                data-ng-value="current.phone">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="UpdateUserPassword">Mot de passe</label>
+                            <input type="password" name="password" id="UpdateUserPassword" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="_method" value="put">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit"
+                            class="btn btn-primary"
+                            data-loading-text="<i class='fa fa-spin fa-spinner'></i>"
+                            data-done-text="Enregistré !">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Supprimer un utilisateur</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Voulez vous vraiment supprimer [[current.name]] [[current.family_name]]?</p>
+                </div>
+                <form action="{{ route('admin.user.destroy', ['{id}']) }}" class="ajax" data-referent-table="UserList">
+                    <input type="hidden" name="_method" value="delete">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

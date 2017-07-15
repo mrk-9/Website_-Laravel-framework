@@ -1,0 +1,212 @@
+// Imports
+// -------------------------
+
+// Import Main Utilities
+@import "reset.less";
+@import "mixins.less";
+
+// Import Specific Utilities
+@import "colors.less";
+
+// Import Components
+@import "header.less";
+@import "aside.less";
+@import "login.less";
+@import "input.less";
+@import "navtabs.less";
+
+// Variables
+// -------------------------
+
+// Typography
+@font-family-sans-serif: "Lato", Helvetica, Arial, sans-serif;
+@font-size-base: 13px;
+
+// Colors
+@brand-primary: @alice;
+@brand-success: @jade;
+@brand-info: @sophia;
+@brand-warning: @amber;
+@brand-dander: @ruby;
+
+@text-color: @raven;
+@body-bg: #fff;
+
+// Inputs
+@input-bg: @body-bg;
+@input-color: @text-color;
+@input-border: @pearl;
+@input-border-radius: 0;
+@input-border-focus: lighten(@alice,20%);
+//@input-color-placeholder: @gray-border-dark;
+@input-height-base: 35px;
+
+// Grid & Container
+@container-desktop: ((960px + @grid-gutter-width));
+@container-lg: @container-md;
+@grid-gutter-width: 20px;
+
+// Navbar
+@navbar-height: 50px;
+@navbar-margin-bottom: 0;
+@navbar-border-radius: 0;
+//@navbar-default-color: @text-color;
+@navbar-default-bg: #f1f1f1;
+@navbar-default-link-color: @text-color;
+@navbar-default-link-hover-color: @brand-primary;
+@navbar-default-link-hover-bg: transparent;
+@navbar-default-link-active-color: @brand-primary;
+@navbar-default-link-active-bg: transparent;
+@navbar-padding-horizontal: 0;
+@navbar-default-toggle-hover-bg: transparent;
+@navbar-default-toggle-icon-bar-bg: #fff;
+@navbar-default-toggle-border-color: transparent;
+@navbar-inverse-link-hover-bg: lighten(@navbar-inverse-bg,5%);
+@navbar-inverse-toggle-hover-bg: transparent;
+@navbar-inverse-toggle-icon-bar-bg: #fff;
+@navbar-inverse-toggle-border-color: transparent;
+// Table
+@table-cell-padding: 12px;
+
+// Panel
+@panel-border-radius: 0;
+
+// Alert
+@alert-border-radius: 0;
+@alert-danger-bg: lighten(@brand-danger,20%);
+@alert-danger-text: #fff;
+@alert-danger-border: @brand-danger;
+
+// Summernote Vars
+@border-color: @input-border;
+@background-color: @input-bg;
+
+// Custom Vars
+@input-checkbox-height: 20px;
+@input-radio-height: 20px;
+
+// Styles
+// -------------------------
+
+html,body,main,aside {
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+	font-weight: 300;
+}
+
+main {
+	.container-fixed(0);
+}
+
+section {
+	.make-md-column(10,60px);
+	.make-md-column-offset(2);
+}
+
+// Default Transition
+a {
+	.transition(color);
+}
+
+label {
+	//color: @asher;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	&.required:after {
+		content: "*";
+		color: @ruby;
+	}
+}
+
+.form-control {
+	.box-shadow(none);
+}
+
+.modal-content {
+	border-radius: 3px;
+}
+
+.alert {
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 0;
+	border-left-style: solid;
+	border-left-width: 10px;
+	font-weight: 400;
+}
+
+.btn {
+	border-radius: 1px;
+	text-transform: uppercase;
+	&.btn-file {
+		position: relative;
+		input[type="file"] {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+	}
+}
+
+// Table
+// -------------------------
+
+.table {
+	> thead {
+		> tr {
+			> th,
+			> td {
+				text-transform: uppercase;
+				font-size: 11px;
+				font-weight: 700;
+				border-bottom-width: 1px;
+				&:after {
+					.pull-right();
+					line-height: 11px;
+					color: lighten(@text-color,30%);
+					font-size: 13px;
+					.transition(transform);
+				}
+				&[st-sort],
+				&[data-st-sort] {
+					cursor: pointer;
+				}
+				&.st-sort-ascent:after,
+				&.st-sort-descent:after {
+					display: inline-block;
+					font: normal normal normal @fa-font-size-base/1 FontAwesome;
+					font-size: inherit;
+					text-rendering: auto;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+					transform: translate(0, 0);
+				}
+				&.st-sort-ascent:after {
+					content: @fa-var-caret-down;
+				}
+				&.st-sort-descent:after {
+					content: @fa-var-caret-up;
+				}
+			}
+		}
+	}
+	tr {
+		> th,
+		> td {
+			&[data-ng-click],
+			&[data-ng-dblclick] {
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+.logo {
+	width: 200px;
+	height: 200px;
+	border: 1px solid @pearl;
+}

@@ -1,0 +1,67 @@
+<div data-ng-controller="SelectionCtrl" data-user-id="{{ buyer.referent.id }}" >
+    <table class="table table-hover" data-st-table="SelectionList" st-pipe="refresh" id="SelectionList">
+        <thead>
+            <tr>
+                <th data-st-sort="media.name">Support</th>
+                <th data-st-sort="ad_placement.name">Emplacement</th>
+                <th data-st-sort="ad_placement.created_at">Date de publication</th>
+                <th data-st-sort="ad_placement.price">Prix</th>
+                <th data-st-sort="ad_placement.minimum_price">Prix minimum</th>
+                <th data-st-sort="selection.created_at">Date sélection</th>
+                <th data-st-sort="ad_placement.type">Type sélection</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input st-search="media__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th><input st-search="ad_placement__name" class="form-control" placeholder="Recherche..." type="text"/></th>
+                <th colspan="6"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-show="list.length" data-ng-repeat="selection in list">
+                <td>
+                    [[ selection.ad_placement.media.name ]]
+                    <span ng-show="selection.ad_placement.edition">
+                        (édition : [[ selection.ad_placement.edition ]])
+                    </span>
+                </td>
+
+                <td>[[ selection.ad_placement.name ]]</td>
+
+                <td>[[ selection.ad_placement.created_at_date ]]</td>
+
+                <td>[[ selection.ad_placement.price ]]&euro;</td>
+
+                <td>
+                    <span ng-if="selection.ad_placement.minimum_price">
+                        [[ selection.ad_placement.minimum_price ]]&euro;
+                    </span>
+                    <span ng-if="!selection.ad_placement.minimum_price">-</span>
+                </td>
+
+                <td>[[ selection.created_at_date ]]</td>
+
+                <td>[[ selection.ad_placement.type_fr ]]</td>
+
+                <td>
+                    <button class="btn btn-primary" data-ng-click="go('{{ route('admin.selection.index') }}/' + list[$index].id)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr data-ng-hide="list.length || loading == true">
+                <td colspan="8" class="text-center">Aucun élément</td>
+            </tr>
+            <tr data-ng-show="loading == true">
+                <td colspan="8" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" class="text-center">
+                    <div st-pagination="" st-items-by-page="20"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

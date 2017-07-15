@@ -1,0 +1,168 @@
+{% macro widget_full(ad_placement) %}
+    {% import _self as w %}
+    {% embed 'main.partials.ad_placement_widget_template' %}
+        {% set modifierClass = 'panel-placement--full' %}
+
+        {% block left %}
+
+            {{ w.btn_selection(ad_placement, false, 'btn-tertiary btn-block') }}
+
+            <button type="button" class="btn btn-block btn-tertiary" ng-click="share({{ ad_placement.id }})">Partager l'annonce <i class="icon-button icon-share"></i></button>
+
+        {% endblock %}
+        {% block arrow_navigation %}
+
+            <div class="arrow-navigation">
+                <button type="button" class="btn btn-default"><i class="icon icon-simply-left"></i></button>
+                <button type="button" class="btn btn-default"><i class="icon icon-simply-right"></i></button>
+            </div>
+
+        {% endblock %}
+        {% block actions_with_auth %}
+            {{ w.actions_btn(ad_placement) }}
+        {% endblock %}
+        {% block actions_without_auth %}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login"
+                    title="modal des prix">Voir les tarifs<i class="icon-button icon-eye"></i></button>
+        {% endblock %}
+        {% block description %}
+            <p class="panel-placement_description">{{ ad_placement.description }}</p>
+        {% endblock %}
+    {% endembed %}
+{% endmacro %}
+
+{% macro widget_info(ad_placement, class = null) %}
+    {% embed 'main.partials.ad_placement_widget_template' %}
+        {% if class is defined %}
+            {% set modifierClass = class %}
+        {% endif %}
+    {% endembed %}
+{% endmacro %}
+
+
+{% macro widget_mini(ad_placement, reload = false) %}
+
+    {% import _self as w %}
+
+    {% embed 'main.partials.ad_placement_widget_template' %}
+
+        {% set id = 'ad_placement_' ~ ad_placement.id %}
+
+        {% block hover %}
+            <div class="panel-placement--hover">
+                <div class="panel-placement--hover_content">
+                    <a class="btn btn-large btn-primary" href="{{ route('main.ad_placement.show', [ad_placement.slug]) }}"
+                       title="lien vers l'offre">Voir l'annonce <i class="icon-button icon-eye"></i></a>
+
+                    {% if user_auth_check() %}
+                        {{ w.actions_btn(ad_placement, 'btn-large') }}
+                    {% else %}
+                        <button type="button" class="btn btn-large btn-primary" data-toggle="modal" data-target="#login"
+                                title="modal des prix">Voir les prix <i class="icon-button icon-simply-right"></i></button>
+                    {% endif %}
+
+                    {{ w.btn_selection(ad_placement, reload, 'btn-secondary btn-large') }}
+
+                    <button type="button" ng-click="share({{ ad_placement.id }})"
+                       class="btn btn-large btn-secondary">Partager l'annonce <i class="icon-button icon-share"></i></button>
+
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block infos_table %}
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Support</th>
+                <td><div class="td-content">{{ ad_placement.media.support.name }}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Format</th>
+                <td><div class="td-content">{{ ad_placement.format.name }}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Périodicité</th>
+                <td>{{ ad_placement.media.frequency.name }}</td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Zone de diffusion</th>
+                <td><div class="td-content">{{ ad_placement.media.broadcastingArea.name }}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Diffusion France Payée</th>
+                <td><div class="td-content">{{ ad_placement.media.datas }}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Parution</th>
+                <td><div class="td-content">{{ ad_placement.broadcasting_date|date("d/m/Y") }}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Cible</th>
+                <td><div class="td-content">{% for t in ad_placement.media.targets %}{% if loop.index != 1 %}, {% endif %}{{ t.name }}{% endfor %}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Date fin de vente</th>
+                <td><div class="td-content">{{ ad_placement.ending_at|date("d/m/Y H\\hi") }}</div></td>
+            </tr>
+            <tr class="panel-placement_table_tr">
+                <th scope="row">Remise des éléments</th>
+                <td><div class="td-content">{{ ad_placement.technical_deadline|date("d/m/Y H\\hi") }}</div></td>
+            </tr>
+        {% endblock %}
+
+        {% block right %}
+            <a class="btn btn-large btn-primary panel-placement_mobile-cta"
+               href="{{ route('main.ad_placement.show', [ad_placement.slug]) }}" title="lien vers l'offre">Voir l'annonce
+                <i class="icon-button icon-eye"></i></a>
+        {% endblock %}
+
+    {% endembed %}
+
+{% endmacro %}
+
+
+{% macro btn_selection(ad_placement, reloadAfterDelete = false, class = '') %}
+    {% if user_auth_check() %}
+        {% set like = false %}
+        {% for selection in ad_placement.selections if user_auth_get().id == selection.user_id %}
+            {% set like = true %}
+        {% endfor %}
+        <button type="button" class="btn btn-ajax {{ class }}">
+            <span data-btn-ajax-type="DELETE"
+                  data-btn-ajax-url="{{ route('main.api.ad_placement.selection.delete', [ad_placement.id]) }}"
+                  {% if reloadAfterDelete %}data-btn-ajax-success="reload"{% endif %}
+                  class="btn-ajax-label {% if like %}btn-ajax-selected{% endif %}">Retirer de la selection <i
+                        class="icon-button icon-starfull"></i></span>
+            <span data-btn-ajax-type="POST"
+                  data-btn-ajax-url="{{ route('main.api.ad_placement.selection.post', [ad_placement.id]) }}"
+                  class="btn-ajax-label {% if not like %}btn-ajax-selected{% endif %}">Ajouter à la selection<i
+                        class="icon-button icon-star"></i></span>
+        </button>
+    {% endif %}
+{% endmacro %}
+
+{% macro actions_btn(ad_placement, class = '') %}
+    {% if ad_placement.finished %}
+        <button type="button" disabled class="btn btn-primary {{ class }}" title="l'emplacement est déjà vendu">Déjà vendu <i class="icon-button icon-simply-right"></i></button>
+    {% elseif ad_placement.locked %}
+        <button type="button" disabled class="btn btn-primary {{ class }}" title="l'emplacement est verrouillé">Verrouillé <i class="icon-button icon-simply-right"></i></button>
+    {% else %}
+        {% if ad_placement.user_offer is not null %}
+            <button type="button" class="btn btn-primary {{ class }}" ng-click="deleteOffer({{ ad_placement.id }})"
+               title="retirer l'offre sur l'emplacement">Retirer mon offre <i class="icon-button icon-simply-right"></i></button>
+        {% elseif ad_placement.offer_ready %}
+            <button type="button" class="btn btn-primary {{ class }}" ng-click="buy({{ ad_placement.id }}, 'offer')"
+               title="faire une offre sur l'emplacement">Faire une offre <i class="icon-button icon-simply-right"></i></button>
+        {% endif %}
+        {% if ad_placement.user_auction is not null %}
+            <button type="button"  class="btn btn-primary {{ class }}" ng-click="buy({{ ad_placement.id }}, 'auction')"
+               {% if ad_placement.user_auction.amount == ad_placement.price %}disabled{% endif %} title="surenchérir sur l'offre">Surenchérir <i class="icon-button icon-simply-right"></i></button>
+        {% elseif ad_placement.auction_ready %}
+            <button type="button" class="btn btn-primary {{ class }}" ng-click="buy({{ ad_placement.id }}, 'auction')"
+               title="enchérir sur l'emplacement">Enchérir <i class="icon-button icon-simply-right"></i></button>
+        {% endif %}
+        {% if ad_placement.booking_ready %}
+            <button type="button" class="btn btn-primary {{ class }}" ng-click="buy({{ ad_placement.id }}, 'booking')"
+               title="réserver un emplacement">Achat immédiat <i class="icon-button icon-simply-right"></i></button>
+        {% endif %}
+    {% endif %}
+{% endmacro %}

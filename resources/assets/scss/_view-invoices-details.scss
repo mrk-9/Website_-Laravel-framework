@@ -1,0 +1,183 @@
+@media screen, print {
+	body.invoices-details {
+		width: 210mm;
+		padding: 0.5cm 1cm 1cm 1cm !important;
+		font-family: "Noto Sans";
+		margin: auto;
+		position: relative;
+		.invoices-details-header {
+			text-align: center;
+			margin-bottom: 1.5cm;
+			.header-subtitle {
+				color: $duck-blue;
+				font-style: italic;
+				font-weight: 600;
+				font-size: 12px;
+			}
+			img {
+				height: 5cm;
+			}
+		}
+
+		.invoices-quick-infos {
+			table-layout: fixed;
+			width: 100%;
+			font-weight: 600;
+			margin-bottom: 1cm;
+			.left-infos {
+				text-align: left;
+				.quick-infos-facture-number {
+					margin-bottom: 10px;
+				}
+			}
+			.right-infos {
+				text-align: right;
+				.quick-infos-client-contact-title {
+					color: $duck-blue;
+					text-transform: uppercase;
+				}
+			}
+			.quick-infos-facture-number,
+			.quick-infos-date,
+			.quick-infos-client-contact {
+				background-color: $light-blue;
+				border-radius: 8px;
+				padding: 10px;
+				display: inline-block;
+				width: 6cm;
+				font-size: 12px;
+			}
+			td {
+				vertical-align: top;
+			}
+		}
+
+		.invoices-details-table {
+			table-layout: fixed;
+			border-collapse: collapse;
+			min-height: 15cm;
+			margin-bottom: 1.5cm;
+			td,
+			th {
+				border-left: 2px solid $white;
+				border-right: 2px solid $white;
+			}
+			thead {
+				background-color: $duck-blue;
+				color: $white;
+				text-transform: uppercase;
+				font-weight: 600;
+				tr {
+					th:nth-child(1) {
+						border-top-left-radius: 8px;
+						border-bottom-left-radius: 8px;
+					}
+					th:last-child {
+						border-top-right-radius: 8px;
+						border-bottom-right-radius: 8px;
+					}
+					th:nth-child(3) {
+						min-width: 2.4cm;
+					}
+					th {
+						margin-bottom: 10px;
+						padding: 5px 10px;
+						text-align: center;
+					}
+				}
+				&:after {
+					content: "";
+					display: block;
+					background-color: $white;
+					height: 10px;
+				}
+			}
+			tbody {
+				background-color: $light-blue;
+				tr:nth-child(1) {
+					td:nth-child(1) {
+						border-top-left-radius: 8px;
+					}
+					td:last-child {
+						border-top-right-radius: 8px;
+					}
+					td {
+						padding-top: 20px;
+					}
+				}
+				tr:last-child {
+					td:nth-child(1) {
+						border-bottom-left-radius: 8px;
+					}
+					td:last-child {
+						border-bottom-right-radius: 8px;
+					}
+				}
+				tr {
+					td:nth-child(1),
+					td:nth-child(3) {
+						text-align: center;
+					}
+					td:last-child {
+						text-align: right;
+					}
+					td {
+						padding: 5px 10px;
+						vertical-align: top;
+						.invoices-products-description {
+							min-height: 2cm;
+						}
+					}
+				}
+			}
+			tfoot {
+				tr {
+					td:nth-child(3) ,
+					td:last-child {
+						background-color: $light-blue;
+					}
+					td:last-child {
+						font-weight: 600;
+						text-align: right;
+					}
+					&:nth-child(1) {
+						td:nth-child(3) {
+							border-top-left-radius: 8px;
+						}
+						td:last-child {
+							border-top-right-radius: 8px;
+						}
+					}
+					&:last-child {
+						td:nth-child(3) {
+							border-bottom-left-radius: 8px;
+						}
+						td:last-child {
+							border-bottom-right-radius: 8px;
+							color: $duck-blue;
+						}
+					}
+					td {
+						border: 2px solid $white;
+						padding: 5px 10px;
+						text-transform: uppercase;
+						white-space: nowrap;
+						font-size: 12px;
+					}
+				}
+				&:before {
+					content: "";
+					display: block;
+					background-color: $white;
+					height: 10px;
+				}
+			}
+		}
+		.invoices-details-footer {
+			font-size: 11px;
+			margin-top: 0.5cm;
+			text-align: center;
+			color: $rock-gray;
+		}
+	}
+}

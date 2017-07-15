@@ -1,0 +1,125 @@
+{% extends "admin.layout" %}
+
+{% set title = "Liste des formats" %}
+{% set context = 'format' %}
+
+{% block content %}
+<div class="row" data-ng-controller="FormatCtrl">
+	<div class="col-md-12">
+		<h1>
+			Liste des formats <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CreateFormatModal"><i class="fa fa-plus"></i></button>
+		</h1>
+
+		<table class="table table-hover" data-st-table="FormatList" st-pipe="refresh" id="FormatList">
+			<thead>
+				<tr>
+					<th data-st-sort="format.name">Nom</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="format__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length" data-ng-repeat="format in list">
+					<td>[[ format.name ]]</td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateFormatModal', format)">
+								<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-danger" data-ng-click="openModal('#DeleteFormatModal', format)">
+							<i class="fa fa-trash-o"></i>
+						</button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="2" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="2" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="CreateFormatModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Ajouter un format</h4>
+				</div>
+				<form action="{{ route('admin.format.store') }}" class="ajax" data-referent-table="FormatList">
+					<div class="alert alert-danger hidden"></div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="CreateFormatName">Nom</label>
+							<input type="text" name="name" id="CreateFormatName" class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="DeleteFormatModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Supprimer un format</h4>
+				</div>
+				<div class="modal-body">
+					<p>Voulez vous vraiment supprimer ce format?</p>
+				</div>
+				<form action="{{ route('admin.format.destroy', ['{id}']) }}" class="ajax" data-referent-table="FormatList">
+					<input type="hidden" name="_method" value="delete">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="UpdateFormatModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour un format</h4>
+				</div>
+				<form action="{{ route('admin.format.update', ['{id}']) }}" class="ajax" data-referent-table="FormatList">
+					<div class="modal-body">
+						<div class="alert alert-danger hidden"></div>
+						<div class="form-group">
+							<label for="UpdateFormatName">Nom</label>
+							<input type="text" name="name" id="UpdateFormatName" class="form-control" value="[[ current.name ]]">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

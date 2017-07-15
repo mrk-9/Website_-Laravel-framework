@@ -1,0 +1,109 @@
+@import "bootstrap-docs";
+@import "vendor/assets/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "vendor/assets/prism/themes/prism";
+@import "colors";
+
+.white-typo-example {
+	.bs-example {
+		background-color: $dark-gray;
+	}
+}
+
+.highlight pre code:first-child {
+	display: block;
+}
+
+.colors {
+	@include make-sm-column(6);
+	.color-panel {
+		padding-left: 55px;
+		position: relative;
+		line-height: 50px;
+		margin-bottom: 10px;
+		&:before {
+			position: absolute;
+			content: "";
+			width: 50px;
+			height: 50px;
+			left: 0;
+			border-radius: 4px;
+			border: 1px solid black;
+		}
+		&.bckg-brand-primary {
+			&:before {
+				background-color: $brand-primary;
+			}
+		}
+		&.bckg-dark-brand-primary {
+			&:before {
+				background-color: $dark-brand-primary
+			}
+		}
+		&.bckg-duck-blue {
+			&:before {
+				background-color: $duck-blue;
+			}
+		}
+		&.bckg-dark-duck-blue {
+			&:before {
+				background-color: $dark-duck-blue;
+			}
+		}
+		&.bckg-light-blue {
+			&:before {
+				background-color: $light-blue;
+			}
+		}
+		&.bckg-black {
+			&:before {
+				background-color: $black;
+			}
+		}
+		&.bckg-carbon-gray {
+			&:before {
+				background-color: $carbon-gray;
+			}
+		}
+		&.bckg-dark-gray {
+			&:before {
+				background-color: $dark-gray;
+			}
+		}
+		&.bckg-rock-gray {
+			&:before {
+				background-color: $rock-gray;
+			}
+		}
+		&.bckg-ash-gray {
+			&:before {
+				background-color: $ash-gray;
+			}
+		}
+		&.bckg-light-gray {
+			&:before {
+				background-color: $light-gray;
+			}
+		}
+		&.bckg-pearl-gray {
+			&:before {
+				background-color: $pearl-gray;
+			}
+		}
+		&.bckg-bkg-gray {
+			&:before {
+				background-color: $bkg-gray;
+			}
+		}
+		&.bckg-white {
+			&:before {
+				background-color: $white;
+			}
+		}
+	}
+}
+.card-styleguide-super-container {
+	@include make-row();
+	.card-styleguide-container {
+		@include make-sm-column(6);
+	}
+}

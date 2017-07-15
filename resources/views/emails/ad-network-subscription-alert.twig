@@ -1,0 +1,18 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Une régie vient de s'inscrire</h2>
+                    <p class="content">
+                        La régie "{{ ad_network.name }}" vient de s'inscrire avec pour référent {{ referent.name }} {{ referent.family_name }}.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

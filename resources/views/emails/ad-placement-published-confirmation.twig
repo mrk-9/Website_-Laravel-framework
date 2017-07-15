@@ -1,0 +1,27 @@
+{% extends 'emails.layout' %}
+
+{% block content %}
+    <tr>
+        <td class="article-part row">
+            <hr>
+            <center>
+                <div class="article-container">
+
+                    <h2>Bonjour {{ referent.name }}, votre emplacement a été publié</h2>
+                    <p class="content">
+                        Votre emplacement {{ ad_placement.name }} concernant le support {{ media.name }} vient d'être
+                        publié. Vous pouvez le consulter en cliquant sur le bouton ci-dessous.
+                    </p>
+                </div>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td class="redirection-part row">
+            <center>
+                <a href="{{ route('ad-network.ad-placement.show', [ad_placement.id]) }}"
+                   title="Consulter emplacement" class="btn btn-primary">Consulter emplacement</a>
+            </center>
+        </td>
+    </tr>
+{% endblock %}

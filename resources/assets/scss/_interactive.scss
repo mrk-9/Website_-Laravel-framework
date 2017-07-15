@@ -1,0 +1,101 @@
+.slider-home {
+	margin: 0;
+	.carousel-inner {
+		height: 427px;
+		position: relative;
+		@media(min-width: $screen-sm-min) {
+			height: 313px;
+		}
+		.item {
+			overflow: hidden;
+			height: 427px;
+			text-align: center;
+			@media(min-width: $screen-sm-min) {
+				height: 350px;
+				text-align: left;
+			}
+			.carousel-picture {
+				height: 100%;
+				position: absolute;
+				width: 100%;
+				display: block;
+				background-position: 50% 50%;
+				background-size: cover;
+				top: 0;
+				left: 0;
+				@media (min-width: $screen-sm-min) {
+					background-position: 50% 85%;
+				}
+			}
+			.slider-text {
+				position: absolute;
+				top: 30%;
+				left: 5%;
+				max-width: 290px;
+				text-align: left;
+				@media(min-width: $screen-sm-min) {
+					top: 18%;
+				}
+			}
+		}
+	}
+	.carousel-indicators {
+		bottom: 10px;
+		li {
+			margin: 0 3px;
+			border: none;
+			height: 12px;
+			width: 12px;
+			background-color: $white;
+			&.active {
+				background-color: $duck-blue;
+				box-shadow: 0px 0px 0px 3px rgba(255, 255, 255, 0.5);
+			}
+		}
+	}
+}
+
+.container-pagination {
+	text-align: center;
+}
+.pagination {
+	li {
+		a ,
+		span {
+			color: $ash-gray;
+			font-size: 14px;
+			font-weight: normal;
+			border: none;
+			line-height: 18px;
+			padding: 6px 3px;
+			&:hover,
+			&:focus {
+				background-color: transparent;
+				color: darken($ash-gray, 15%);
+			}
+		}
+		&.active {
+			a, span {
+				color: $duck-blue;
+				font-size: 14px;
+				background-color: transparent;
+				border: none;
+				&:hover,
+				&:focus {
+					background-color: transparent;
+					color: darken($duck-blue, 10%);
+				}
+			}
+		}
+		&:first-child,
+		&:last-child,
+		&.disabled {
+			a,
+			span {
+				color: $dark-gray;
+				line-height: 20px;
+				padding: 6px;
+			}
+		}
+	}
+}

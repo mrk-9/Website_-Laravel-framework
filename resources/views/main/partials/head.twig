@@ -1,0 +1,33 @@
+<head>
+	<title>MediaResa - {{title}}</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="canonical" href="{{ url_full() }}" />
+	<link rel="icon" type="image/png" href="/assets/im/icons/favicon.png" />
+	<link rel="apple-touch-icon" href="/assets/im/icons/appleicon.png" />
+
+	<meta property="og:title" content="MediaResa - {{title}}" />
+	<meta property="og:description" content="" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{{ url_full() }}" />
+	<meta property="og:image" content="{{ route("main.home") }}/assets/im/icons/appleicon.png" />
+
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
+	{% if context == 'styleguide' %}
+		<link rel="stylesheet" href="/assets/css/styleguide.min.css" charset="utf-8">
+	{% endif %}
+	<link rel="stylesheet" href="/assets/css/MediaResa-1.0.0.min.css" title="no title">
+
+	<!--[if lte IE 9 ]>
+		<script type="text/javascript" src="../assets/js/MediaResa-1.0.0-ie-support.js"></script>
+	<![endif]-->
+
+	<style>
+		/*css critical*/
+	</style>
+
+</head>

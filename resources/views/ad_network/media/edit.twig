@@ -1,0 +1,124 @@
+{% extends 'ad_network.layout' %}
+
+{% set context= 'media' %}
+{% set title = media.name ~ " - Editer" %}
+
+{% block content %}
+    <h1>
+        {{ media.name }} - Editer
+    </h1>
+
+
+    <div class="row">
+        <form action="{{ route('ad-network.media.update', media.id) }}" method="post" class="ajax"
+              data-formajax-success="reload" id="UpdateMediaForm">
+            <input type="hidden" name="_method" value="put">
+            <div class="alert alert-danger error hidden"></div>
+            <div class="col-md-9">
+                <div class="form-group col-md-12">
+                    <label for="UpdateMediaName">Nom de votre support</label>
+                    <input type="text" name="name" id="UpdateMediaName" class="form-control" value="{{ media.name }}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="UpdateMediaSupport">Type</label>
+                    <select name="support_id" id="UpdateMediaSupport"
+                            class="select2 autocomplete-support-update form-control"
+                            data-support-id="{{ media.support.id }}">
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="UpdateMediaCategory">Catégorie</label>
+                    <select name="category_id" id="UpdateMediaCategory" class="select2 autocomplete-category-update"
+                            data-support-id="" data-category-id="{{ media.category_id }}"></select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="UpdateMediaTheme">Thématique</label>
+                    <select name="theme_id" id="UpdateMediaTheme" class="select2 autocomplete-theme-update form-control"
+                            data-support-id="" data-theme-id="{{ media.theme_id }}">
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="UpdateMediaFrequency">Périodicité</label>
+                    <select name="frequency_id" id="UpdateMediaFrequency" class="form-control">
+                        {% for frequency in frequencies %}
+                            <option {% if frequency.id == media.frequency_id %}selected="selected"{% endif %}
+                                    value="{{ frequency.id }}">{{ frequency.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="UpdateMediaBroadcastingArea">Diffusion</label>
+                    <select name="broadcasting_area_id" id="UpdateMediaBroadcastingArea"
+                            class="select2 autocomplete-broadcasting-area-update form-control"
+                            data-broadcasting-area-id="{{ media.broadcasting_area_id }}">
+                    </select>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="UpdateMediaTarget">Cible</label>
+                    <select name="target_id[]" id="UpdateMediaTarget" class="select2 autocomplete-target-update"
+                            data-media-id="{{ media.id }}"></select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="UpdateMediaDatas">Diffusion France Payée (N° d'Exemplaire)</label>
+                    <textarea name="datas" id="UpdateMediaDatas" class="form-control">{{ media.datas }}</textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="col-md-3">
+            <div class="col-md-12">
+                <img class="img-responsive" src="{{ media.cover_img }}" alt="{{ media.name }}">
+            </div>
+            <div class="col-md-12">
+                <a class="btn btn-primary btn-block {% if (media.technical_doc_path | length) == 0 %}disabled{% endif %}" target="_blank" href="{{ media.technical_doc_path }}">Document technique</a>
+            </div>
+            <div class="col-md-12">
+                <hr>
+            </div>
+            <form action="{{ route('ad-network.media.cover', media.id) }}" method="post" class="ajax"
+                  data-formajax-success="reload" id="UpdateMediaCoverForm">
+                    <div class="alert alert-danger error hidden"></div>
+                    <div class="form-group col-md-12">
+                        <h4>Mettre à jour la couverture</h4>
+
+                        <p>Image au format .png ou .jpg de moins d'1Mo.</p>
+                        <input type="file" name="cover" id="cover" class="input-file">
+                        <label for="cover" class="btn btn-tertiary js-labelFile">
+                            <i class="icon fa fa-check"></i>
+                            <span class="js-fileName">Choisir une image</span>
+                        </label>
+                    </div>
+                <div class="col-md-12">
+                    <button type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" class="btn btn-primary btn-block">Mettre à jour</button>
+                    <hr>
+                </div>
+            </form>
+            <form action="{{ route('ad-network.media.technical-doc', media.id) }}" method="post" class="ajax"
+                  data-formajax-success="reload" id="UpdateMediaTechnicalDocumentationForm">
+                <div class="alert alert-danger error hidden"></div>
+                <div class="form-group col-md-12">
+                    <h4>Mettre à jour la documentation technique</h4>
+                    <p>Fichier au format .pdf de moins d'5Mo.</p>
+                    <input type="file" name="technical_doc" id="technical_doc" class="input-file">
+                    <label for="technical_doc" class="btn btn-tertiary js-labelFile">
+                        <i class="icon fa fa-check"></i>
+                        <span class="js-fileName">Choisir un fichier</span>
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" class="btn btn-primary btn-block">Mettre à jour</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+{% endblock %}

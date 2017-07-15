@@ -1,0 +1,228 @@
+{% extends "ad_network.layout" %}
+
+{% set title = "Liste de vos offres" %}
+{% set context = 'ad_placement' %}
+
+{% block content %}
+<div class="row" data-ng-controller="AdPlacementCtrl">
+	<div class="col-md-12">
+		<h1>Liste de vos offres <a href="{{ route('ad-network.ad-placement.create') }}" class="btn btn-primary pull-right">Ajouter</a></h1>
+
+		<table class="table table-hover" data-st-table="AdPlacementList" st-pipe="refresh" id="AdPlacementList">
+			<thead>
+				<tr>
+					<th data-st-sort="media.name">Support</th>
+					<th data-st-sort="ad_placement.name">Emplacement</th>
+					<th data-st-sort="ad_placement.price">Prix de l'offre</th>
+					<th data-st-sort="ad_placement.minimum_price">Prix minimum</th>
+					<th data-st-sort="ad_placement.starting_at">Début</th>
+					<th data-st-sort="ad_placement.ending_at">Fin</th>
+					<th data-st-sort="ad_placement.technical_deadline">Remise éléments</th>
+					<th>Réservé</th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>
+						<input st-search="media__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th>
+						<input st-search="ad_placement__name" class="form-control" placeholder="Recherche..." type="text"/>
+					</th>
+					<th colspan="7"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-show="list.length"
+					data-ng-repeat="ad_placement in list"
+					data-ng-dblclick="go('{{ route('ad-network.ad-placement.index') }}/' + list[$index].id)">
+
+					<td ng-bind="ad_placement.media.name"></td>
+					<td ng-bind="ad_placement.name"></td>
+					<td ng-bind-template="[[ ad_placement.price ]]&euro;"></td>
+					<td>
+						<span ng-show="ad_placement.minimum_price" ng-bind-template="[[ ad_placement.minimum_price ]]&euro;"></span>
+						<span ng-hide="ad_placement.minimum_price">--</span>
+					</td>
+					<td ng-bind="ad_placement.starting_at_fr"></td>
+					<td ng-bind="ad_placement.ending_at_fr"></td>
+                    <td ng-bind="ad_placement.technical_deadline_date"></td>
+					<td>
+                        <span ng-if="ad_placement.bought">Oui</span>
+                        <span ng-if="!ad_placement.bought">Non</span>
+                    </td>
+					<td>
+						<button class="btn btn-primary" data-ng-click="go('{{ route('ad-network.ad-placement.index') }}/' + list[$index].slug)">
+								<i class="fa fa-eye"></i>
+						</button>
+						<button class="btn btn-primary" data-ng-click="openModal('#UpdateAdPlacementModal', ad_placement)">
+                                <i class="fa fa-pencil"></i>
+                        </button>
+                         <button class="btn btn-danger" data-ng-click="openModal('#DeleteAdPlacementModal', ad_placement)" ng-disabled="ad_placement.winner">
+                                <i class="fa fa-trash-o"></i>
+                        </button>
+					</td>
+				</tr>
+				<tr data-ng-hide="list.length || loading == true">
+					<td colspan="9" class="text-center">Aucun élément</td>
+				</tr>
+				<tr data-ng-show="loading == true">
+					<td colspan="9" class="text-center"><i class="fa fa-spin fa-spinner"></i></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="9" class="text-center">
+						<div st-pagination="" st-items-by-page="20"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="modal fade" id="UpdateAdPlacementModal" data-acquisitions-length="[[ current.acquisitions.length ]]">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Mettre à jour un emplacement</h4>
+				</div>
+
+				<form action="{{ route('ad-network.ad-placement.update', ['{id}']) }}" class="ajax" data-referent-table="AdPlacementList">
+					<div class="alert alert-danger hidden"></div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementMedia">Support</label>
+								<select class="form-control select2 autocomplete-media-update" name="media_id" id="UpdateAdPlacementMedia" data-media-id="[[ current.media.id ]]">
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="CreateAdPlacementName">Nom</label>
+								<input type="text" name="name" id="UpdateAdPlacementName" class="form-control" ng-value="current.name">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementBroadcastingDate">Date de publication</label>
+								<input type="text" name="broadcasting_date" id="UpdateAdPlacementBroadcastingDate" class="form-control" ng-value="current.broadcasting_date_fr">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementStartingAt">Début</label>
+								<input type="text" name="starting_at" id="UpdateAdPlacementStartingAt" class="form-control" ng-value="current.starting_at_fr_no_seconds">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementEndingAt">Fin</label>
+								<input type="text" name="ending_at" id="UpdateAdPlacementEndingAt" class="form-control" ng-value="current.ending_at_fr_no_seconds">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementLockingUp">Date de bouclage</label>
+								<input type="text" name="locking_up" id="UpdateAdPlacementLockingUp" class="form-control" ng-value="current.locking_up_fr_no_seconds">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementTechnicalDeadline">Remise des éléments techniques</label>
+								<input type="text" name="technical_deadline" id="UpdateAdPlacementTechnicalDeadline" class="form-control" ng-value="current.technical_deadline_no_seconds">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementFormat">Format</label>
+								<select name="format_id" id="UpdateAdPlacementFormat" class="select2 autocomplete-format-update" data-format-id="[[current.format.id]]">
+								</select>
+							</div>
+
+							<div class="form-group col-md-6" >
+								<label>Mode de vente</label>
+								<select name="type" id="UpdateAdPlacementTypeList" class="form-control check-acquisitions-presence">
+									<option ng-selected="current.type == '{{ constant('App\\AdPlacement::TYPE_AUCTION') }}'" value="{{ constant('App\\AdPlacement::TYPE_AUCTION') }}">
+										Enchère
+									</option>
+									<option ng-selected="current.type == '{{ constant('App\\AdPlacement::TYPE_BOOKING') }}'" value="{{ constant('App\\AdPlacement::TYPE_BOOKING') }}">
+										Prix fixe
+									</option>
+									<option ng-selected="current.type == '{{ constant('App\\AdPlacement::TYPE_HYBRID') }}'" value="{{ constant('App\\AdPlacement::TYPE_HYBRID') }}">
+										Prix fixe + offre**
+									</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementPosition">Emplacement dans le support</label>
+								<input type="text" name="position" id="UpdateAdPlacementPosition" class="form-control" ng-value="current.position">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="UpdateAdPlacementEdition">Numéro de l'édition</label>
+								<input type="text" name="edition" id="UpdateAdPlacementEdition" class="form-control" ng-value="current.edition">
+							</div>
+
+							<div class="form-group col-md-12">
+								<label for="UpdateAdPlacementDescription">Description</label>
+								<textarea name="description" id="UpdateAdPlacementDescription" class="form-control">[[ current.description ]]</textarea>
+							</div>
+
+							<div class="form-group col-md-6" >
+								<label for="UpdateAdPlacementDescription">Prix fixe / Prix de départ*</label>
+								<input type="number" name="price" id="UpdateAdPlacementDescription" class="form-control check-acquisitions-presence" ng-value="current.price">
+							</div>
+
+							<div class="form-group col-md-6" >
+								<label for="UpdateAdPlacementMinimumPrice">Prix minimum</label>
+								<input type="number" name="minimum_price" id="UpdateAdPlacementMinimumPrice" class="form-control check-acquisitions-presence" ng-value="current.minimum_price">
+							</div>
+
+							<div class="form-group col-md-12">
+								<p class="check-acquisitions-presence">*Prix hors taxe, incluant la commission de MediaResa</p>
+								<p class="check-acquisitions-presence">**Permet aux acheteurs potentiels de vous faire une offre de prix direct</p>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="hidden" name="_method" value="put">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" formnovalidate>Enregistrer</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+    <div class="modal fade" id="DeleteAdPlacementModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Supprimer une offre</h4>
+                </div>
+                <form action="{{ route('ad-network.ad-placement.destroy', ['{id}']) }}" class="ajax" data-referent-table="AdPlacementList">
+                    <div class="alert alert-danger hidden"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    Voulez vous vraiment supprimer [[current.name]]? En supprimant cet emplacement, toutes les offres et les réservations en cours seront supprimées.
+                                </p>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="DeleteAdPlacementCause">Motif de la suppression</label>
+                                <textarea name="deletion_cause" id="DeleteAdPlacementCause" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_method" value="delete">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'ad_network.modals.new_acquisition' %}
+</div>
+{% endblock %}

@@ -1,0 +1,759 @@
+// Blocks components
+// ----------------------------------
+
+//Block process (tunnel)
+.block-process {
+	@include make-row();
+	text-align: center;
+	padding: 0;
+	margin: 0 auto;
+	max-width: 310px;
+	.block-process_step {
+		list-style: none;
+		position: relative;
+		float: left;
+		width: 20%;
+		color: $light-gray;
+		text-align: center;
+		&+.block-process_step {
+			margin-left: 20%;
+			&:before {
+				content: "\2265"; //arow-right
+				font-family: 'mediaresa-font' !important;
+				speak: none;
+				font-style: normal;
+				font-weight: normal;
+				font-variant: normal;
+				text-transform: none;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				position: absolute;
+				top: 20px;
+				left: -50%;
+				transform: translateX(-50%);
+				font-size: 18px;
+			}
+		}
+		.block-process_step_picto {
+			font-size: 36px;
+		}
+		.block-process_step_name {
+			font-size: 11px;
+			font-family: "Noto Sans";
+			text-transform: uppercase;
+		}
+		&.active {
+			.block-process_step_picto {
+				color: $duck-blue;
+			}
+			.block-process_step_name {
+				color: $carbon-gray;
+			}
+		}
+	}
+}
+
+.panel-placement {
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+	border-radius: 3px;
+	padding: 20px;
+	position: relative;
+	background: $white;
+	@include clearfix();
+	.col-img {
+		@include make-sm-column(3, 0);
+		padding-right: 10px;
+		text-align: center;
+		margin-top: 40px;
+		@media(min-width: $screen-sm-min) {
+			text-align: left;
+			margin-top: 0;
+		}
+		.panel-placement_img {
+			@extend .img-responsive;
+			margin-bottom: 20px;
+			display: inline-block;
+			@media(min-width: $screen-sm-min) {
+				display: block;
+			}
+		}
+		.btn {
+			margin-bottom: 10px;
+			@media(min-width: $screen-sm-min) and (max-width: $screen-md-min){
+				white-space: inherit;
+				height: auto;
+				line-height: normal;
+				padding-right: 30px;
+			}
+		}
+	}
+	.col-content {
+		@include make-sm-column(9, 0);
+		@media(min-width: $screen-sm-min){
+			padding-left: 10px;
+		}
+		.ad_placement-price-annotation {
+			line-height: 34px;
+			font-size: 11px;
+			color: $text-color;
+			font-weight: normal;
+			padding-right: 8px;
+		}
+		.panel-your-last-offer {
+			width: 100%;
+			text-align: center;
+			@media (min-width: $screen-sm-min) {
+				float: right;
+				text-align: right;
+			}
+		}
+		.panel-placement_client-last-offer {
+			color: $light-green;
+			font-size: 12px;
+			line-height: 43px;
+			font-weight: 600;
+			@media (min-width: 400px) {
+				font-size: 18px;
+			}
+		}
+		.panel-placement_title {
+			margin: 0;
+			max-height: 18px;
+			overflow: hidden;
+		}
+		.panel-placement_subtitle {
+			color: $dark-gray;
+			font-size: 12px;
+			line-height: 1.3;
+			margin: 4px 0;
+		}
+		.panel-placement_infos {
+			border-top: 1px solid $pearl-gray;
+			border-bottom: 1px solid $pearl-gray;
+			height: 34px;
+			@include clearfix();
+			border-top: 1px solid $pearl-gray;
+			border-bottom: 1px solid $pearl-gray;
+			height: 34px;
+			.panel-placement_infolist {
+				list-style: none;
+				padding: 0;
+				float: left;
+				margin: 0;
+				font-size: 11px;
+				.panel-placement_infolist_item {
+					float: left;
+					line-height: 34px;
+					padding: 0 8px;
+					position: relative;
+					font-weight: 600;
+					color: $duck-blue;
+					.icon {
+						color: $light-green;
+						padding-right: 6px;
+					}
+					&:before {
+						content: "";
+						display: block;
+						width: 1px;
+						height: 23px;
+						position: absolute;
+						left: 0;
+						top: calc( ( 34px - 23px ) / 2 );
+						background: $pearl-gray;
+					}
+					&:first-child {
+						padding-left: 0;
+						&:before {
+							display: none;
+						}
+					}
+				}
+			}
+			.panel-placement_price,
+			.panel-placement_actions {
+				display: none;
+				float: right;
+				line-height: 34px;
+				color: $duck-blue;
+				font-size: 16px;
+				font-weight: bold;
+				@media (min-width: $screen-sm-min) {
+					display: inline-block;
+				}
+			}
+		}
+		.panel-placement_table {
+			@extend .table;
+			margin-bottom: 0;
+			font-size: 11px;
+			.panel-placement_table_tr {
+				th {
+					border: none;
+					min-width: 135px;
+				}
+				td {
+					border:none;
+					text-align: right;
+					.td-content {
+						height: 16px;
+						position: relative;
+						overflow: hidden;
+					}
+				}
+				&:nth-child(even) {
+					background: $light-blue;
+				}
+			}
+		}
+		.panel-placement_mobile-cta {
+			display: block;
+			margin: 10px auto 5px;
+			@media (min-width: $screen-sm-min) {
+				display: none;
+			}
+		}
+		.container-dropdown-mobile {
+			clear: left;
+			.container-dropdown-mobile_more {
+				display: none;
+				@media (min-width: $screen-sm-min) {
+					display: block;
+				}
+			}
+			&.container-dropdown-mobile--open {
+				.container-dropdown-mobile_more {
+					display: block;
+				}
+			}
+			.expand-card {
+				margin-top: 10px;
+				display: block;
+				@media (min-width: $screen-sm-min) {
+					display: none;
+				}
+			}
+		}
+	}
+	.panel-placement--hover {
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		border-radius: 3px;
+		background: rgba(0, 80, 117, 0.95);
+		@include transition(opacity);
+		display: none;
+		@media (min-width: $screen-sm-min) {
+			display: block;
+		}
+		.panel-placement--hover_content {
+			width: 270px;
+			position: absolute;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			.btn {
+				margin-bottom: 10px;
+			}
+		}
+	}
+	&:hover {
+		.panel-placement--hover {
+			opacity: 1;
+		}
+	}
+}
+
+.panel-placement.panel-placement--full {
+	box-shadow: none;
+	padding: 40px 0 60px;
+	.col-content {
+		@media(min-width: $screen-sm-min){
+			padding-left: 20px;
+		}
+		.arrow-navigation {
+			display: inline-block;
+			float: right;
+			.btn-default {
+				width: 40px;
+				height: 40px;
+				text-align: right;
+				padding: 0;
+				.icon {
+					font-size: 24px;
+					color: $light-gray;
+					line-height: 40px;
+				}
+			}
+		}
+		.ad_placement-price-annotation {
+			line-height: 43px;
+			font-size: 11px;
+			color: $text-color;
+			font-weight: normal;
+			padding-right: 8px;
+			float: none !important;
+			@media (min-width: 400px) {
+				font-size: 14px;
+			}
+		}
+		.panel-your-last-offer {
+			width: 100%;
+			text-align: center;
+			@media (min-width: $screen-sm-min) {
+				float: right;
+				text-align: right;
+			}
+		}
+		.panel-placement_client-last-offer {
+			color: $light-green;
+			font-size: 12px;
+			line-height: 43px;
+			font-weight: 600;
+			@media (min-width: 400px) {
+				font-size: 18px;
+			}
+		}
+		.panel-placement_title {
+			font-size: 30px;
+			display: inline-block;
+			max-height: none;
+		}
+		.panel-placement_subtitle {
+			font-size: 14px;
+		}
+		.panel-placement_infos {
+			height: auto;
+			border: none;
+			@media(min-width: $screen-sm-min) {
+				border-top: 1px solid $pearl-gray;
+				border-bottom: 1px solid $pearl-gray;
+				height: 43px;
+			}
+			.panel-placement_infolist {
+				float: none;
+				@media (min-width: $screen-sm-min) {
+					float: left;
+				}
+				.panel-placement_infolist_item {
+					line-height: 43px;
+					font-size: 11px;
+					@media (min-width: 400px) {
+						font-size: 14px;
+					}
+					&:before {
+						height: 33px;
+						top: calc( ( 43px - 33px ) / 2 );
+					}
+				}
+			}
+			.panel-placement_price {
+				line-height: 43px;
+				position: relative;
+				padding-left: 8px;
+				float: none;
+				display: inline-block;
+				font-size: 12px;
+				@media (min-width: 400px) {
+					font-size: 18px;
+				}
+				@media (min-width: $screen-sm-min) {
+					float: left;
+				}
+				&:before {
+					content: "";
+					display: none;
+					width: 1px;
+					height: 33px;
+					position: absolute;
+					left: 0;
+					top: calc( ( 43px - 33px ) / 2 );
+					background: $pearl-gray;
+					@media(min-width: $screen-sm-min) {
+						display: block;
+					}
+				}
+				&.placement-price-annotation_container {
+					line-height: 40px;
+					@media(max-width: $screen-sm-min){
+						display: inline-block;
+						width: 100%;
+						text-align: center;
+					}
+				}
+			}
+			.panel-placement_actions {
+				float: none;
+				display: block;
+				clear: left;
+				padding-top: 10px;
+				@media (min-width: $screen-sm-min) {
+					float: right;
+					clear: none;
+					padding-top: 0;
+				}
+				&:before {
+					clear: both;
+					content: '';
+				}
+				&.panel-hybrid-actions {
+					width: 100%;
+					text-align: center;
+					padding-top: 5px;
+					@media(max-width: $screen-lg-min){
+						@include make-row();
+						margin: 0;
+					}
+					@media(min-width: $screen-lg-min){
+						width: auto;
+						padding-top: 3px;
+						display: inline-block;
+					}
+					.btn-primary {
+						display: inline-block;
+						float: none;
+						@media(min-width: $screen-lg-min) {
+							float: left;
+							margin: 0 5px;
+						}
+					}
+				}
+			}
+			.btn {
+				float: none;
+				margin: 0 auto;
+				display: block;
+				@media (min-width: $screen-sm-min) {
+					float: right;
+					margin-top: 3px;
+					margin-bottom: 0;
+					clear: none;
+				}
+			}
+		}
+		.panel-placement_description {
+			margin: 20px 0 25px 0;
+			font-size: 14px;
+			color: $dark-gray;
+		}
+		.panel-placement_table {
+			font-size: 14px;
+			.td-content {
+				height: auto;
+			}
+		}
+		.container-dropdown-mobile {
+			margin-top: 20px;
+			@media (min-width: $screen-sm-min) {
+				margin-top: 0;
+			}
+			.container-dropdown-mobile_more {
+				display: block;
+			}
+			.expand-card {
+				display: none;
+			}
+		}
+	}
+}
+
+//Card template and technical support
+.card-basic {
+	border: 1px solid $pearl-gray;
+	border-radius: 3px;
+	background-color: lighten($pearl-gray, 4%);
+	width: 220px;
+	height: 400px;
+	padding: 20px;
+	box-shadow: 0 1px 10px rgba(0,0,0,0.2);
+	h4 {
+		padding: 10px;
+		margin: 0;
+	}
+	.btn-primary {
+		margin: 10px 10px 15px 10px;
+		width: calc(100% - 20px);
+		text-align: left;
+	}
+}
+
+.card-template {
+	@extend .card-basic;
+	height: 500px;
+	position: relative;
+	h4 {
+		font-size: 13px;
+	}
+	.template-visuel {
+		position: relative;
+		height: 232px;
+		overflow: hidden;
+		background-color: $pearl-gray;
+		img {
+			width: 100%;
+			max-height: 100%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	.card-template-text {
+		font-size: 13px;
+		max-height: 150px;
+		overflow: hidden;
+		padding-top: 5px;
+	}
+	.btn-primary {
+		width: calc(100% - 70px);
+		position: absolute;
+		bottom: 10px;
+		left: 25px;
+	}
+}
+
+.card-technical-support {
+	@extend .card-basic;
+	height: 410px;
+	position: relative;
+	.card-technical-support-title {
+		padding: 10px 0;
+	}
+	.support-description {
+		height: 225px;
+		overflow: hidden;
+		font-size: 14px;
+		color: $dark-gray;
+		line-height: 18px;
+	}
+	hr {
+		margin: 20px;
+		border-top: 2px solid $pearl-gray;
+		margin-bottom: 10px;
+	}
+	.big-numbers {
+		text-align: center;
+		font-size: 20px;
+	}
+}
+
+//Block actu
+.block-actu {
+	border-top: 1px solid $pearl-gray;
+	max-width: 620px;
+	padding: 20px 0;
+	margin: 0 auto;
+	@media(min-width: $screen-md-min) {
+		max-width: 780px;
+	}
+	.picture-part {
+		@include make-sm-column(4, 30);
+		padding-left: 0;
+		overflow: hidden;
+		margin-bottom: 20px;
+		position: relative;
+		height: 133px;
+		text-align: center;
+		@media (min-width: $screen-sm-min) {
+			margin-bottom: 0;
+			text-align: center;
+		}
+		img {
+			margin: 0 auto;
+			max-height: 133px;
+			max-width: 100%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			@media (min-width: $screen-sm-min) {
+				transform: translate(-50%, -50%);
+				display: inline;
+			}
+		}
+	}
+	.text-part {
+		@include make-sm-column(8);
+		padding-right: 0;
+		padding-left: 0;
+		@media (min-width: $screen-sm-min) {
+			padding-left: 15px;
+		}
+		h3 {
+			margin-top: 0;
+		}
+		.publication {
+			font-size: 12px;
+			font-family: "Noto Sans";
+			color: $dark-gray;
+			margin-bottom: 10px;
+		}
+		.actu-text {
+			font-size: 12px;
+			color: $rock-gray;
+			line-height: 18px;
+			overflow: hidden;
+			margin-bottom: 5px;
+			text-align: justify;
+			max-height: 75px;
+			@media(min-width: $screen-sm-min){
+				max-height: 60px;
+			}
+		}
+		.actu-link {
+			color: $light-green;
+			font-style: italic;
+			font-size: 12px;
+			font-weight: normal;
+			@include transition(color);
+			&:hover,
+			&:focus {
+				color: darken($light-green, 10%);
+			}
+		}
+	}
+}
+
+.account-page-container,
+.faq-page-container {
+	display: table;
+	width: 100%;
+}
+
+.aside-navigation-container {
+	@include make-sm-column(2, 0);
+	max-width: 250px;
+	float: none !important;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-right: 1px solid $pearl-gray;
+	background-color: lighten($pearl-gray, 4%);
+	display: none;
+	@media (min-width: $screen-sm-min) {
+		display: table-cell;
+	}
+	.aside-navigation {
+		font-size: 0;
+		overflow-y: auto;
+		height: calc(100vh - 85px - 200px);
+		li {
+			margin: 0;
+			display: inline-block;
+			width: 100%;
+			line-height: 40px;
+			a.superlink {
+				border-radius: 0;
+				text-transform: uppercase;
+				font-weight: normal;
+				color: $carbon-gray;
+				padding-left: 18px;
+				padding-top: 0;
+				padding-bottom: 0;
+				height: 40px;
+				line-height: 40px;
+				background-color: transparent;
+				&:hover,
+				&:focus {
+					background-color: $pearl-gray;
+				}
+				&.double0 {
+					@media (max-width: 1133px) {
+						line-height: normal;
+						padding-top: 4px;
+					}
+				}
+				&.double1 {
+					@media (max-width: 1163px) {
+						line-height: normal;
+						padding-top: 4px;
+					}
+				}
+				&.double2 {
+					@media (max-width: 1175px) {
+						line-height: normal;
+						padding-top: 4px;
+					}
+				}
+				&.double3 {
+					@media (max-width: 1349px) {
+						line-height: normal;
+						padding-top: 4px;
+					}
+				}
+			}
+			ul.submenu {
+				//display: none;
+				background-color: lighten($pearl-gray, 4%);
+				li {
+					line-height: normal;
+					display: block;
+					a {
+						font-size: 12px;
+						min-height: 40px;
+						color: $rock-gray;
+						padding: 3px 10px;
+						font-weight: normal;
+						@media(min-width: $screen-md-min) {
+							padding: 3px 30px;
+						}
+						&:hover {
+							color: $duck-blue;
+							border-left: 4px solid $brand-primary;
+						}
+					}
+					&.active {
+						a {
+							color: $duck-blue;
+							border-left: 4px solid $brand-primary;
+						}
+					}
+				}
+			}
+			&.active {
+				a.superlink {
+					background-color: $pearl-gray;
+					border-left: 4px solid $brand-primary;
+					&:hover {
+						color: $carbon-gray;
+					}
+					&.double0 {
+						@media (max-width: 1157px) {
+							line-height: normal;
+							padding-top: 4px;
+						}
+					}
+					&.double1 {
+						@media (max-width: 1177px) {
+							line-height: normal;
+							padding-top: 4px;
+						}
+					}
+					&.double2 {
+						@media (max-width: 1199px) {
+							line-height: normal;
+							padding-top: 4px;
+						}
+					}
+					&.double3 {
+						@media (max-width: 1373px) {
+							line-height: normal;
+							padding-top: 4px;
+						}
+					}
+				}
+				ul.submenu {
+					display: block;
+				}
+			}
+			&:hover {
+				ul.submenu {
+					display: block;
+				}
+			}
+		}
+	}
+}

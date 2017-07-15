@@ -1,0 +1,150 @@
+{% extends "ad_network.layout" %}
+
+{% set title = media.name %}
+{% set context = "media" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>
+			{{media.name}}
+			<button class="btn btn-danger pull-right" data-toggle="modal" data-target="#DeleteMediaModal">
+				<i class="fa fa-trash-o"></i>
+			</button>
+
+			<a href="{{ route('ad-network.media.edit', { 'media_slug' : media.slug }) }}" class="btn btn-primary pull-right" >
+				<i class="fa fa-pencil"></i>
+			</a>
+		</h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Informations sur le support</h2>
+		<hr>
+
+		<div class="col-md-2">
+			<img class="img-responsive" src="{{ media.cover_img }}" alt="Couverture du support {{ media.name }}" />
+			<a class="btn btn-primary btn-block {% if (media.technical_doc_path | length) == 0 %}disabled{% endif %}" target="_blank" href="{{ media.technical_doc_path }}">Document technique</a>
+		</div>
+
+		<div class="col-md-4">
+			<ul>
+				<li><b>Support : </b>{{ media.support.name }}</li>
+				<li><b>Nom du support : </b>{{ media.name }}</li>
+				<li><b>Famille : </b>{{ media.category.name }}</li>
+				<li><b>Thématique : </b>{{ media.theme.name }}</li>
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<ul>
+				<li><b>Périodicité : </b>{{ media.frequency.name }}</li>
+				<li><b>Diffusion : </b>{{ media.broadcastingArea.name }}</li>
+				<li>
+					<b>Cibles : </b>
+					{% for target in media.targets %}
+					{{ target.name }} {% if not loop.last %},{% endif %}
+					{% endfor %}
+				</li>
+				<li><b>Diffusion France Payée : </b>{{ media.datas }}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		{% if media.adPlacements is empty %}
+		<h1>Offres du support</h1>
+		<hr>
+		<div class="text-center">
+			<p class="text-center">
+				Vous n'avez pas encore saisi d'offres pour ce support.
+			</p>
+			<p class="text-center">
+				Pour commercialiser des emplacements, merci d'ajouter l'offre concernée.
+			</p>
+			<a href="{{ route('ad-network.ad-placement.create', { 'media_id' : media.id }) }}" class="btn btn-large btn-primary">Ajouter une offre</a>
+		</div>
+		{% else %}
+		{% include 'ad_network.media.ad_placement.index' %}
+		{% endif %}
+	</div>
+</div>
+
+<div class="modal fade" id="DeleteMediaModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Supprimer un support</h4>
+			</div>
+			<div class="modal-body">
+				<p class="text-center">
+					Êtes-vous certain de vouloir supprimer ce support de votre catalogue?
+				</p>
+				<p class="text-center">
+					Attention, si des offres y sont associées, elles seront automatiquement retirées de la vente.
+				</p>
+			</div>
+			<form action="{{ route('ad-network.media.destroy', { 'media_id' : media.id }) }}" class="ajax" data-formajax-success="redirect({{ route('ad-network.media.index') }})">
+				<input type="hidden" name="_method" value="delete">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+					<button type="submit" class="btn btn-danger" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Supprimé !">Supprimer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+	<div class="modal fade" id="EndOfCreatingMediaModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Finir la création d'un support</h4>
+				</div>
+				<div class="modal-body row">
+					<form action="{{ route('ad-network.media.cover', media.id) }}" method="post" class="ajax"
+						  id="UpdateMediaForm">
+
+						<div class="col-md-6">
+						<div class="form-group">
+							<h4>Ajout de la couverture</h4>
+							<div class="alert alert-danger error hidden"></div>
+							<p>Image au format .png ou .jpg de moins d'1Mo.</p>
+							<input type="file" name="cover" id="cover" class="input-file">
+							<label for="cover" class="btn btn-tertiary js-labelFile">
+								<i class="icon fa fa-check"></i>
+								<span class="js-fileName">Choisir une image</span>
+							</label>
+						</div>
+
+							<button type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" class="btn btn-primary btn-block">Enregistrer</button>
+							<hr>
+						</div>
+					</form>
+					<form action="{{ route('ad-network.media.technical-doc', media.id) }}" method="post" class="ajax"
+						  id="UpdateMediaForm">
+						<div class="col-md-6">
+						<div class="form-group">
+							<h4>Ajouter la documentation technique</h4>
+							<div class="alert alert-danger error hidden"></div>
+							<p>Fichier au format .pdf de moins d'5Mo.</p>
+							<input type="file" name="technical_doc" id="technical_doc" class="input-file">
+							<label for="technical_doc" class="btn btn-tertiary js-labelFile">
+								<i class="icon fa fa-check"></i>
+								<span class="js-fileName">Choisir un fichier</span>
+							</label>
+						</div>
+
+							<button type="submit" data-loading-text="<i class='fa fa-spin fa-spinner'></i>" data-done-text="Enregistré !" class="btn btn-primary btn-block">Enregistrer</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

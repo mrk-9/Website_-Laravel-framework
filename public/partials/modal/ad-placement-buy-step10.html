@@ -1,0 +1,68 @@
+<h1 class="h2 modal-title">Effectuez votre acompte de réservation</h1>
+<p class="text-center">
+    Le montant de votre achat ne sera prélevé sur votre compte qu'une fois la réservation confirmée. Vous recevrez un e-mail vous informant que le débit à alors été effectué, ainsi qu'une facture.
+</p>
+<div class="process-step modal-content-container">
+    <form name="stripeForm">
+    <div class="form-credit-card">
+        <div class="row">
+
+            <div class="form-credit-card_part-name">
+
+                <div class="form-group">
+                    <label>Nom du porteur de carte</label>
+                    <input type="text" ng-model="newCreditCard.name" class="form-control input-credit-card" placeholder="[[ creditCard != null && !hasNewCard ? creditCard.name  : '']]" required show-errors/>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="form-credit-card_part-number">
+
+                <div class="form-group">
+                    <label>Numéro de carte</label>
+                    <input type="text" ng-model="newCreditCard.number" class="form-control input-credit-card" placeholder="[[ creditCard != null && !hasNewCard ? 'XXXX XXXX XXXX ' + creditCard.last4  : '']]" required show-errors/>
+                </div>
+
+            </div>
+            <div class="form-credit-card_part-cvc">
+                <div class="form-group">
+                    <label>CVC <span class="cvc-picto" data-toggle="tooltip" data-placement="right" title="Le cryptogramme visuel désigne les trois derniers chiffres présents au dos de votre carte de paiement.">?</span></label>
+                    <input type="text" ng-model="newCreditCard.cvc" class="form-control input-credit-card" placeholder="[[ creditCard != null && !hasNewCard ? 'XXX' : '']]" required show-errors/>
+                </div>
+            </div>
+            <div class="form-credit-card_part-expiration">
+                <div class="form-group">
+                    <label>Date d'expiration</label>
+                    <div class="form-credit-card_part-expiration_month">
+                        <input type="text" ng-model="newCreditCard.exp_month" class="form-control input-credit-card" placeholder="[[ creditCard != null && !hasNewCard ? creditCard.exp_month  : '']]" required show-errors/>
+                    </div>
+                    <div class="form-credit-card_part-expiration_separator">
+                        <span> / </span>
+                    </div>
+                    <div class="form-credit-card_part-expiration_year">
+                        <input type="text" ng-model="newCreditCard.exp_year" class="form-control input-credit-card" placeholder="[[ creditCard != null && !hasNewCard ? creditCard.exp_year : '']]" required show-errors/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <div class="form-group">
+        <input type="checkbox" id="stripe_save_card" name="stripe_save_card" class="form-control" ng-model="order.stripeSaveCard">
+        <label for="stripe_save_card">Sauvegarder mes informations de paiement pour de
+            prochains achats.</label>
+    </div>
+    <div class="process-step_btn-group">
+        <button type="button" class="btn btn-secondary btn-previous" ng-click="$lastVisitedStep()">
+            Précédent <i class="icon-button icon-simply-left"></i></button>
+        <button class="btn btn-primary btn-next" ng-disabled="(!creditCard && creditCard !== null) || (creditCard === null && stripeForm.$invalid) || (hasNewCard && stripeForm.$invalid)" class="btn btn-primary modal-button" promise-btn ng-click="buy()">Valider
+            <i class="icon-button icon-simply-right"></i></button>
+    </div>
+    <div class="transaction-annotation">
+        <i class="icon-lock form-lock"></i>
+        Le paiement en ligne sur notre site est totalement sécurisé. <br> Merci de saisir les informations de votre carte bancaire pour confirmer votre commande.
+    </div>
+</div>

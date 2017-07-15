@@ -1,0 +1,10 @@
+{% embed 'main.modals.modal' %}
+    {% set modal_id = "signup_confirmation" %}
+    {% set modal_name = "Votre inscription a bien été prise en compte" %}
+    {% block modal_body %}
+        <p class="text-center">Votre compte doit désormais être validé par notre équipe : vous recevrez un e-mail sous peu, validant définitivement votre inscription.</p>
+        <p class="text-center">
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">Ok <span class="icon-button icon-simply-right"></span></button>
+        </p>
+    {% endblock %}
+{% endembed %}

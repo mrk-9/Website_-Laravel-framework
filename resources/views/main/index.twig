@@ -1,0 +1,61 @@
+{% extends 'main.layout.layout' %}
+{% set title = 'Accueil' %}
+{% set context='home' %}
+
+{% block content %}
+<main class="home">
+	<section>
+
+	{{ interactive.slider_home("slider-home") }}
+
+	</section>
+
+	<section class="how-it-works">
+		<h2>Comment acheter ?</h2>
+		<div class="how-it-works-container">
+			<div class="how-it-works-part">
+				<div class="how-it-works-picto-part">
+					<a class="how-it-works-redirection" href="{{route('main.faq')}}" title="Renseignez vous grâce à la FAQ" target="_blank" >
+					<img src="/assets/im/laptop.png" alt="picto d'ordinateur" class="how-it-works-picto">
+					</a>
+				</div>
+				<div class="how-it-works-text">Je m'inscris gratuitement</div>
+			</div>
+			<div class="how-it-works-part">
+				<div class="how-it-works-picto-part">
+					<a class="how-it-works-redirection" href="{{route('main.faq')}}" title="Renseignez vous grâce à la FAQ" target="_blank" >
+					<img src="/assets/im/shop.png" alt="picto de chariot" class="how-it-works-picto">
+					</a>
+				</div>
+				<div class="how-it-works-text">Je choisis mon espace publicitaire en fonction de mes critères</div>
+			</div>
+			<div class="how-it-works-part">
+				<div class="how-it-works-picto-part">
+					<a class="how-it-works-redirection" href="{{route('main.faq')}}" title="Renseignez vous grâce à la FAQ" target="_blank" >
+					<img src="/assets/im/file.png" alt="picto de notes" class="how-it-works-picto">
+					</a>
+				</div>
+				<div class="how-it-works-text">Je valide mes informations techniques et je valide le paiement d'un acompte de réservation</div>
+			</div>
+			<div class="how-it-works-part">
+				<div class="how-it-works-picto-part">
+					<a class="how-it-works-redirection" href="{{route('main.faq')}}" title="Renseignez vous grâce à la FAQ" target="_blank" >
+					<img src="/assets/im/book.png" alt="picto de livre" class="how-it-works-picto">
+					</a>
+				</div>
+				<div class="how-it-works-text">Je suis publié</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="last-offers">
+		<h2>Modèles d'offres</h2>
+		{% for ad_placement in ad_placements %}
+			<div class="panel-offer">
+				{{ widget.widget_mini(ad_placement) }}
+			</div>
+		{% endfor %}
+	</section>
+
+</main>
+{% endblock %}
